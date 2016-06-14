@@ -3,7 +3,7 @@
 $("[href='#qrcode-modal']").leanModal({top : 10, overlay : 0.5, closeButton: "#qrcode-modal .modal_close"});
 $("#start-conversation").leanModal({top : 200, overlay : 0.5, closeButton: "#new-contact-modal .modal_close"});
 
-var qrcode = new QRCode("qrcode", {colorDark:'#0cb3db', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H, width: 220, height: 220,});
+var qrcode = new QRCode("qrcode", {colorDark:'#0165a4', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H, width: 220, height: 220,});
 
 function showQRCode(address, label) {
 
@@ -304,7 +304,7 @@ var base58 = {
 
         for (var i = 0, len = value.length; i < len; ++i)
             if (base58.base58Chars.indexOf(value[i]) == -1) {
-                el.css("background", "#0cb3db").css("color", "white");
+                el.css("background", "#E51C39").css("color", "white");
                 return false;
             }
 
@@ -633,48 +633,6 @@ var overviewPage = {
                      fa: 'fa-wrench red fa-fw',
                      fun: function () {
                         $("#navitems [href=#options]").click();
-                 		}
-                    },
-                {
-					name: 'Backup&nbsp;Wallet...',
-					fa: 'fa-save red fa-fw',
-					fun: function () {
-                   bridge.userAction(['backupWallet']);
-				}
-                    },
-                {
-                    name: 'Sign&nbsp;Message...',
-                    fa: 'fa-pencil-square-o red fa-fw',
-                    fun: function () {
-                       bridge.userAction({'signMessage': $('#receive .footable .selected .address').text()});
-                    }
-                },
-                {
-                    name: 'Verify&nbsp;Message...',
-                    fa: 'fa-check red fa-fw',
-                    fun: function () {
-                       bridge.userAction({'verifyMessage': $('#addressbook .footable .selected .address').text()});
-                    }
-                },
-                {				
-				     name: 'Debug&nbsp;Window...',
-                     fa: 'fa-bug red fa-fw',
-                     fun: function () {
-                        bridge.userAction(['debugClicked']);
-					}
-                },
-                {
-                     name: ' About&nbsp;Gameunits',
-                     fa: 'fa-caret-up red fa-fw',
-                     fun: function () {
-                        bridge.userAction(['aboutClicked']);
-                     }
-                 },
-                 {
-                     name: 'About&nbsp;Qt',
-                     fa: 'fa-question red fa-fw',
-                     fun: function () {
-                        bridge.userAction(['aboutQtClicked']);
                      }
                  }];
 
@@ -687,13 +645,13 @@ var overviewPage = {
                         bridge.userAction(['debugClicked']);
                      }
                  },
-                 {
+                 /* {
                      name: 'Developer&nbsp;Tools...',
                      fa: 'fa-edit red fa-fw',
                      fun: function () {
                         bridge.userAction(['developerConsole']);
                      }
-                 },
+                 },  */
                  {
                      name: ' About&nbsp;Gameunits...',
                      img: 'qrc:///icons/gameunits',
@@ -782,8 +740,8 @@ var overviewPage = {
         var format = function(tx) {
 
             return "<a id='"+tx.id.substring(0,17)+"' title='"+tx.tt+"' class='transaction-overview' href='#' onclick='$(\"#navitems [href=#transactions]\").click();$(\"#"+tx.id+"\").click();'>\
-                                                <span class='"+(tx.t == 'input' ? 'received' : (tx.t == 'output' ? 'sent' : (tx.t == 'inout' ? 'self' : 'stake')))+" icon no-padding blue-gameunits'>\
-                                                  <i class='fa fa-"+(tx.t == 'input' ? 'angle-left' : (tx.t == 'output' ? 'angle-right' : (tx.t == 'inout' ? 'angle-down' : 'caret-up')))+" font-26px margin-right-10'></i>"
+                                                <span class='"+(tx.t == 'input' ? 'received' : (tx.t == 'output' ? 'sent' : (tx.t == 'inout' ? 'self' : 'stake')))+" icon no-padding'>\
+                                                  <i class='fa fa-"+(tx.t == 'input' ? 'angle-left' : (tx.t == 'output' ? 'angle-right' : (tx.t == 'inout' ? 'angle-down' : 'money')))+" font-26px margin-right-10'></i>"
                                                 +unit.format(tx.am)+" </span> <span> "+unit.display+" </span> <span class='overview_date' data-value='"+tx.d+"'>"+tx.d_s+"</span></a>";
 
         }
@@ -987,7 +945,7 @@ function addRecipient() {
         +  '<div id="recipient[count]" class="recipient"> \
             <div class="flex-right"> \
                 <label for="pay_to[count]" class="recipient">Pay To:</label> \
-                <input id="pay_to[count]" class="pay_to input_box" title="The address to send the payment to  (e.g. MXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" placeholder="Enter a Gameunits address (e.g. MXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" maxlength="128" oninput="base58.check(this);" onchange="$(\'#label[count]\').val(bridge.getAddressLabel(this.value));"/> \
+                <input id="pay_to[count]" class="pay_to input_box" title="The address to send the payment to  (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" placeholder="Enter an Gameunits address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" maxlength="128" oninput="base58.check(this);" onchange="$(\'#label[count]\').val(bridge.getAddressLabel(this.value));"/> \
                 <a class="button is-inverse has-fixed-icon" title="Choose address from address book" style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook(\'#pay_to[count]\', \'#label[count]\', true)"><i class="fa fa-book"></i></a> \
                 <a class="button is-inverse has-fixed-icon" title="Paste address from clipboard" style="margin-right:10px; height:43px; width:43px;" onclick="paste(\'#pay_to[count]\')"><i class="fa fa-files-o"></i></a> \
                 <a class="button is-inverse has-fixed-icon" title="Remove this recipient" style="height:43px; width:43px;" onclick="if($(\'div.recipient\').length == 1) clearRecipients(); else {var recipient=$(\'#recipient[count]\');if(recipient.next(\'hr\').remove().length==0)recipient.prev(\'hr\').remove();$(\'#recipient[count]\').remove();resizeFooter();}"><i class="fa fa-times"></i></a> \
@@ -1224,7 +1182,7 @@ var invalid = function(el, valid) {
     if(valid == true)
         el.css("background", "").css("color", "");
     else
-        el.css("background", "#0cb3db").css("color", "white");
+        el.css("background", "#E51C39").css("color", "white");
 
     return (valid == true);
 }
