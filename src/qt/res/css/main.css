@@ -865,16 +865,23 @@ color: rgb(228, 26, 26);
 .top {
     right: 0;
     left: 17%;
-    background: white;
+    background: #ffffff;
     min-height:31px;
     line-height:1.5em;
+	color:#fff;
+	min-height: 170px;
+	background-image: url('qrc:///images/header');
 }
 
 #overview .top {
     right: 0;
     left: 17%;
-    background: white;
-    height: 140px;
+    background: #ffffff;
+    min-height:31px;
+    line-height:1.5em;
+	color:#fff;
+	min-height: 170px;
+	background-image: url('qrc:///images/header');
 }
 
 #overview .bottom {
