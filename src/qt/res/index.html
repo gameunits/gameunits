@@ -24,7 +24,6 @@
         <script src="qrc:///js/qrcode.min.js" type="text/javascript"></script>
         <script src="qrc:///js/jquery.leanModal.min.js" type="text/javascript"></script>
         <script src="qrc:///js/markdown.min.js" type="text/javascript"></script>
-		
 </head>
 <body>
 
@@ -36,23 +35,28 @@
     </a>
 
     <nav id="navpanel">
-        <div style="text-align:center;">
-            <a class="img-logo" = href="https://gameunits.org" target="_blank"><img style="margin-top:45px;margin-bottom:24px;width:131px;height:105px;"src="qrc:///images/gameunits-vertical"></a>
+        <div class="menu">
+            <span><a id="file"     href="#">File</a></span>
+            <span><a id="settings" href="#">Settings</a></span>
+            <span><a id="help"     href="#">Help</a></span>
+        </div>
+        <div style="text-align:left;">
+            <a href="https://gameunits.org" target="_blank"><img src="qrc:///images/gameunits-vertical" width="100%"></a>
         </div>
 
         <ul id="navitems" class="vmenu">
-            <li class="selected"><a href="#overview">Overview</a></li>
-            <li><a href="#send">Send</a></li>
-            <li><a href="#receive">Receive</a></li>
-            <li><a href="#transactions">Transactions</a></li>
-            <li><a href="#addressbook">Address book</a></li>
-            <li><a href="#messages" onclick="iscrollReload(true);">Chat</a></li>
-            <li><a href="#chaindata" onclick="chainDataPage.updateAnonOutputs();">Chain Data</a></li>
+            <li class="selected"><a href="#overview">overview</a></li>
+            <li><a href="#send">send</a></li>
+            <li><a href="#receive">receive</a></li>
+            <li><a href="#transactions">transactions</a></li>
+            <li><a href="#addressbook">address book</a></li>
+            <li><a href="#messages" onclick="iscrollReload(true);">Private Messages</a></li>
+            <!-- <li><a href="#chaindata" onclick="chainDataPage.updateAnonOutputs();">Gameunits Tokens Data</a></li> -->
             <li><a href="#blockdata" onclick="blockExplorerPage.updateLatestBlocks();">Block Explorer</a></li>
             <li class="none"><a href="#options">Options</a></li>
-			<li><a href="#news">News</a></li>
+            <!--li><a href="#news">news</a></li-->
         </ul>
-		
+
         <div id="navinfo">
             <a id="clientinfo" href="#about">Gameunits <span id="version"></span></a>
             <progress id="syncProgressBar" max=100 value=1 title="Catching up...
@@ -61,10 +65,30 @@
     </nav><!-- /navpanel -->
 
     <div class="container">
-
+        <div id="header" class="flex">
+            <div id="txnsearch" class="flex-item">
+                <input type="search" placeholder="Search transaction" oninput="$('#filter-transaction').val(this.value).trigger('keyup');if($('li.selected a[href=#transactions]').length==0)$('#navpanel li a[href=#transactions]').click();" />
+            </div>
+            <div class="user-profile">
+                <span class="user-avatar">
+                    <img src="qrc:///images/default">
+                    <span style="display:none" class="user-notifications">
+                        <span id="message-count">0</span>
+                    </span>
+                </span>
+                <span class="user-info">
+                    <span class="user-name"></span>
+                    <span class="user-menu">
+                        <!--- <i class="fa fa-check font-26px fa-angle-down"></i> -->
+                    </span>
+                    <br>
+                    <span class="user-address"></span>
+                </span>
+            </div>
+        </div><!-- /header -->
 
         <div id="qrcode-modal" class="content">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div id="qrcode"></div>
 
             <textarea id="qrcode-data" style="width:99%;" disabled rows="3"></textarea>
@@ -72,7 +96,7 @@
 
             <span style="white-space:nowrap;">
                 <label for="qraddress" class="recipient">Address:</label>
-                <input id="qraddress" class="pay_to input_box" style="width:250px" placeholder="Enter a Gameunits address (e.g. MXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" onchange="showQRCode();" />
+                <input id="qraddress" class="pay_to input_box" style="width:250px" placeholder="Enter an Gameunits address (e.g. UzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" onchange="showQRCode();" />
             </span>
 
             <span style="white-space:nowrap;">
@@ -97,17 +121,10 @@
             </span>
 
         </div>
-			        <div class="menu">
-            <span><a id="settings" href="#">Settings</a></span>
-        </div>
+
         <!-- Overview Page -->
         <article id="overview">
-		
-			
-		
             <div class="content top">
-			
-
                 <h2 class="contracted">Balance <span class="outofsync syncing">out of sync</span></h2>
 
                 <!--span class="incoming-transactions none">
@@ -120,16 +137,16 @@
                     <div>
                         <span id="total-big">
                             <span>0</span>
-                            <span class="light-grey">.</span>
+                            <span class="light-red">.</span>
                             <span class="cents">00</span>
                             <span class="units">GAMEUNITS</span>
                         </span>
                         <span id="staking-big" class="staking">
                             <span>0</span>
-                            <span class="light-grey">.</span>
+                            <span class="light-red">.</span>
                             <span class="cents">00</span>
                             <span class="units">GAMEUNITS</span>
-                            <i class="fa fa-cog"></i>
+                            <i class="fa fa-check-circle-o"></i>
                         </span>
                     </div>
                 </div>
@@ -139,11 +156,12 @@
                     <div>
                         <table id="balances">
                             <tr><td>Spendable:      </td><td class="balance" >0.00</td><td class="unit">GAMEUNITS</td></tr>
-                            <tr><td>GAMEUNITSX:         </td><td id="gameunitsXBal"  >0.00</td><td class="unit">GAMEUNITS</td></tr>
+                            <!-- <tr><td>GAMEUNITSX:         </td><td id="GAMEUNITSBal"  >0.00</td><td class="units">ANON</td></tr> -->
                             <tr><td>Reserved:       </td><td id="reserved"   >0.00</td><td class="unit">GAMEUNITS</td></tr>
                             <tr><td>Stake:          </td><td id="stake"      >0.00</td><td class="unit">GAMEUNITS</td></tr>
                             <tr><td>Unconfirmed:    </td><td id="unconfirmed">0.00</td><td class="unit">GAMEUNITS</td></tr>
                             <tr><td>Immature:       </td><td id="immature"   >0.00</td><td class="unit">GAMEUNITS</td></tr>
+
                             <tr><td><b>Total:   </b></td><td id="total"      >0.00</td><td class="unit">GAMEUNITS</td></tr>
                         </table>
                     </div>
@@ -154,10 +172,19 @@
                     <div class="content flex">
                         <div class="flex-item grow one-third-width">
                             <h2>Recent Transactions</h2>
-                            <div id="recenttxns">				
+
+                            <div id="recenttxns">
+
                             </div>
                         </div>
-      
+                        <div class="flex-item grow one-third-width">
+                            <h2 align="center">Welcome to your Gameunits Wallet</h2>
+                            <div>
+							<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+							
+                            </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,8 +193,6 @@
 
         <!-- Send Page -->
         <article id="send" style="display:none;">
-	
-			
             <div id="sendoptions" class="content top">
 
                 <h2>Send Options</h2>
@@ -175,7 +200,7 @@
                 <div id="coincontrol">
 
                     <div id="coincontrol_enabled" style="display:block;">
-                        <a class="button is-inverse2 has-icon-spacing" class="button" id="coincontrol_inputs" onclick="bridge.openCoinControl();">Inputs</a> <label id="coincontrol_auto" for="coincontrol_inputs" class="coincontrol_inputs"> Automatically selected</label>
+                        <a class="button is-inverse has-icon-spacing" class="button" id="coincontrol_inputs" onclick="bridge.openCoinControl();">Inputs</a> <label id="coincontrol_auto" for="coincontrol_inputs" class="coincontrol_inputs"> Automatically selected</label>
                         <br/>
                         <div id="coincontrol_labels" style="display:none;">
                             <span style="white-space:nowrap;">
@@ -221,32 +246,32 @@
 
                         <label>Custom change address: </label>
                         <div class="flex-left">
-                            <input id="change_address" title="Optional address to receive transaction change" placeholder="Enter a Gameunits address (e.g. MXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" maxlength="128" oninput="base58.check(this);" />
-                            <a class="button is-inverse2 has-fixed-icon"  style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook('#change_address', '', false)"><i class="fa fa-book"></i></a>
-                            <a class="button is-inverse2 has-fixed-icon"  style="margin-right:10px; height:43px; width:43px;" onclick="paste('#change_address')"><i class="fa fa-files-o"></i></a>
-                            <a class="button is-inverse2 has-fixed-icon"  style="height:43px; width:43px;" onclick="$('#change_address').val('').css('background', '').css('color', '');"><i class="fa fa-times"></i></a>
+                            <input id="change_address" title="Optional address to receive transaction change" placeholder="Enter an GAMEUNITS address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" maxlength="128" oninput="base58.check(this);" />
+                            <a class="button is-inverse has-fixed-icon"  style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook('#change_address', '', false)"><i class="fa fa-book"></i></a>
+                            <a class="button is-inverse has-fixed-icon"  style="margin-right:10px; height:43px; width:43px;" onclick="paste('#change_address')"><i class="fa fa-files-o"></i></a>
+                            <a class="button is-inverse has-fixed-icon"  style="height:43px; width:43px;" onclick="$('#change_address').val('').css('background', '').css('color', '');"><i class="fa fa-times"></i></a>
                         </div>
                         <br/>
                         <br/>
 
-                         <a class="button is-inverse2 has-icon-spacing" style="margin-bottom:25px;padding: 9px 20px;margin-right:25px;" id="disable_coincontrol" href="javascript:toggleCoinControl(false);">Disable Coin Control <i class="fa fa-times"></i></a>
+                         <a class="button is-inverse has-icon-spacing" id="disable_coincontrol" href="javascript:toggleCoinControl(false);">Disable Coin Control <i class="fa fa-times"></i></a>
                     </div>
 
                     <div id="coincontrol_disabled" style="display:none;">
-                        <a class="button is-inverse2 has-icon-spacing"  style="margin-bottom:25px;padding: 9px 20px;margin-right:25px;" id="enable_coincontrol" href="javascript:toggleCoinControl(true);">Enable Coin Control <i class="fa fa-check"></i></a>
+                        <a class="button is-inverse has-icon-spacing"  id="enable_coincontrol" href="javascript:toggleCoinControl(true);">Enable Coin Control <i class="fa fa-check"></i></a>
                     </div>
                 </div><!-- #coincontrol -->
 
-                <select id="txn_type" class="txn_type button is-inverse2 has-fixed-icon"  style="width:160px;" onchange="changeTxnType();">
-                    <option value="0" title="GAMEUNITS to GAMEUNITS" selected>GAMEUNITS to GAMEUNITS</option>
-                    <option value="1" title="GAMEUNITS to GameunitsX">GAMEUNITS to GAMEUNITSX</option>
-                    <option value="2" title="GameunitsX to GameunitsX">GAMEUNITSX to GAMEUNITSX</option>
-                    <option value="3" title="GameunitsX to GAMEUNITS">GAMEUNITSX to GAMEUNITS</option>
-                </select>
+                <select id="txn_type" class="txn_type button is-inverse has-fixed-icon"  style="width:180px;" onchange="changeTxnType();">
+                    <option value="0" title="GAMEUNITS to GAMEUNITS" selected>send GAMEUNITS</option>
+                   <!--  <option value="1" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option>
+                    <option value="2" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option>
+                    <option value="3" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option> -->
+                </select> 
 
                 <span id="tx_ringsize">
                     <label for="ring_size" class="ring_size" style="margin-left:10px;margin-top:0;">Ring Size:</label>
-                    <input id="ring_size" style="font-size: 12px;" class="ring_size input_box" type="number" min="3" max="200" step="1" value="16" />
+                    <input id="ring_size" class="ring_size input_box" type="number" min="3" max="200" step="1" value="16" />
                 </span>
             </div><!-- #sendoptions.top -->
 
@@ -259,7 +284,7 @@
                         <a  class="button is-inverse has-icon-spacing" onclick="clearRecipients();" title="Remove all transaction fields"><i class="fa fa-close"></i>Clear All</a>
                         <span title="Current spendable balance"><a class="current_spenable_balance"><b>Balance:</b> <span class="balance">0.00</span> <span class="unit">GAMEUNITS</span></span>
                         <span></span>
-                        <a class="button is-inverse has-icon-spacing"  id="suggest_ring_size" href="javascript:suggestRingSize();">Suggest Ring Size <i class="fa fa-calculator"></i></a>
+                        <!-- <a class="button is-inverse has-icon-spacing"  id="suggest_ring_size" href="javascript:suggestRingSize();">Suggest Ring Size <i class="fa fa-calculator"></i></a> -->
                         <a class="button is-inverse has-icon-spacing" onclick="sendCoins();" title="Confirm the send action"><i class="fa fa-arrow-right"></i>Send</a>
                     </div>
                 </div><!-- /content -->
@@ -270,7 +295,7 @@
         <article id="receive" style="display:none;">
             <div class="content top">
                 <h2>Receive</h2>
-                These are your Gameunits addresses for receiving payments. You may want to have a different address for each sender so you can keep track of who is paying you.
+                These are your GAMEUNITS addresses for receiving payments. You may want to have a different address for each sender so you can keep track of who is paying you.
             </div>
 
             <div class="bottom">
@@ -289,14 +314,14 @@
                         <tbody>
                             <!--tr>
                                 <td class="label" class="editable">(no label)</td>
-                                <td class="address">SSz5VuQGCFJ36E7UQmr7U39w7wksm5K4KZ</td>
+                                <td class="address">PPj5VuQGCFJ36E7UQmr7U39w7wksm5K4KZ</td>
                                 <td class="pubkey"></td>
                             </tr-->
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td colspan="3">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -313,7 +338,7 @@
         </article><!-- /receive page -->
  
         <div id="transaction-info-modal" style="display:none;">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div id="transaction-info"></div>
         </div>
 
@@ -321,7 +346,6 @@
         <article id="transactions" style="display:none;">
             <div class="content top">
                 <h2>Transactions</h2>
-				<p>Here are the details of your incoming and outgoing transactions.</p>
             </div>
 
             <div class="bottom">
@@ -362,8 +386,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6" style="background:#131218!important;">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                <td colspan="6" style="background:#0165a4!important;">
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -377,7 +401,6 @@
         <article id="addressbook" style="display:none;">
             <div class="content top">
                 <h2>Address Book</h2>
-				<p>Here you can store the addresses of friends and other people you transact with often.</p>
             </div>
             <div class="bottom">
 
@@ -401,8 +424,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" style="background:#131218!important;">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                <td colspan="3" style="background:#0165a4!important;">
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -420,15 +443,15 @@
         </article><!-- /addressbook page -->
 
         <div id="message-preview-modal" style="display:none;">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div id="message-preview"></div>
         </div>
 
         <div id="new-contact-modal" style="display:none;" class="content">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div style="white-space:nowrap;">
                 <label for="new-contact-address" class="recipient">Address: </label>
-                <input id="new-contact-address"  class="recipient input_box" style="width: 300px;" title="The address to send the payment to  (e.g. SXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" placeholder="Enter a Gameunits address (e.g. MXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)" onchange="if(base58.check(this)) $('#new-contact-pubkey').val(bridge.getPubKey(this.value, $('#new-contact-name').val()));" maxlength="128" oninput="base58.check(this);"/>
+                <input id="new-contact-address"  class="recipient input_box" style="width: 300px;" title="The address to send the payment to  (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" placeholder="Enter an GAMEUNITS address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" onchange="if(base58.check(this)) $('#new-contact-pubkey').val(bridge.getPubKey(this.value, $('#new-contact-name').val()));" maxlength="128" oninput="base58.check(this);"/>
                 <a class="button is-inverse has-fixed-icon" title="Choose address from address book" style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook('#new-contact-address', '#new-contact-name', true)"><i class="fa fa-book"></i></a>
                 <a class="button is-inverse has-fixed-icon" title="Paste address from clipboard"     style="margin-right:10px; height:43px; width:43px;" onclick="paste('#new-contact-address')"><i class="fa fa-files-o"></i></a>
                 <a class="button is-inverse has-fixed-icon" title="Remove this recipient"            style="height:43px; width:43px;" onclick="$('#new-contact-address').val('').css('background', '').css('color', '');"><i class="fa fa-times"></i></a>
@@ -448,29 +471,124 @@
         <!-- Messages Page -->
         <article id="messages" style="display:none;">
             <div class="content top">
-                <h2>Chat</h2>
-				<p>Chat with others Gamers / Gamedevs using Gameunits irc instant messaging system.</p>
+                <h2>GAMEUNITS Private Message Center</h2>
             </div>
-           <div class="bottom">
 
-              <div class="content flex">
-              <div class="flex-item grow one-third-width">
-              <div id="announcements">
+            <div class="bottom">
+                <div id="contact-list">
+                    <div>
+                        <a id='start-conversation' href="#new-contact-modal"><i class="fa fa-plus margin-right-10"></i>Start conversation</a>
+                        <ul>
+                            <!--li id="contact3" class="contact">
+                                    <img src="qrc:///images/default">
+                                    <span class="contact-info">
+                                        <span class="contact-name">crz-</span>
+                                        <span class="contact-address">ShCEPkbdix9qBjJ6TNNatjA7YU8PAHq2PJ</span>
+                                    </span>
+                                    <span class="contact-options">
+                                        <span class="message-notifications">3</span>
+                                        <span class="delete" onclick=""></span>
+                                        <span class="favorite favorited"></span>
+                                    </span>
+                            </li-->
+                        </ul>
+                    </div>
+                </div>
 
-			  <iframe src="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=WeAreGamers|?#gameunits" style="border:0; width:100%; height:450px;"></iframe>
+                <div class="contact-profile"></div>
+                <div class="contact-discussion">
+                    <ul>
+                        <!--li class="user-message">
+                                <span class="info">
+                                    <img src="qrc:///images/default">
+                                    <span class="user-name">GAMEUNITSorator</span>
+                                </span>
+                                <span class="message-content">
+                                    <span class="timestamp">1-10-2015 16:11</span>
+                                    <span class="message-text">hello dev !</span>
+                                </span>
+                        </li>
+                        <li class="other-message">
+                                <span class="info">
+                                    <img src="qrc:///images/default">
+                                    <span class="user-name">GAMEUNITSDev</span>
+                                </span>
+                                <span class="message-content">
+                                    <span class="timestamp">1-09-2014 14:57</span>
+                                    <span class="message-text">How are you ?</span>
+                                </span>
+                        </li-->
+                    </ul>
+                </div>
+                <form class="text-box" action="" method="=">
+                    <input id="pasteTo" type="hidden" />
+                    <textarea id="message-text" placeholder="Type your message here ..." oninput="this.editor.update()" maxlength="4000"></textarea>
 
-                            </div>
+                    <div class="tools-bar">
+                        <div class="left-bar">
+                            <a href="#" class="bold" onclick="editorCommand('**', '**');"><i class="fa fa-bold"></i></a>
+                            <a href="#" class="italic" onclick="editorCommand('*', '*');"><i class="fa fa-italic"></i></a>
+                            <a href="#" class="underline" onclick="editorCommand('__', '__');"><i class="fa fa-underline"></i></a>
+                            <!--a href="#" class="strikethrough" onclick="editorCommand('~~', '~~');"><i class="fa fa-strikethrough"></i></a-->
+                            <a href="#" class="link" onclick="editorCommand('[', '](http://GAMEUNITS.co)');"><i class="fa fa-link"></i></a>
+                            <a href="#" class="image" onclick="editorCommand('![imageinfo](', ')');"><i class="fa fa-image"></i></a>
                         </div>
-                </div><!-- /content -->
+                        <div class="right-bar">
+                            <a class="submit" href="javascript:sendMessage();">Send<i class="fa fa-caret-right"></i></a>
+                            <a id="preview-message" href="#message-preview-modal" class="submit">preview<i class="fa fa-eye"></i></a>
+                            <!--a href="#" class="emoticons">
+                                <i class="fa fa-smile-o"></i>
+                                <i class="fa fa-caret-down"></i>
+                            </a-->
+                        </div>
+                        <br>
+                    </div>
+                    <div style="white-space:nowrap;clear:both;">
+                        <label for="message-from-address" style="padding-right:5px;">From Address:</label>
+                        <select id="message-from-address" class="unit button is-inverse has-fixed-icon" style="width:265px;padding:2px;">
+                        </select>
+                        <input id="message-to-address" type="hidden" />
+                    </div>
+                    <script>
+                        function Editor(input, preview) {
+                            this.update = function () {
+                                preview.innerHTML = micromarkdown.parse(input.value);
+                            };
+                            input.editor = this;
+                            this.update();
+                        }
+
+                        new Editor($("#message-text")[0], $("#message-preview")[0]);
+
+                        $("#message-text").on('keydown', function(e) {
+                            if(e.which == 13) {
+                                e.preventDefault();
+                                if (e.shiftKey) {
+                                    var editor = $(this)[0];
+
+                                    if(typeof editor.selectionStart !== 'undefined')
+                                        editor.value = editor.value.substring(editor.selectionStart, 0) + "\n" + editor.value.substring(editor.selectionStart);
+                                    else
+                                        editor.value +=  "\n";
+
+                                    return;
+                                }
+                                sendMessage();
+                            }
+                            if(e.which == 27)
+                                $(this).val("");
+                        });
+
+                        $("#preview-message").leanModal({ top : 100, overlay : 0.5, closeButton: "#message-preview-modal .modal_close" });
+                    </script>
+                </form>
             </div><!-- /bottom -->
-         
         </article><!-- /messages page -->
 
         <!-- Chain Data Page -->
         <article id="chaindata" style="display:none;">
             <div class="content top">
-                <h2>Chain Data</h2>
-                               <p>Information on the number of anonymous outputs available for private GAMEUNITSX transactions.</p>
+                <h2>Anonymous GAMEUNITS Tokens Chain Data</h2>
             </div>
 
             <div class="bottom">
@@ -494,8 +612,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5" style="background:#131218!important;">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                <td colspan="5" style="background:#0165a4!important;">
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -505,7 +623,7 @@
         </article><!-- /chaindata page -->
 
         <div id="blkexp-txn-modal" style="display:none;">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div class="ng-scope" data-ng-if="block.hash">
                 <div class="well well-sm ellipsis">
                   <h2>Transaction Hash</h2> 
@@ -565,8 +683,8 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2" style="background:#131218!important;">
-                                            <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                        <td colspan="2" style="background:#0165a4!important;">
+                                            <div class="pagination pagination-centered hide-if-no-paging"></div>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -584,8 +702,8 @@
                                   </tbody>
                                   <tfoot>
                                       <tr>
-                                          <td colspan="2" style="background:#131218!important;">
-                                              <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                          <td colspan="2" style="background:#0165a4!important;">
+                                              <div class="pagination pagination-centered hide-if-no-paging"></div>
                                           </td>
                                       </tr>
                                   </tfoot>
@@ -600,7 +718,7 @@
 
 
         <div id="block-info-modal" style="display:none;">
-            <a class="modal_close" href="#close"><i class="fa fa-times-circle grey"></i></a>
+            <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div class="shadow" id="block-info"></div>
             <div class="ng-scope" data-ng-if="block.hash">
                 <div class="well well-sm ellipsis">
@@ -681,7 +799,7 @@
             <div class="bottom">
                 <div class="content">
                     <div>
-                    <input id="filter-blocks" style="width:75%;height:40px;padding:0 10px;vertical-align:top;" placeholder="Find Block by hash/height/transaction" onkeydown="if (event.keyCode == 13) blockExplorerPage.findBlock( this.value );" onblur="blockExplorerPage.findBlock(this.value);" />&nbsp;&nbsp;&nbsp;<img id="refreshIcon" width="24" height="24" style="cursor:default; position:relative; top:8px;"  src=""qrc:///icons/syncing_static" title="Refresh Latest Blocks" onmouseover="this.src='"qrc:///icons/syncing'" onmouseout="this.src='"qrc:///icons/syncing_static'" onclick=" $('#filter-blocks').val(''); blockExplorerPage.updateLatestBlocks();" /></div>
+                    <input id="filter-blocks" style="width:75%;height:40px;padding:0 10px;vertical-align:top;" placeholder="Find Block by hash/height/transaction" onkeydown="if (event.keyCode == 13) blockExplorerPage.findBlock( this.value );" onblur="blockExplorerPage.findBlock(this.value);" />&nbsp;&nbsp;&nbsp;<img id="refreshIcon" width="24" height="24" style="cursor:default; position:relative; top:8px;"  src="qrc:///icons/syncing_static" title="Refresh Latest Blocks" onmouseover="this.src='qrc:///icons/syncing'" onmouseout="this.src='qrc:///icons/syncing_static'" onclick=" $('#filter-blocks').val(''); blockExplorerPage.updateLatestBlocks();" /></div>
                     <table id="latest-blocks-table" class="footable shadow" data-page=false data-filter="#filter-outputs">
                         <thead>
                             <tr>
@@ -695,8 +813,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="background:#131218!important;">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                <td colspan="4" style="background:#0165a4!important;">
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -713,8 +831,8 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="2" style="background:#131218!important;">
-                                    <div class="pagination pagination-centegrey hide-if-no-paging"></div>
+                                <td colspan="2" style="background:#0165a4!important;">
+                                    <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
                         </tfoot>
@@ -738,7 +856,7 @@
 
                         <div class="option">
                             <input  id="optStartAtStartup" type="checkbox" />
-                            <label for="optStartAtStartup" class="option">Start Gameunits on system login</label>
+                            <label for="optStartAtStartup" class="option">Start GAMEUNITS on system login</label>
                         </div>
                         <div class="option">
                             <input  id="optDetachDatabases" type="checkbox" />
@@ -749,9 +867,9 @@
                             <label for="optFee" class="option">Pay transaction fee:</label>
                             <input  id="optFee" type="number" placeholder="0.00000000" step="0.01" value="0.00000000" onchange="unit.parse(this, $('#optFeeunit').val());" />
                             <select id="optFeeunit" class="unit button is-inverse has-fixed-icon" style="margin-left:10px; height:43px; width:100px;" onchange="unit.format('#optFee', $(this).val());">
-                                <option value="0" title="Gameunits">GAMEUNITS</option>
-                                <option value="1" title="Milli-Gameunits (1 / 1000)">mGAMEUNITS</option>
-                                <option value="2" title="Micro-Gameunits (1 / 1000000)">&micro;GAMEUNITS</option>
+                                <option value="0" title="GAMEUNITS">GAMEUNITS</option>
+                                <option value="1" title="Milli-GAMEUNITS (1 / 1000)">mGAMEUNITS</option>
+                                <option value="2" title="Micro-GAMEUNITS (1 / 1000000)">&micro;GAMEUNITS</option>
                                 <option value="3" title="illumioshi (1 / 100000000)">illumioshi</option>
                             </select>
                         </div>
@@ -764,37 +882,37 @@
                             <label for="optReserveBalance" class="option">Reserve:</label>
                             <input  id="optReserveBalance" type="number" placeholder="0.00000000" step="0.01" value="0.00000000" onchange="unit.parse(this, $('#optReserveBalanceunit').val());" />
                             <select id="optReserveBalanceunit" class="unit button is-inverse has-fixed-icon" style="margin-left:10px; height:43px; width:100px;" onchange="unit.format('#optReserveBalance', $(this).val());">
-                                <option value="0" title="Gameunits">GAMEUNITS</option>
-                                <option value="1" title="Milli-Gameunits (1 / 1000)">mGAMEUNITS</option>
-                                <option value="2" title="Micro-Gameunits (1 / 1000000)">&micro;GAMEUNITS</option>
+                                <option value="0" title="GAMEUNITS">GAMEUNITS</option>
+                                <option value="1" title="Milli-GAMEUNITS (1 / 1000)">mGAMEUNITS</option>
+                                <option value="2" title="Micro-GAMEUNITS (1 / 1000000)">&micro;GAMEUNITS</option>
                                 <option value="3" title="illumioshi (1 / 100000000)">illumioshi</option>
                             </select>
                         </div>
-                        <div class="option">
+                        <!-- <div class="option">
                             <label for="optMinStakeInterval" class="option" title="Minimum time in seconds between successful stakes">Minimum Stake Interval</label>
                             <input  id="optMinStakeInterval" type="number" placeholder="30" step="1" title="Minimum time in seconds between successful stakes" />
                         </div>
-                        <div class="option">
+                         <div class="option">
                             <label for="optMinRingSize" class="option">Minimum Ring size:</label>
                             <input  id="optMinRingSize" type="number" min="3"   placeholder="3" step="1" />
                         </div>
                         <div class="option">
                             <label for="optMaxRingSize" class="option">Maximum Ring size:</label>
                             <input  id="optMaxRingSize" type="number" max="200" placeholder="100" step="1" />
-                        </div>
-                        <!--div class="option">
-                            <input  id="optAutogreyeemGAMEUNITSX" type="checkbox" title="GAMEUNITSX will be converted to GAMEUNITS as soon as has confirmed and wallet is unlocked" />
-                            <label for="optAutogreyeemGAMEUNITSX" class="option" title="GAMEUNITSX will be converted to GAMEUNITS as soon as has confirmed and wallet is unlocked">Auto-greyeem gameunitsX</label>
+                        </div> -->
+                        <!-- <div class="option">
+                            <input  id="optAutoRedeemGAMEUNITS" type="checkbox" title="GAMEUNITS will be converted to GAMEUNITS as soon as has confirmed and wallet is unlocked" />
+                            <label for="optAutoRedeemGAMEUNITS" class="option" title="GAMEUNITS will be converted to GAMEUNITS as soon as has confirmed and wallet is unlocked">Auto-redeem GAMEUNITS</label>
                         </div-->
-                        <div class="option">
+                        <!-- <div class="option">
                             <input  id="optAutoRingSize" type="checkbox" title="Automatically select ring size based on best available output counts" />
                             <label for="optAutoRingSize" class="option" title="Automatically select ring size based on best available output counts">Automatically select ring size</label>
-                        </div>
+                        </div> -->
                         <div class="option">
                             <input  id="optSecureMessaging" type="checkbox" />
-                            <label for="optSecureMessaging" class="option">Enable Secure messaging</label>
+                            <label for="optSecureMessaging" class="option">Enable Private messages</label>
                         </div>
-                        <div class="option">
+                        <!-- <div class="option">
                             <input  id="optThinMode" type="checkbox" data-linked="optThinFullIndex optThinIndexWindow" />
                             <label for="optThinMode" class="option">Thin Mode (Requires Restart)</label>
                         </div>
@@ -805,7 +923,7 @@
                         <div class="option">
                             <label for="optThinIndexWindow" title="When not thinfullindex, the max number of block headers to keep in memory">Thin Index Window</label>
                             <input  id="optThinIndexWindow" title="When not thinfullindex, the max number of block headers to keep in memory" type="number" placeholder="4096" step="64" type="checkbox" />
-                        </div>
+                        </div> -->
                     </div><!-- /#options-main -->
 
                     <hr>
@@ -863,9 +981,9 @@
                         <div class="option">
                             <label for="optDisplayUnit" class="option" style="width:200px;text-align:right;">Unit to show amounts in:</label>
                             <select id="optDisplayUnit" class="button is-inverse has-fixed-icon" style="width:200px;">
-                                <option value="0" title="Gameunits">GAMEUNITS</option>
-                                <option value="1" title="Milli-Gameunits (1 / 1000)">mGAMEUNITS</option>
-                                <option value="2" title="Micro-Gameunits (1 / 1000000)">&micro;GAMEUNITS</option>
+                                <option value="0" title="GAMEUNITS">GAMEUNITS</option>
+                                <option value="1" title="Milli-GAMEUNITS (1 / 1000)">mGAMEUNITS</option>
+                                <option value="2" title="Micro-GAMEUNITS (1 / 1000000)">&micro;GAMEUNITS</option>
                                 <option value="3" title="illumioshi (1 / 100000000)">illumioshi</option>
                             </select>
                         </div>
@@ -883,9 +1001,9 @@
                                 <!--optgroup label="Transactions">
                                     <option>Received with</option>
                                     <option>Received from</option>
-                                    <option>Received GAMEUNITSX</option>
+                                    <option>Received GAMEUNITS</option>
                                     <option>Sent to</option>
-                                    <option>Sent GAMEUNITSX</option>
+                                    <option>Sent GAMEUNITS</option>
                                     <option>Stake</option>
                                     <option>Other</option>
                                 </optgroup>
@@ -901,9 +1019,9 @@
                             <select id="optVisibleTransactions" class="button is-inverse has-fixed-icon" multiple size="7">
                                 <!--option>Received with</option>
                                 <option>Received from</option>
-                                <option>Received GAMEUNITSX</option>
+                                <option>Received GAMEUNITS</option>
                                 <option>Sent to</option>
-                                <option>Sent GAMEUNITSX</option>
+                                <option>Sent GAMEUNITS</option>
                                 <option>Stake</option>
                                 <option>Other</option-->
                             </select>
@@ -911,7 +1029,7 @@
                     </div><!-- /#options-display -->
 
                     <div class="ui-buttons">
-                        <a class="button is-inverse has-icon-spacing" id="options-ok"     href="#" onclick="if(this.className.indexOf('disabled') == -1){optionsPage.save();prevPage.click();}">OK <i class="fa fa-check"></i></a>
+                        <a class="button is-inverse has-icon-spacing" id="options-shadow"     href="#" onclick="if(this.className.indexOf('disabled') == -1){optionsPage.save();prevPage.click();}">GAMEUNITS <i class="fa fa-check"></i></a>
                         <a class="button is-inverse has-icon-spacing" id="options-cancel" href="#" onclick="optionsPage.update();prevPage.click();">Cancel <i class="fa fa-times"></i></a>
                         <a class="button is-inverse has-icon-spacing" id="options-apply"  href="#" onclick="if(this.className.indexOf('disabled') == -1) optionsPage.save();">Apply <i class="fa fa-floppy-o"></i></a>
                     </div>
@@ -924,30 +1042,23 @@
         <article id="news" style="display:none;">
             <div class="content top">
                 <h2>News</h2>
-				<p>News and updates from the GAMEUNITS team. </p>
             </div>
 
             <div class="bottom">
 
                 <div class="content flex">
-              <div class="flex-item grow one-third-width">
-              <div id="announcements">
-              <center>
-			  <script async src="http://d36hc0p18k1aoc.cloudfront.net/public/js/modules/tintembed.js"></script><div class="tintup" data-id="asksecinfo" data-columns="" data-expand="true"    data-infinitescroll="true" data-personalization-id="795289" style="height:500px;width:100%;"><a href="http://www.tintup.com/blog/the-best-twitter-wall-display" style="width:118px;height:31px;background-image:url(//d33w9bm0n1egwm.cloudfront.net/assets/logos/poweredbytintsmall.png);position:absolute;bottom:10px;right: 20px;text-indent: -9999px;z-index:9;">twitter wall</a></div>
-			  </center>
-                            </div>
-                        </div>
+
                 </div><!-- /content -->
             </div><!-- /bottom -->
         </article><!-- /news page -->
 
         <div id="footer">
             <span id="footer-icons">
-                <i id="encryptionIcon"    style="padding-right:5px;" class="fa fa-lock fa-lg cursor-pointer grey" onclick="bridge.userAction(['toggleLock']);" title="Wallet is encrypted and currently locked"></i>
-                <i id="stakingIcon"       style="padding-right:5px;" class="fa fa-cog fa-lg not-staking" title="Not staking because wallet is locked"></i>
-                <img id="connectionsIcon" style="cursor:default; padding-right:5px" src="qrc:///icons/connect_0"/ title="0 active connection(s) to Gameunits network" />
-                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing_small"/ title="Wallet is syncing" />
-                <i id="blocksIcon" class="fa fa-check grey none" title="Wallet is syncing"></i>
+                <i id="encryptionIcon"    style="padding-right:5px;" class="fa fa-lock fa-lg cursor-pointer red" onclick="bridge.userAction(['toggleLock']);" title="Wallet is encrypted and currently locked"></i>
+                <i id="stakingIcon"       style="padding-right:5px;" class="fa fa-check-circle-o fa-lg not-staking" title="Not staking because wallet is locked"></i>
+                <img id="connectionsIcon" style="cursor:default; padding-right:5px" src="qrc:///icons/connect_0"/ title="0 active connection(s) to GAMEUNITS network" />
+                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing"/ title="Wallet is syncing" />
+                <i id="blocksIcon" class="fa fa-check red none" title="Wallet is syncing"></i>
             </span>
         </div><!-- /footer -->
         <div id="network-alert" style="display:none;">
