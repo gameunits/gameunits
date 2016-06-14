@@ -54,7 +54,7 @@ h2 {
     margin-bottom: 30px;
     font-family: "Open Sans", sans-serif;
     font-weight: 700;
-    color:#fff;
+    color:#313131;
 }
 
 .top h2 {
@@ -65,11 +65,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input:focus {
-    outline: #0ACCFD 2px solid;
+    outline: rgba(38,147,255, 0.37) 2px outset;
     outline-offset: -2px;
-	-webkit-border-radius: 5;
-    -moz-border-radius: 5;
-    border-radius: 5px;
 }
 
 a, a:focus {
@@ -80,7 +77,7 @@ a, a:focus {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance:none;
-    /*border-radius: none !important; background: #ffffff; color: red;*/
+    /*border-radius: none !important; background: #131218; color: red;*/
 }
 
 p {
@@ -99,10 +96,7 @@ p {
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    border: 1px solid #E5E5E5;
-    -webkit-border-radius: 5;
-    -moz-border-radius: 5;
-    border-radius: 5px;
+    border: 1px solid #ffffff;
 }
 
 .selected td input {
@@ -110,13 +104,13 @@ p {
 }
 
 #balances tr > td {
-    color: #fff;
+    color: #525e6c;
     font-size: 0.8em;
     font-family: "Open Sans", sans-serif;
 }
 
 #balances tr + tr td {
-    color: #fff;
+    color: #9ba3ae;
 }
 
 td {
@@ -129,21 +123,21 @@ tbody tr.selected {
 }
 
 tbody tr.selected input {
-    background:#fff;
+    background:#FBFBFB;
     width:90%;
     margin-top:15px;
 }
 
 tbody tr.selected:hover,
 tbody tr.selected td:hover {
-    background: #ffffff!important;
+    background: #ECF0F1!important;
     color: #131218;
     font-weight:700;
 }
 
 .pagination.selected,
 .pagination:hover {
-    background:#131218!important;
+    background:#0165a2!important;
 }
 
 /* Vertical Menu */
@@ -154,12 +148,13 @@ ul.vmenu {
 }
 
 ul.vmenu li a {
-    font-size: 0.91em;
+    font-size: 0.78em;
     text-decoration: none;
     padding: 5px 0 15px 0;
     display: block;
-    color: #999;
-    padding-left: 28px;
+    color: #829091;
+    border: 1px solid #15141a;
+    padding-left: 20px;
     -webkit-transition: all 0.2s ease-in-out;
 }
 
@@ -169,11 +164,13 @@ ul.vmenu li {
 
 ul.vmenu li.selected a {
     background: #0f0f13;
+    border: 1px solid #101014;
     color: #fff;
 }
 
 ul.vmenu li a:hover {
-    background: #0f0f13;
+    background: #424242;
+    border: 1px solid #1b1a20;
     color: #fff;
 }
 
@@ -181,12 +178,7 @@ ul.vmenu li a:hover {
 div.menu {
     text-align: center;
     padding-top: 10px;
-    padding-bottom: 20px;
-	padding-right:24px;
-	position: absolute;
-	top:0;
-	right:0;
-	
+    padding-bottom: 15px;
 }
 
 div.menu span {
@@ -197,8 +189,7 @@ div.menu span {
 div.menu span a {
     display: block;
     text-decoration: none;
-    color: #131218;
-	font-weight:bold;
+    color: #829091;
     text-transform: uppercase;
     font-size: 12px;
 }
@@ -237,9 +228,9 @@ Add transition to containers so they can push in and out.
 #header {
      margin: 0;
      text-align: center;
+     border-bottom: 2px solid #f4f4f4;
      border-width: 0 0 2px 0;
      height: 80px;
-	 background:#131218;
 }
 
 #header,
@@ -264,22 +255,12 @@ article {
 
 #txnsearch input {
     width: 100%;
+    padding: 10px 25px 10px 15px;
     background: url('qrc:///icons/search') no-repeat 100% 7px;
-    background-color: #ffffff;
-    border: 1px #e5e5e5 solid;
+    background-color: #ecf0f1;
+    border: 1px #ecf0f1 solid;
     text-transform: uppercase;
     font-size: 14px;
-	border: 1px solid #ccc;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	padding: 7px 7px;
-	outline: 0;
-	-webkit-appearance: none;
-}
-input.rounded:focus {
-	border-color: #339933;
-}
 }
 /* user part */
 .user-profile {
@@ -342,16 +323,16 @@ input.rounded:focus {
 }
 
 .bottom {
+    border-top: 1px solid #ecf0f1;
+    border-width: 1px 0 0 0;
+    background: #ecf0f1;
     overflow:auto;
-}
-
-.bottom  h2{
- color: #131218;
-	
+    box-shadow:0 -1px 0 0 #dee2e2,
+               0 -2px 0 0 #f8f8f8;
 }
 
 #footer {
-    background: #ffffff;
+    background: #ecf0f1;
     clear: both;
     text-align:right;
     vertical-align: bottom;
@@ -376,11 +357,10 @@ input.rounded:focus {
 .container {
     margin:  0;
     padding: 0;
-	background:#ffffff;
 }
 
 .content {
-    padding: 20px;
+    margin: 20px;
 }
 
 .flex {
@@ -507,7 +487,7 @@ input.rounded:focus {
 }
 
 .content .flex-item + .flex-item {
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid #131218;
 }
 
 
@@ -521,7 +501,7 @@ input.rounded:focus {
 #layout.active #navpanel {
     left: 135px;
     width: 40%;
-    border: 1px solid #ffffff;
+    border: 1px solid #131218;
 }
 
 
@@ -532,21 +512,20 @@ input.rounded:focus {
 /* Navigation panel items */
 
 #navitems {
-    margin-top: 34px;
-	font-weight:normal;
+    margin-top: 20px;
+    text-transform: uppercase;
     padding-bottom: 50px;
 }
 
 #navinfo {
     position: fixed;
-    bottom: 20px;
-    width: 19%;
+    bottom: 10px;
+    width: 15%;
     text-align: center;
 }
 
 #clientinfo {
-    width: 78%;
-    left: -10px;
+    width: 90%;
     color: #464547;
     font-size:0.6em;
     position:relative;
@@ -558,7 +537,7 @@ input.rounded:focus {
 /* Progress bar */
 #syncProgressBar {
     vertical-align: bottom;
-    width: 78%;
+    width: 90%;
     height: 10px;
     display: block;
     -webkit-appearance: none;
@@ -568,7 +547,7 @@ input.rounded:focus {
 }
 
     progress::-webkit-progress-bar {
-            background: #ffffff;
+            background: #131218;
             border-radius: 50px;
             padding: 2px;
             box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
@@ -580,7 +559,7 @@ input.rounded:focus {
             background:
                     -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
                     -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
-                    -webkit-linear-gradient(left, #0accfd, #23e8f9);
+                    -webkit-linear-gradient(left, #0165a2, #0165a4);
 
             /* Looks great, now animating it */
             background-size: 25px 14px, 100% 100%, 100% 100%;
@@ -601,14 +580,14 @@ input.rounded:focus {
 #navpanel [href='#chaindata']:before,
 #navpanel [href='#blockdata']:before,
 #navpanel [href='#news']:before {
-    height: 21px;
+    height: 20px;
     width: 20px;
     display: inline-block;
     position: relative;
     content: " ";
     padding-left: 18px;
     top: 5px;
-    background: #fff;
+    background: #829091;
     -webkit-mask-image: url('qrc:///icons/nav_icons');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position-x: -5px;
@@ -623,7 +602,7 @@ input.rounded:focus {
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
 #navpanel .selected [href='#news']:before {
-    background: #23e8f9;
+    background: #0165a2;
 }
 
 #navpanel [href='#overview']:before {
@@ -682,7 +661,7 @@ small screens.
     display: block; /* show this only on small screens */
     top: 0;
     left: 0; /* "#menu width" */
-    background: #ffffff;
+    background: #131218;
     background: rgba(0,0,0,0.7);
     font-size: 10px; /* change this value to increase/decrease button size */
     z-index: 10;
@@ -693,7 +672,7 @@ small screens.
 
     #navlink:hover,
     #navlink:focus {
-        background: #ffffff;
+        background: #131218;
     }
 
     #navlink span {
@@ -805,14 +784,14 @@ small screens.
 }
 
 .footable.shadow {
-    border-color: #131218;
+    border-color: #0165a4;
 }
 .footable.shadow > tfoot > tr > th,
 .footable.shadow > thead > tr > th,
 .footable.shadow > tfoot > tr > td,
 .footable.shadow > thead > tr > td {
-    background-color: #131218;
-    border-color: #131218;
+    background-color: #0165a4;
+    border-color: #0165a4;
 }
 
 .footable > thead > tr > th,.footable > thead > tr > td {
@@ -863,12 +842,12 @@ tr.footable-row-detail {
 }
 
 .outofsync {
-    color: red;
+    color: rgb(2, 192, 236);
 }
 
 
 .light-red {
-color: #fff;
+color: rgb(228, 26, 26);
 }
 
 .none {
@@ -886,23 +865,16 @@ color: #fff;
 .top {
     right: 0;
     left: 17%;
-    background: #ffffff;
+    background: white;
     min-height:31px;
     line-height:1.5em;
-	color:#fff;
-	min-height: 170px;
-	background-image: url('qrc:///images/header');
 }
 
 #overview .top {
     right: 0;
     left: 17%;
-    background: #ffffff;
-    min-height:31px;
-    line-height:1.5em;
-	color:#fff;
-	min-height: 170px;
-	background-image: url('qrc:///images/header');
+    background: white;
+    height: 140px;
 }
 
 #overview .bottom {
@@ -915,10 +887,6 @@ color: #fff;
     padding-top:25px;
 }
 
-.blue-gameunits {
-	color:#0ACCFD;
-}
-
 #overview .main {
 
 }
@@ -926,10 +894,9 @@ color: #fff;
 #overview .top h2 {
     float: left;
     font-size: 1.3em;
-    color: #fff;
+    color: rgb(49, 49, 49);
     -webkit-transition: font-size 0.6s, color 0.6s, margin-top 0.6s, -webkit-transform 0.6s;
     transition: font-size 0.6s, color 0.6s, margin-top 0.6s, transform 0.6s;
-	margin-top:25px;
 }
 
 #overview .top h2.expanded {
@@ -939,14 +906,15 @@ color: #fff;
 }
 
 #overview .outofsync {
-    color: #131218;
+    color: rgb(2, 192, 236);
     font-weight:400;
 }
 
 #overview .wallet {
     color: rgb(49, 49, 49);
+    margin-left: 10px;
     float:right;
-    margin-top:38px;
+    margin-top:25px;
     -webkit-transition: margin-top 0.6s, color 0.6s, -webkit-transform 0.6s;
     transition: margin-top 0.6s, color 0.6s, transform 0.6s;
 }
@@ -961,13 +929,13 @@ color: #fff;
     cursor: pointer;
     -webkit-transition: font-size 0.6s, color 0.6s, -webkit-transform 0.6s;
     transition: font-size 0.6s, color 0.6s, transform 0.6s;
-    color:#ffffff;
+    color:#131218;
 }
 
 #overview .wallet.expanded i {
     font-size: 16px !important;
     cursor: pointer;
-    color: #ffffff;
+    color: #131218;
     float: left;
 }
 
@@ -975,7 +943,7 @@ color: #fff;
     margin-left: 30px;
     padding: 5px;
     border-radius: 10px;
-    margin-top: -20px;
+    margin-top: -32px;
 }
 
 
@@ -1009,9 +977,9 @@ color: #fff;
     padding: 25px 0px;
     font-size: 25px;
     border-radius: 10px;
-    margin-top: 50px;
+    margin-top: 22px;
     font-family: "Open Sans", sans-serif;
-    color: #fff;
+    color: rgb(49, 49, 49);
 }
 
 .total-balance .light-red {
@@ -1021,7 +989,7 @@ color: #fff;
 
 .total-balance .cents {
     font-size: 22px;
-    color: #fff;
+    color: rgb(78, 78, 78);
 }
 
 .total-balance .units {
@@ -1030,7 +998,7 @@ color: #fff;
 }
 
 .total-balance .staking {
-    color: #ffffff;
+    color: #131218;
     font-size: 0.7em;
     display: block;
     margin-top: 10px;
@@ -1047,7 +1015,7 @@ color: #fff;
 .total-balance .staking .cents {
     font-size: 16px;
     font-family: "Open Sans", sans-serif;
-    color: #ffffff;
+    color: #131218;
     margin-left: -3px;
 }
 
@@ -1067,6 +1035,7 @@ color: #fff;
     padding-top:10px;
     border-bottom: 1px solid #DEE2E2;
     margin-bottom:5px;
+    margin-right:40px;
 }
 
 .transaction-overview span {
@@ -1084,7 +1053,7 @@ color: #fff;
 }
 
 #overview .overview_date {
-    background:#0CCEFD;
+    background:#b9bdbe;
     margin-left:10px;
     padding-top:5px;
     padding-bottom:5px;
@@ -1093,7 +1062,6 @@ color: #fff;
     color:white;
     float:right;
     font-size:0.7em;
-	font-weight:bold;
     -webkit-border-radius: 3;
     -moz-border-radius: 3;
     border-radius: 3px;
@@ -1227,9 +1195,12 @@ label.recipient {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  margin: 0;
+  padding: 7px 14px;
   -webkit-border-radius: 5;
   -moz-border-radius: 5;
-  border-radius: 5px;
+  border-radius: 20px;
+  background-color: transparent;
   color: inherit;
   vertical-align: middle;
   text-align: center;
@@ -1238,9 +1209,12 @@ label.recipient {
   white-space: normal;
   font-weight: normal;
   font-style: normal;
+  font-size: 13px;
   font-family: "OpenSans", Helvetica, Arial, sans-serif;
   line-height: 20px;
   cursor: pointer;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1381,87 +1355,22 @@ label.recipient {
 }
 
 .button.is-inverse {
-	text-decoration: none;
-	-moz-user-select: none;
-	background-image: none;
-	cursor: pointer;
-	display: inline-block;
-	margin-bottom: 0;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-size: 11px;
-	padding: 8px 20px;
-	background: #0CCEFD;
-	border: none;
-	color: #fff;
-	font-weight:bold;
+  background: #0165a4;
+
+  color: white;
 }
 
 .button.is-inverse:hover,
 .button.is-inverse:focus {
-	color: #000;
+  background: #01395c;
+
+  text-decoration: none;
 }
 
 .button.is-inverse:active,
 .button.is-inverse.is-active {
-	color: #fff;
+  background-color: #01395c;
 }
-
-.button.is-inverse2 {
-	text-decoration: none;
-	-moz-user-select: none;
-	background-image: none;
-	cursor: pointer;
-	display: inline-block;
-	margin-bottom: 0;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-size: 11px;
-	padding: 8px 20px;
-        width: 160px;
-	background: #131218;
-	border: none;
-}
-
-.button.is-inverse2:hover,
-.button.is-inverse2:focus {
-	color: #fff;
-}
-
-.button.is-inverse2:active,
-.button.is-inverse2.is-active {
-	color: #fff;
-}
-
-.button.is-inverse3 {
-	text-decoration: none;
-	background: none;
-	-moz-user-select: none;
-	background-image: none;
-	cursor: pointer;
-	display: inline-block;
-	margin-bottom: 0;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-size: 11px;
-	border: 2px solid;
-	padding: 8px 20px;
-	color: #131218;
-}
-
-.button.is-inverse3:hover,
-.button.is-inverse3:focus {
-	color: #131218;
-	border: 2px solid;
-}
-
-.button.is-inverse3:active,
-.button.is-inverse3.is-active {
-	color: #131218;
-	border: 2px solid;
-}
-
-
 
 .button.is-link {
   color: #3fc1f1;
@@ -1538,7 +1447,6 @@ label.recipient {
 .button.has-fixed-icon {
   padding-top: 10px;
   padding-left:13px;
-  width: 160px;
 }
 
 .button.has-fixed-icon .fa {
@@ -1549,23 +1457,23 @@ label.recipient {
 
 /****************************
 
-           Chat
+       shadowChat
 
 *****************************/
 
 #contact-list {
     position: absolute;
     z-index: 10;
-    width: 26%;
+    width: 82.9%;
     overflow: hidden;
-    top: 210px;
+    top: 162px;
     bottom: 0;
     background: inherit;
     -webkit-transition-duration:1s;
 }
 
 #contact-list.in-conversation {
-    width:26%;
+    width:30%;
     border-right: 1px solid #CFCFCF;
 }
 
@@ -1581,7 +1489,7 @@ label.recipient {
     display: block;
     width: 100%;
     padding: 10px;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #ecf0f1;
     text-decoration:none;
     color: black;
     background-color: #fff;
@@ -1602,7 +1510,7 @@ label.recipient {
     display: block;
     padding: 20px 20px;
     height: 40px;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid #ecf0f1;
     background-color: #fff;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
@@ -1610,7 +1518,7 @@ label.recipient {
 }
 
 #contact-list ul li.selected {
-    background-color: #ffffff;
+    background-color: #ecf0f1;
 }
 
 #contact-list ul li:hover {
@@ -1671,7 +1579,7 @@ label.recipient {
 }
 
 #contact-list ul li .contact-options .message-notifications {
-    background: #0CCEFD;
+    background: red;
     border-radius: 100%;
     font-size: 10px;
     padding-top: 1px;
@@ -1683,18 +1591,18 @@ label.recipient {
 }
 
 #contact-list ul li .contact-options .favorite {
-    background-image: url('qrc:///icons/favorite');
+    background-image: url(qrc:///icons/favorite);
     height: 16px;
     width: 16px;
     display: inline-block;
 }
 
 #contact-list ul li .contact-options .favorite.favorited {
-    background-image: url('qrc:///icons/favorited');
+    background-image: url(qrc:///icons/favorited);
 }
 
 #contact-list ul li .contact-options .delete, .contact-discussion .delete {
-    background: url('qrc:///icons/delete') no-repeat;
+    background: url(qrc:///icons/delete) no-repeat;
     height: 15px;
     width: 15px;
     display: inline-block;
@@ -1727,7 +1635,7 @@ label.recipient {
     overflow: hidden;
     right: 0;
     left: 30%;
-    top: 210px;
+    top: 162px;
     bottom: 220px;
 }
 
@@ -1842,7 +1750,7 @@ label.recipient {
 }
 
 .text-box textarea:focus {
-    outline: rgba(255, 0, 0, 0.37) 2px outset;
+    outline: rgba(38,147,255, 0.37) 2px outset;
     outline-offset: -2px;
 }
 
@@ -1863,37 +1771,36 @@ label.recipient {
     text-align: center;
     display: block;
     color: #fff;
-	background:#0CCEFD;
+    background: #0165a4;
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
     border-radius: 5px;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
     border: none;
-	font-size:10px;
 }
 
 .left-bar :hover,
 .left-bar :focus {
-  color:#000;
+  background: #01395c;
   text-decoration: none;
 }
 
 .left-bar :active,
 .left-bar .is-active {
   border-color: #353b43;
-  background-color: #131218;
+  background-color: #01395c;
 }
 
 .right-bar :hover,
 .right-bar :focus {
-  background: #131218;
+  background: #01395c;
   text-decoration: none;
 }
 
 .right-bar :active,
 .right-bar .is-active {
-    background-color: #131218;
+    background-color: #01395c;
 }
 
 .text-box .left-bar a {
@@ -1932,13 +1839,13 @@ label.recipient {
     margin-left: 5px;
 }
 .text-box .right-bar a.submit:hover i {
-    background: #131218;
+    background: #01395c;
     text-decoration: none;
 }
 
 
 /*********************
-       END CHAT
+    END shadowCHAT
 *********************/
 
 /* Scrollbar */
@@ -1984,7 +1891,7 @@ label.recipient {
 }
 
 .red {
-    color: #fff;
+    color: #0165a4;
 }
 
 .orange {
@@ -2040,7 +1947,7 @@ label.recipient {
 }
 
 .fa {
-    font-size: 13px !important;
+    font-size: 14px !important;
 }
 
 .fa-lg {
@@ -2052,7 +1959,6 @@ label.recipient {
 }
 .font-26px {
     font-size: 26px !important;
-    color: #23e8f9 !important;
 }
 .font-32px {
     font-size: 32px !important;
@@ -2103,7 +2009,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
         right: 0;
         left: 15%;
         background: white;
-        border-top: 1px solid #ffffff;
+        border-top: 1px solid #ecf0f1;
     }*/
 
     .contracted {
@@ -2116,7 +2022,9 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     }
 
     #navpanel {
-        left: 136px;
+        left: 135px;
+        border: 1px solid #dad4d6;
+        border-width: 0 1px 0 0;
     }
 
     #navlink {
@@ -2159,7 +2067,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
 
     .user-avatar .user-notifications span {
         display: initial;
-        background: red;
+        background: #0165a4;
         border-radius: 100%;
         font-size: 10px;
         padding-top: 1px;
@@ -2173,7 +2081,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
         width: 100%;
         padding: 10px 25px 10px 15px;
         background: url('../images/search_icon.png') no-repeat 100% 7px;
-        background-color: #ffffff;
+        background-color: #ecf0f1;
         border: 1px #e5e5e5 solid;
         text-transform: uppercase;
         font-size: 14px;
@@ -2251,7 +2159,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     left: 0px;
     height:100%;
     width:100%;
-    background: #131218;
+    background: #000;
     display: none;
 }
 
@@ -2355,7 +2263,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     width: 80%;
     font-size:0.8em;
     color: #F51E3E;
-    background: #ffffff;
+    background: #ecf0f1;
     box-shadow: -1px -1px 0 0 #dee2e2, -1px 1px 0 0 #dee2e2, -2px -2px 0 0 #f8f8f8, -2px 2px 0 0 #f8f8f8;
 }
 
@@ -2366,7 +2274,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
 .warning {
     font-size:0.8em;
     color: #F51E3E;
-    background: #ffffff;
+    background: #ecf0f1;
 }
 
 /*
@@ -2406,7 +2314,7 @@ input[type=checkbox] {
     -webkit-appearance: none;
     vertical-align: middle;
     padding: 15px;
-    color:#0CCEFD;
+    color:#3c3c3c;
     font-weight:500;
     border-radius: 0;
     background-color: #fbfbfb;
@@ -2417,11 +2325,11 @@ input[type=checkbox] + label {
 }
 
 input[type=checkbox]:checked {
-    border: 2px solid #0CCEFD;
+    border: 2px solid #F51E3E;;
 }
 
 input[type=checkbox]:checked + label {
-    color: #0CCEFD;
+    color: #F51E3E;
 }
 
 input[disabled] {
@@ -2483,8 +2391,3 @@ input[type=checkbox]:checked + label:before {
     vertical-align:top;
     border-bottom:1px solid #ddd
 }
-
-.mined-red {
-     color: #D62C2C;
-}
- 
