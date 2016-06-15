@@ -962,9 +962,9 @@ function addRecipient() {
                 <label for="amount[count]" class="recipient">Amount:</label> \
                 <input id="amount[count]" class="amount input_box" type="number" placeholder="0.00000000" step="0.01" value="0.00000000" onfocus="invalid($(this), true);" onchange="unit.parse(this, $(\'#unit[count]\').val());updateCoinControl();"  /> \
                 <select id="unit[count]" class="unit button is-inverse has-fixed-icon"  style="margin-left:10px; height:43px; width:100px;" onchange="unit.format(\'#amount[count]\', $(this).val());"> \
-                    <option value="0" title="Gameunits"                    ' + (unit.type == 0 ? "selected" : "") + '>GAMEUNITS</option> \
-                    <option value="1" title="Milli-Gameunits (1 / 1000)"   ' + (unit.type == 1 ? "selected" : "") + '>mGAMEUNITS</option> \
-                    <option value="2" title="Micro-Gameunits (1 / 1000000)"' + (unit.type == 2 ? "selected" : "") + '>&micro;GAMEUNITS</option> \
+                    <option value="0" title="Gameunits"                    ' + (unit.type == 0 ? "selected" : "") + '>UNITS</option> \
+                    <option value="1" title="Milli-Gameunits (1 / 1000)"   ' + (unit.type == 1 ? "selected" : "") + '>mUNITS</option> \
+                    <option value="2" title="Micro-Gameunits (1 / 1000000)"' + (unit.type == 2 ? "selected" : "") + '>&micro;UNITS</option> \
                     <option value="3" title="illumioshi (1 / 100000000)" ' + (unit.type == 3 ? "selected" : "") + '>illumioshi</option> \
                 </select> \
             </div> \
