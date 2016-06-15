@@ -3,7 +3,7 @@
 $("[href='#qrcode-modal']").leanModal({top : 10, overlay : 0.5, closeButton: "#qrcode-modal .modal_close"});
 $("#start-conversation").leanModal({top : 200, overlay : 0.5, closeButton: "#new-contact-modal .modal_close"});
 
-var qrcode = new QRCode("qrcode", {colorDark:'#0165a4', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H, width: 220, height: 220,});
+var qrcode = new QRCode("qrcode", {colorDark:'#0CCEFD', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H, width: 220, height: 220,});
 
 function showQRCode(address, label) {
 

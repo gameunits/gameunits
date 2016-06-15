@@ -559,7 +559,7 @@ article {
             background:
                     -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
                     -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
-                    -webkit-linear-gradient(left, #0165a2, #0165a4);
+                    -webkit-linear-gradient(left, #0165a2, #0CCEFD);
 
             /* Looks great, now animating it */
             background-size: 25px 14px, 100% 100%, 100% 100%;
@@ -784,14 +784,14 @@ small screens.
 }
 
 .footable.shadow {
-    border-color: #0165a4;
+    border-color: #0CCEFD;
 }
 .footable.shadow > tfoot > tr > th,
 .footable.shadow > thead > tr > th,
 .footable.shadow > tfoot > tr > td,
 .footable.shadow > thead > tr > td {
-    background-color: #0165a4;
-    border-color: #0165a4;
+    background-color: #0CCEFD;
+    border-color: #0CCEFD;
 }
 
 .footable > thead > tr > th,.footable > thead > tr > td {
@@ -1355,7 +1355,7 @@ label.recipient {
 }
 
 .button.is-inverse {
-  background: #0165a4;
+  background: #0CCEFD;
 
   color: white;
 }
@@ -1771,7 +1771,7 @@ label.recipient {
     text-align: center;
     display: block;
     color: #fff;
-    background: #0165a4;
+    background: #0CCEFD;
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
     border-radius: 5px;
@@ -1891,7 +1891,7 @@ label.recipient {
 }
 
 .red {
-    color: #0165a4;
+    color: #0CCEFD;
 }
 
 .orange {
@@ -2067,7 +2067,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
 
     .user-avatar .user-notifications span {
         display: initial;
-        background: #0165a4;
+        background: #0CCEFD;
         border-radius: 100%;
         font-size: 10px;
         padding-top: 1px;
