@@ -1325,7 +1325,7 @@ function addressBookInit() {
 }
 
 
-var Name = 'Me';
+var Name = 'My Gameunits Address :';
 var initialAddress = true;
 
 function appendAddresses(addresses) {
