@@ -1199,7 +1199,6 @@ label.recipient {
   padding: 7px 14px;
   -webkit-border-radius: 5;
   -moz-border-radius: 5;
-  border-radius: 20px;
   background-color: transparent;
   color: inherit;
   vertical-align: middle;
@@ -1209,8 +1208,6 @@ label.recipient {
   white-space: normal;
   font-weight: normal;
   font-style: normal;
-  font-size: 13px;
-  font-family: "OpenSans", Helvetica, Arial, sans-serif;
   line-height: 20px;
   cursor: pointer;
   -webkit-transition: all 0.15s ease;
