@@ -1048,12 +1048,12 @@ color: rgb(228, 26, 26);
 .transaction-overview span.date {
     font-size: 0.8em;
     font-weight:300;
-    color: #b9bdbe;
+    color: #0CCEFD;
     font-family: "Open Sans", sans-serif;
 }
 
 #overview .overview_date {
-    background:#b9bdbe;
+    background:#0CCEFD;
     margin-left:10px;
     padding-top:5px;
     padding-bottom:5px;
