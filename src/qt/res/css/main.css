@@ -137,7 +137,7 @@ tbody tr.selected td:hover {
 
 .pagination.selected,
 .pagination:hover {
-    background:#0165a2!important;
+    background:#0CCEFD!important;
 }
 
 /* Vertical Menu */
@@ -559,7 +559,7 @@ article {
             background:
                     -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
                     -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
-                    -webkit-linear-gradient(left, #0165a2, #0CCEFD);
+                    -webkit-linear-gradient(left, #0CCEFD, #0CCEFD);
 
             /* Looks great, now animating it */
             background-size: 25px 14px, 100% 100%, 100% 100%;
@@ -602,7 +602,7 @@ article {
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
 #navpanel .selected [href='#news']:before {
-    background: #0165a2;
+    background: #0CCEFD;
 }
 
 #navpanel [href='#overview']:before {
