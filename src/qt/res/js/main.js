@@ -375,29 +375,29 @@ function networkAlert(alert) {
 
 var unit = {
     type: 0,
-    name: "GAMEUNITS",
-    display: "GAMEUNITS",
+    name: "UNITS",
+    display: "UNITS",
     setType: function(type) {
         this.type = (type == undefined ? 0 : type);
 
         switch(type) {
             case 1:
-                this.name = "mGAMEUNITS",
-                this.display = "mGAMEUNITS";
+                this.name = "mUNITS",
+                this.display = "mUNITS";
                 break;
 
             case 2:
-                this.name = "uGAMEUNITS",
-                this.display = "&micro;GAMEUNITS";
+                this.name = "uUNITS",
+                this.display = "&micro;UNITS";
                 break;
 
             case 3:
-                this.name    = "sGAMEUNITS",
+                this.name    = "sUNITS",
                 this.display = "illumioshi";
                 break;
 
             default:
-                this.name = this.display = "GAMEUNITS";
+                this.name = this.display = "UNITS";
         }
 
         $("td.unit,span.unit,div.unit").html(this.display);
