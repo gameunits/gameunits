@@ -864,24 +864,23 @@ color: rgb(228, 26, 26);
 
 .top {
     right: 0;
-    left: 0;
-    background: #ffffff;
-	color:#fff;
-	background-image: url('qrc:///images/header');
+    left: 17%;
+    background: white;
+    min-height:31px;
+    line-height:1.5em;
 }
 
 #overview .top {
     right: 0;
-    left: 0;
-    background: #ffffff;
-	color:#fff;
-	background-image: url('qrc:///images/header');
+    left: 17%;
+    background: white;
+    height: 140px;
 }
 
 #overview .bottom {
     bottom: 0px;
     right: 0;
-    left: 0;
+    left: 17%;
 }
 
 .bottom {
