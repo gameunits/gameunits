@@ -6,7 +6,7 @@ Copyright (c) 2013-2014 ShadowCoin Developers<br>
 Copyright (c) 2015-2016 Moin Developers<br>
 Copyright (c) 2015-2016 Gameunits Developers<br>
 
-![Gameunits](http://gameunits.org/img/top/artwork.png)
+![Gameunits](http://i.imgur.com/Cokp8iC.png)
 
 #What is Gameunits?
 ----------------
