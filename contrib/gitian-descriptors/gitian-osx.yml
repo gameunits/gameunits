@@ -21,7 +21,7 @@ packages:
 - "genisoimage"
 reference_datetime: "2013-06-01 00:00:00"
 remotes:
-- "url": "https://github.com/KingCaper/GAMEUNITS.git"
+- "url": "https://github.com/GAMEUNITS/gameunits.git"
   "dir": "gameunits"
 files:
 - "qt-osx-5.5.0-gitian.tar.xz"
@@ -69,7 +69,7 @@ script: |
   #cd ..
   #
   #$DEPSDIR/qt/host/bin/qmake -spec unsupported/win32-g++-cross MINIUPNPC_LIB_PATH=$HOME/build/miniupnpc MINIUPNPC_INCLUDE_PATH=$HOME/build/ BDB_LIB_PATH=$HOME/build/db-4.8.30.NC/build_unix BDB_INCLUDE_PATH=$HOME/build/db-4.8.30.NC/build_unix BOOST_LIB_PATH=$HOME/build/lib BOOST_INCLUDE_PATH=$HOME/build/include BOOST_LIB_SUFFIX=-mt-s BOOST_THREAD_LIB_SUFFIX=_win32-mt-s OPENSSL_LIB_PATH=$HOME/build/openssl-1.0.1h OPENSSL_INCLUDE_PATH=$HOME/build/openssl-1.0.1h/include INCLUDEPATH=$HOME/build DEFINES=BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 QMAKE_LRELEASE=lrelease QMAKE_CXXFLAGS=-frandom-seed=bitcoin USE_BUILD_INFO=1
-  ~/install/host/bin/qmake -xplatform macx-clang-linux RELEASE=1 QMAKE_LRELEASE="~/install/host/bin/lrelease" MINIUPNPC_LIB_PATH="$DEPSDIR/lib" MINIUPNPC_INCLUDE_PATH="$DEPSDIR/include" BDB_LIB_PATH="$DEPSDIR/lib" BDB_INCLUDE_PATH="$DEPSDIR/include" BOOST_LIB_PATH="$DEPSDIR/lib" BOOST_INCLUDE_PATH="$DEPSDIR/include" BOOST_LIB_SUFFIX="-mt-s" BOOST_THREAD_LIB_SUFFIX="-mt-s" OPENSSL_LIB_PATH="$DEPSDIR/lib" OPENSSL_INCLUDE_PATH="$DEPSDIR/include" INCLUDEPATH="$DEPSDIR/include" DEFINES="BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 USE_BUILD_INFO=1" QMAKE_CXXFLAGS+=" -I/home/ubuntu/deps/SDK/MacOSX10.9.sdk/usr/include -DBOOST_HAS_INT128=1 -frandom-seed=bitcoin"
+  ~/install/host/bin/qmake -xplatform macx-clang-linux RELEASE=1 QMAKE_LRELEASE="~/install/host/bin/lrelease" MINIUPNPC_LIB_PATH="$DEPSDIR/lib" MINIUPNPC_INCLUDE_PATH="$DEPSDIR/include" BDB_LIB_PATH="$DEPSDIR/lib" BDB_INCLUDE_PATH="$DEPSDIR/include" BOOST_LIB_PATH="$DEPSDIR/lib" BOOST_INCLUDE_PATH="$DEPSDIR/include" BOOST_LIB_SUFFIX="-mt-s" BOOST_THREAD_LIB_SUFFIX="-mt-s" OPENSSL_LIB_PATH="$DEPSDIR/lib" OPENSSL_INCLUDE_PATH="$DEPSDIR/include" INCLUDEPATH="$DEPSDIR/include" DEFINES="BOOST_THREAD_USE_LIB BITCOIN_NEED_QT_PLUGINS=1 USE_BUILD_INFO=1" QMAKE_CXXFLAGS+=" -I/home/ubuntu/deps/SDK/MacOSX10.9.sdk/usr/include -DBOOST_HAS_INT128=1 -frandom-seed=gameunits"
   make $MAKEOPTS
   # macdeploy: TODO: .dmg
   export OTOOL=${HOST}-otool

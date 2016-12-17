@@ -17,6 +17,7 @@ typedef unsigned char MessageStartChars[MESSAGE_START_SIZE];
 
 class CAddress;
 class CBlock;
+class CBlockIndex;
 
 struct CDNSSeedData {
     std::string name, host;
@@ -47,22 +48,29 @@ public:
         PUBKEY_ADDRESS,
         SCRIPT_ADDRESS,
         SECRET_KEY,
+        STEALTH_ADDRESS,
         EXT_PUBLIC_KEY,
         EXT_SECRET_KEY,
+        EXT_KEY_HASH,
+        EXT_ACC_HASH,
+        EXT_PUBLIC_KEY_BTC,
+        EXT_SECRET_KEY_BTC,
 
         MAX_BASE58_TYPES
     };
-    
+
     const uint256& HashGenesisBlock() const { return hashGenesisBlock; }
     const MessageStartChars& MessageStart() const { return pchMessageStart; }
     const std::vector<unsigned char>& AlertKey() const { return vAlertPubKey; }
     int GetDefaultPort() const { return nDefaultPort; }
-    
+
     const bool IsProtocolV2(int nHeight) const { return nHeight > nFirstPosv2Block; }
+    const bool IsProtocolV3(int nHeight) const { return nHeight > nFirstPosv3Block; }
+
     const CBigNum& ProofOfWorkLimit() const { return bnProofOfWorkLimit; }
     const CBigNum& ProofOfStakeLimit(int nHeight) const { return IsProtocolV2(nHeight) ? bnProofOfStakeLimitV2 : bnProofOfStakeLimit; }
-    
-    
+
+
     virtual const CBlock& GenesisBlock() const = 0;
     virtual bool RequireRPCPassword() const { return true; }
     const std::string& DataDir() const { return strDataDir; }
@@ -70,23 +78,20 @@ public:
     const std::vector<CDNSSeedData>& DNSSeeds() const { return vSeeds; }
     const std::vector<unsigned char> &Base58Prefix(Base58Type type) const { return base58Prefixes[type]; }
     virtual const std::vector<CAddress>& FixedSeeds() const = 0;
-    
-    std::string NetworkIDString() const { return strNetworkID; }
-    
-    int RPCPort() const { return nRPCPort; }
-    
-    int FirstYearBlock() const { return nFirstYearBlock; }   
-    int SecondYearBlock() const { return nSecondYearBlock; }   
-    int ThirdYearBlock() const { return nThirdYearBlock; }   
-    int FourthYearBlock() const { return nFourthYearBlock; }   
 
- 
+    std::string NetworkIDString() const { return strNetworkID; }
+
+    int RPCPort() const { return nRPCPort; }
+
+    int BIP44ID() const { return nBIP44ID; }
+
+
     int LastPOWBlock() const { return nLastPOWBlock; }
     int FirstPosBlock() const { return nFirstPosBlock; }
-    
+
     int64_t GetProofOfWorkReward(int nHeight, int64_t nFees) const;
-    int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees) const;
-    
+    int64_t GetProofOfStakeReward(const CBlockIndex* pindexPrev, int64_t nCoinAge, int64_t nFees) const;
+
 protected:
     CChainParams() {};
 
@@ -97,21 +102,19 @@ protected:
     std::string strNetworkID;
     int nDefaultPort;
     int nRPCPort;
-    
+    int nBIP44ID;
+
     int nFirstPosv2Block;
+    int nFirstPosv3Block;
     CBigNum bnProofOfWorkLimit;
     CBigNum bnProofOfStakeLimit;
     CBigNum bnProofOfStakeLimitV2;
-    
+
     std::string strDataDir;
     std::vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
     int nLastPOWBlock;
     int nFirstPosBlock;
-    int nFirstYearBlock;
-    int nSecondYearBlock;
-    int nThirdYearBlock;
-    int nFourthYearBlock;
 };
 
 /**

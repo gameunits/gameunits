@@ -39,7 +39,7 @@ QString BitcoinUnits::name(int unit)
     case GAMEUNITS: return QString("GAMEUNITS");
     case mGAMEUNITS: return QString("mGAMEUNITS");
     case uGAMEUNITS: return QString::fromUtf8("μGAMEUNITS");
-    case sGAMEUNITS: return QString::fromUtf8("illumioshi");
+    case sGAMEUNITS: return QString::fromUtf8("Gameunitslet");
     default: return QString("???");
     }
 }
@@ -48,10 +48,10 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case GAMEUNITS:  return QString("Gameunits");
-    case mGAMEUNITS: return QString("Gameunits (1 / 1,000)");
-    case uGAMEUNITS: return QString("Micro-Gameunits (1 / 1,000,000)");
-    case sGAMEUNITS: return QString("illumioshi (1 / 100,000,000)");
+    case GAMEUNITS:  return QString("Gameunitss");
+    case mGAMEUNITS: return QString("Milli-Gameunitss (1 / 1,000)");
+    case uGAMEUNITS: return QString("Micro-Gameunitss (1 / 1,000,000)");
+    case sGAMEUNITS: return QString("Gameunitslet (1 / 100,000,000)");
     default:   return QString("???");
     }
 }

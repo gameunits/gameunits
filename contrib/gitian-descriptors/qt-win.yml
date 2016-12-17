@@ -28,8 +28,8 @@ files:
 script: |
   # Integrity Check
   echo "7ea2a16ecb8088e67db86b0835b887d5316121aeef9565d5d19be3d539a2c2af  qt-everywhere-opensource-src-5.5.0.tar.xz" | sha256sum -c
-  echo "306264166531eecbb35ec645c425b1b5538e8ce3035d7bf599db0b2cc76c730f  gameunits-deps-win32-gitian.tar.xz"           | sha256sum -c 
-  echo "1c7c36ca02624fc2e0f026a84853217e84a9f27f8542a5b18d13164ea48edea7  gameunits-deps-win64-gitian.tar.xz"           | sha256sum -c 
+  echo "47670b7901b6ac4f3fc2f0f0aee9c3982eafee83ef50fe7330add1b28479a620  gameunits-deps-win32-gitian.tar.xz"           | sha256sum -c 
+  echo "d0568acb2670ea52f164eb2af05c8f2951907680f86f1340d888504b7e8a297f  gameunits-deps-win64-gitian.tar.xz"           | sha256sum -c 
   echo "80f7c7188d7611e47e47d2a70c8ef65026c1cf71ddeb4ace9b1be5b8a76ffbd2  flex-2.5.38.tar.gz"                        | sha256sum -c
   # Defines
   export TZ=UTC
@@ -253,4 +253,4 @@ script: |
     unset LD_PRELOAD
     unset FAKETIME
     rm -rf $BUILDDIR
-    done # for BITS in
+  done # for BITS in

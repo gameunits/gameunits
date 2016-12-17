@@ -18,7 +18,8 @@ WalletModel::WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *p
     cachedBalance(0), cachedGameunitsXBal(0), cachedStake(0), cachedUnconfirmedBalance(0), cachedImmatureBalance(0),
     cachedNumTransactions(0),
     cachedEncryptionStatus(Unencrypted),
-    cachedNumBlocks(0)
+    cachedNumBlocks(0),
+    fForceCheckBalanceChanged(false)
 {
     addressTableModel = new AddressTableModel(wallet, this);
     transactionTableModel = new TransactionTableModel(wallet, this);
@@ -91,12 +92,22 @@ void WalletModel::pollBalanceChanged()
     if(!lockWallet)
         return;
 
-    if(nBestHeight != cachedNumBlocks)
+    if(fForceCheckBalanceChanged || nBestHeight != cachedNumBlocks)
     {
+        fForceCheckBalanceChanged = false;
+
+        int newNumTransactions = getNumTransactions();
+        if(cachedNumTransactions != newNumTransactions)
+        {
+            cachedNumTransactions = newNumTransactions;
+            emit numTransactionsChanged(newNumTransactions);
+        }
+
         // Balance and number of transactions might have changed
         cachedNumBlocks = nBestHeight;
 
         checkBalanceChanged();
+
         if(transactionTableModel)
             transactionTableModel->updateConfirmations();
     }
@@ -127,32 +138,30 @@ void WalletModel::checkBalanceChanged()
 
 void WalletModel::updateTransaction(const QString &hash, int status)
 {
-    if(transactionTableModel)
-        transactionTableModel->updateTransaction(hash, status);
-
     // Balance and number of transactions might have changed
-    checkBalanceChanged();
-
-    int newNumTransactions = getNumTransactions();
-    if(cachedNumTransactions != newNumTransactions)
-    {
-        cachedNumTransactions = newNumTransactions;
-        emit numTransactionsChanged(newNumTransactions);
-    }
+    fForceCheckBalanceChanged = true;
 }
 
-void WalletModel::updateAddressBook(const QString &address, const QString &label, bool isMine, int status)
+void WalletModel::updateAddressBook(const QString &address, const QString &label, bool isMine, int status, bool fManual)
 {
-    if(addressTableModel)
+    if (fManual)
+        fPassGuiAddresses = true;
+    if (addressTableModel)
         addressTableModel->updateEntry(address, label, isMine, status);
+    fPassGuiAddresses = false;
 }
 
 bool WalletModel::validateAddress(const QString &address)
 {
-    if (address.length() > 75)
-        return IsStealthAddress(address.toStdString());
+    std::string sAddr = address.toStdString();
 
-    CBitcoinAddress addressParsed(address.toStdString());
+    if (address.length() > 75 && IsBIP32(sAddr.c_str())) // < 75, don't bother checking plain addrs
+        return true;
+
+    if (address.length() > 75)
+        return IsStealthAddress(sAddr); // > 75, will never be a plain address, exit here
+
+    CBitcoinAddress addressParsed(sAddr);
     return addressParsed.IsValid();
 }
 
@@ -179,7 +188,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         total += rcp.amount;
     }
 
-    if(recipients.size() > setAddress.size())
+    if (recipients.size() > setAddress.size())
         foreach(QString rcpAddr, setAddress)
             if(!IsStealthAddress(rcpAddr.toStdString()))
                 return DuplicateAddress;
@@ -205,12 +214,13 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         CWalletTx wtx;
 
         // Sendmany
+        std::vector<std::pair<CExtKeyPair, uint32_t> > vecUpdate;
         std::vector<std::pair<CScript, int64_t> > vecSend;
         foreach(const SendCoinsRecipient &rcp, recipients)
         {
             std::string sAddr = rcp.address.toStdString();
 
-            if (rcp.typeInd == AddressTableModel::AT_Stealth)
+            if (rcp.typeInd == AT_Stealth)
             {
                 CStealthAddress sxAddr;
                 if (sxAddr.SetEncoded(sAddr))
@@ -296,14 +306,37 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
                         mapStealthNarr[pos] = sNarr;
                     };
 
-                    vecSend.push_back(make_pair(scriptP, 0));
-
+                    vecSend.push_back(std::make_pair(scriptP, 0));
                     continue;
                 }; // else drop through to normal
             }
 
+            // TODO: why the drop through for stealth?!
             CScript scriptPubKey;
-            scriptPubKey.SetDestination(CBitcoinAddress(sAddr).Get());
+
+            if (rcp.typeInd == AT_BIP32)
+            {
+                CBitcoinAddress address(sAddr);
+                CTxDestination dest = address.Get();
+                if (dest.type() != typeid(CExtKeyPair))
+                {
+                    LogPrintf("Error: Address is not an extended address.\n");
+                    return Aborted;
+                };
+
+                CExtKeyPair ek = boost::get<CExtKeyPair>(dest);
+                CExtKey58 ek58;
+                ek58.SetKeyP(ek);
+                uint32_t nChildKey;
+                if (0 != wallet->ExtKeyGetDestination(ek, scriptPubKey, nChildKey))
+                    return InvalidAddress;
+
+                vecUpdate.push_back(std::make_pair(ek, nChildKey));
+            } else
+            {
+                scriptPubKey.SetDestination(CBitcoinAddress(sAddr).Get());
+            };
+
             vecSend.push_back(make_pair(scriptPubKey, rcp.amount));
 
             if (rcp.narration.length() > 0)
@@ -329,11 +362,9 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
             }
         }
 
-
-        CReserveKey keyChange(wallet);
         int64_t nFeeRequired = 0;
         int nChangePos = -1;
-        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, nChangePos, coinControl);
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, nFeeRequired, nChangePos, coinControl);
 
         std::map<int, std::string>::iterator it;
         for (it = mapStealthNarr.begin(); it != mapStealthNarr.end(); ++it)
@@ -362,22 +393,31 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         if (!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
             return Aborted;
 
-        if (!wallet->CommitTransaction(wtx, keyChange))
+        if (!wallet->CommitTransaction(wtx))
             return TransactionCommitFailed;
 
         hex = QString::fromStdString(wtx.GetHash().GetHex());
-    }
+
+        // - Update sent to ext keys
+        for (uint32_t k = 0; k < vecUpdate.size(); ++k)
+        {
+            wallet->ExtKeyUpdateLooseKey(vecUpdate[k].first, vecUpdate[k].second, false); // mapAddressBook will be added after this
+        };
+    } // cs_main, wallet->cs_wallet
 
     // Add addresses / update labels that we've sent to to the address book
     foreach(const SendCoinsRecipient &rcp, recipients)
     {
+        if(rcp.label.isEmpty()) // Don't add addresses without labels...
+            continue;
+
         std::string strAddress = rcp.address.toStdString();
         std::string strLabel = rcp.label.toStdString();
 
         {
             LOCK(wallet->cs_wallet);
 
-            if (rcp.typeInd == AddressTableModel::AT_Stealth)
+            if (rcp.typeInd == AT_Stealth)
             {
                 wallet->UpdateStealthAddress(strAddress, strLabel, true);
             } else
@@ -387,12 +427,10 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
 
                 // Check if we have a new address or an updated label
                 if (mi == wallet->mapAddressBook.end() || mi->second != strLabel)
-                {
                     wallet->SetAddressBookName(dest, strLabel);
-                };
             };
-        }
-    }
+        } // wallet->cs_wallet
+    };
 
     return SendCoinsReturn(OK, 0, hex);
 }
@@ -416,7 +454,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
         return SendCoinsReturn(SCR_ErrorWithMsg, 0, QString::fromStdString("Block chain must be fully synced first."));
 
     if (vNodes.empty())
-        return SendCoinsReturn(SCR_ErrorWithMsg, 0, QString::fromStdString("Gameunits is not connected!"));
+        return SendCoinsReturn(SCR_ErrorWithMsg, 0, QString::fromStdString("GAMEUNITS is not connected!"));
 
 
     // -- verify input type and ringsize
@@ -469,10 +507,9 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
     } else
     {
         nBalance = wallet->GetGameunitsXBalance();
-        if ((nTotalOut + nTransactionFee) > nBalance)
-            return SendCoinsReturn(SCR_AmountWithFeeExceedsGameunitsXBalance, nTransactionFee);
+        if ((nTotalOut + MIN_TX_FEE_ANON) > nBalance)
+            return SendCoinsReturn(SCR_AmountWithFeeExceedsGameunitsXBalance, MIN_TX_FEE_ANON);
     };
-
 
     {
         LOCK2(cs_main, wallet->cs_wallet);
@@ -533,7 +570,6 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
         // -- add inputs
 
         int64_t nFeeRequired = 0;
-        CReserveKey keyChange(wallet);
 
         if (inputTypes == 0)
         {
@@ -544,7 +580,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
 
             int nChangePos = -1;
 
-            if (!wallet->CreateTransaction(vecSend, wtxNew, keyChange, nFeeRequired, nChangePos, coinControl))
+            if (!wallet->CreateTransaction(vecSend, wtxNew, nFeeRequired, nChangePos, coinControl))
             {
                 if ((nTotalOut + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
                     return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
@@ -572,12 +608,15 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
             // -- in gameunitsx
 
             std::string sError;
-            if (!wallet->AddAnonInputs(nTotalOut, nRingSize, vecSend, vecChange, wtxNew, nFeeRequired, false, sError))
+            if (!wallet->AddAnonInputs(RING_SIG_2, nTotalOut, nRingSize, vecSend, vecChange, wtxNew, nFeeRequired, false, sError))
             {
                 if ((nTotalOut + nFeeRequired) > nBalance) // FIXME: could cause collisions in the future
                     return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
 
                 LogPrintf("SendCoinsAnon() AddAnonInputs failed %s.\n", sError.c_str());
+                if (!Params().IsProtocolV3(nBestHeight))
+                    sError += "\nTry again after block 300000.";
+
                 return SendCoinsReturn(SCR_ErrorWithMsg, 0, QString::fromStdString(sError));
             };
 
@@ -602,7 +641,7 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
 
         //return SendCoinsReturn(SCR_ErrorWithMsg, 0, QString::fromStdString(std::string("Testing error")));
 
-        if (!wallet->CommitTransaction(wtxNew, keyChange))
+        if (!wallet->CommitTransaction(wtxNew))
         {
             LogPrintf("Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.\n");
             wallet->UndoAnonTransaction(wtxNew);
@@ -611,19 +650,22 @@ WalletModel::SendCoinsReturn WalletModel::sendCoinsAnon(const QList<SendCoinsRec
         };
 
         hex = QString::fromStdString(wtxNew.GetHash().GetHex());
-    }
+    } // LOCK2(cs_main, wallet->cs_wallet)
 
 
     // Add addresses / update labels that we've sent to to the address book
     foreach(const SendCoinsRecipient &rcp, recipients)
     {
+        if(rcp.label.isEmpty()) // Don't add addresses without labels...
+            continue;
+
         std::string strAddress = rcp.address.toStdString();
         std::string strLabel = rcp.label.toStdString();
 
         {
             LOCK(wallet->cs_wallet);
 
-            if (rcp.typeInd == AddressTableModel::AT_Stealth)
+            if (rcp.typeInd == AT_Stealth)
             {
                 wallet->UpdateStealthAddress(strAddress, strLabel, true);
             } else
@@ -725,7 +767,7 @@ static void NotifyKeyStoreStatusChanged(WalletModel *walletModel, CCryptoKeyStor
     QMetaObject::invokeMethod(walletModel, "updateStatus", Qt::QueuedConnection);
 }
 
-static void NotifyAddressBookChanged(WalletModel *walletModel, CWallet *wallet, const CTxDestination &address, const std::string &label, bool isMine, ChangeType status)
+static void NotifyAddressBookChanged(WalletModel *walletModel, CWallet *wallet, const CTxDestination &address, const std::string &label, bool isMine, ChangeType status, bool fManual)
 {
     if (address.type() == typeid(CStealthAddress))
     {
@@ -736,7 +778,8 @@ static void NotifyAddressBookChanged(WalletModel *walletModel, CWallet *wallet, 
                                   Q_ARG(QString, QString::fromStdString(enc)),
                                   Q_ARG(QString, QString::fromStdString(label)),
                                   Q_ARG(bool, isMine),
-                                  Q_ARG(int, status));
+                                  Q_ARG(int, status),
+                                  Q_ARG(bool, fManual));
     } else
     {
         LogPrintf("NotifyAddressBookChanged %s %s isMine=%i status=%i\n", CBitcoinAddress(address).ToString().c_str(), label.c_str(), isMine, status);
@@ -744,7 +787,8 @@ static void NotifyAddressBookChanged(WalletModel *walletModel, CWallet *wallet, 
                                   Q_ARG(QString, QString::fromStdString(CBitcoinAddress(address).ToString())),
                                   Q_ARG(QString, QString::fromStdString(label)),
                                   Q_ARG(bool, isMine),
-                                  Q_ARG(int, status));
+                                  Q_ARG(int, status),
+                                  Q_ARG(bool, fManual));
     }
 }
 
@@ -760,7 +804,7 @@ void WalletModel::subscribeToCoreSignals()
 {
     // Connect signals to wallet
     wallet->NotifyStatusChanged.connect(boost::bind(&NotifyKeyStoreStatusChanged, this, _1));
-    wallet->NotifyAddressBookChanged.connect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5));
+    wallet->NotifyAddressBookChanged.connect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5, _6));
     wallet->NotifyTransactionChanged.connect(boost::bind(NotifyTransactionChanged, this, _1, _2, _3));
 
     connect(this, SIGNAL(encryptionStatusChanged(int)), addressTableModel, SLOT(setEncryptionStatus(int)));
@@ -770,7 +814,7 @@ void WalletModel::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from wallet
     wallet->NotifyStatusChanged.disconnect(boost::bind(&NotifyKeyStoreStatusChanged, this, _1));
-    wallet->NotifyAddressBookChanged.disconnect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5));
+    wallet->NotifyAddressBookChanged.disconnect(boost::bind(NotifyAddressBookChanged, this, _1, _2, _3, _4, _5, _6));
     wallet->NotifyTransactionChanged.disconnect(boost::bind(NotifyTransactionChanged, this, _1, _2, _3));
 
     disconnect(this, SIGNAL(encryptionStatusChanged(int)), addressTableModel, SLOT(setEncryptionStatus(int)));

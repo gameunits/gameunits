@@ -582,7 +582,7 @@
 				createFingerData( 0, evt );
 				startTime = getTimeStamp();
 				
-				if(fingerCount==2) {
+				if(fingerCount===2) {
 					//Keep track of the initial pinch distance, so we can calculate the diff later
 					//Store second finger data as start
 					createFingerData( 1, event.touches[1] );
@@ -620,7 +620,7 @@
 			}
 
             return null;
-		};
+		}
 		
 		
 		
@@ -658,11 +658,11 @@
 			phase = PHASE_MOVE;
 
 			//If we have 2 fingers get Touches distance as well
-			if(fingerCount==2) {
+			if(fingerCount===2) {
 				
 				//Keep track of the initial pinch distance, so we can calculate the diff later
 				//We do this here as well as the start event, in case they start with 1 finger, and the press 2 fingers
-				if(startTouchesDistance==0) {
+				if(startTouchesDistance===0) {
 					//Create second finger if this is the first time...
 					createFingerData( 1, event.touches[1] );
 					
@@ -721,7 +721,7 @@
 						phase = getNextPhase( PHASE_END );
 					}
 						
-					if(phase==PHASE_CANCEL || phase==PHASE_END)	{
+					if(phase===PHASE_CANCEL || phase===PHASE_END)	{
 						triggerHandler(event, phase);
 					}				
 				}
@@ -775,7 +775,7 @@
 			if(didSwipeBackToCancel() || !validateSwipeDistance()) {
 			    phase = PHASE_CANCEL;
                 triggerHandler(event, phase);
-			} else if (options.triggerOnTouchEnd || (options.triggerOnTouchEnd == false && phase === PHASE_MOVE)) {
+			} else if (options.triggerOnTouchEnd || (options.triggerOnTouchEnd === false && phase === PHASE_MOVE)) {
 				//call this on jq event so we are cross browser 
 				jqEvent.preventDefault(); 
 				phase = PHASE_END;
@@ -874,11 +874,11 @@
 				nextPhase = PHASE_CANCEL;
 			}
 			//Else if we are moving, and have reached distance then end
-			else if (validDistance && currentPhase == PHASE_MOVE && (!options.triggerOnTouchEnd || options.triggerOnTouchLeave) ) {
+			else if (validDistance && currentPhase === PHASE_MOVE && (!options.triggerOnTouchEnd || options.triggerOnTouchLeave) ) {
 				nextPhase = PHASE_END;
 			} 
 			//Else if we have ended by leaving and didn't reach distance, then cancel
-			else if (!validDistance && currentPhase==PHASE_END && options.triggerOnTouchLeave) {
+			else if (!validDistance && currentPhase===PHASE_END && options.triggerOnTouchLeave) {
 				nextPhase = PHASE_CANCEL;
 			}
 			
@@ -938,7 +938,7 @@
 			if(phase === PHASE_END) {
 				//If we support touch, then check that all fingers are off before we cancel
 				if (SUPPORTS_TOUCH) {
-					if(event.touches.length==0) {
+					if(event.touches.length===0) {
 						touchCancel(event);	
 					}
 				} 
@@ -966,7 +966,7 @@
 			var ret=undefined;
 			
 			//SWIPES....
-			if(gesture==SWIPE) {
+			if(gesture===SWIPE) {
 				//Trigger status every time..
 				
 				//Trigger the event...
@@ -982,7 +982,7 @@
 				
 				
 				
-				if (phase == PHASE_END && validateSwipe()) {
+				if (phase === PHASE_END && validateSwipe()) {
 					//Fire the catch all event
 					$element.trigger('swipe', [direction, distance, duration, fingerCount, fingerData]);
 					
@@ -1040,7 +1040,7 @@
 			
 			
 			//PINCHES....
-			if(gesture==PINCH) {
+			if(gesture===PINCH) {
 				//Trigger the event
 			     $element.trigger('pinchStatus', [phase, pinchDirection || null, pinchDistance || 0, duration || 0, fingerCount, pinchZoom, fingerData]);
 					
@@ -1051,7 +1051,7 @@
 					if(ret===false) return false;
 				}
 				
-				if(phase==PHASE_END && validatePinch()) {
+				if(phase===PHASE_END && validatePinch()) {
 					
 					switch (pinchDirection) {
 						case IN:
@@ -1081,7 +1081,7 @@
 
                 
 	    		
-			if(gesture==TAP) {
+			if(gesture===TAP) {
 				if(phase === PHASE_CANCEL || phase === PHASE_END) {
 					
     			    
@@ -1124,7 +1124,7 @@
 	    		}
 			}
 			
-			else if (gesture==DOUBLE_TAP) {
+			else if (gesture===DOUBLE_TAP) {
 				if(phase === PHASE_CANCEL || phase === PHASE_END) {
 					//Cancel any pending singletap 
 				    clearTimeout(singleTapTimeout);
@@ -1140,7 +1140,7 @@
 	    		}
 			}
 			
-			else if (gesture==LONG_TAP) {
+			else if (gesture===LONG_TAP) {
 				if(phase === PHASE_CANCEL || phase === PHASE_END) {
 					//Cancel any pending singletap (shouldnt be one)
 				    clearTimeout(singleTapTimeout);
@@ -1250,25 +1250,25 @@
 
 				switch (direction) {
 					case LEFT:
-						if ((options.swipeLeft && auto) || (!auto && options.allowPageScroll != HORIZONTAL)) {
+						if ((options.swipeLeft && auto) || (!auto && options.allowPageScroll !== HORIZONTAL)) {
 							jqEvent.preventDefault();
 						}
 						break;
 
 					case RIGHT:
-						if ((options.swipeRight && auto) || (!auto && options.allowPageScroll != HORIZONTAL)) {
+						if ((options.swipeRight && auto) || (!auto && options.allowPageScroll !== HORIZONTAL)) {
 							jqEvent.preventDefault();
 						}
 						break;
 
 					case UP:
-						if ((options.swipeUp && auto) || (!auto && options.allowPageScroll != VERTICAL)) {
+						if ((options.swipeUp && auto) || (!auto && options.allowPageScroll !== VERTICAL)) {
 							jqEvent.preventDefault();
 						}
 						break;
 
 					case DOWN:
-						if ((options.swipeDown && auto) || (!auto && options.allowPageScroll != VERTICAL)) {
+						if ((options.swipeDown && auto) || (!auto && options.allowPageScroll !== VERTICAL)) {
 							jqEvent.preventDefault();
 						}
 						break;
@@ -1414,7 +1414,7 @@
 		 * @inner
 		*/
 		function validateDoubleTap() {
-		    if(doubleTapStartTime==null){
+		    if(doubleTapStartTime===null){
 		        return false;
 		    }
 		    var now = getTimeStamp();
@@ -1609,7 +1609,7 @@
 		*/
 		function getFingerData( id ) {
 			for(var i=0; i<fingerData.length; i++) {
-				if(fingerData[i].identifier == id) {
+				if(fingerData[i].identifier === id) {
 					return fingerData[i];	
 				}
 			}
@@ -1843,7 +1843,7 @@
 		 */
 		function isInBounds(point, bounds) {
 			return (point.x > bounds.left && point.x < bounds.right && point.y > bounds.top && point.y < bounds.bottom);
-		};
+		}
 	
 	
 	}

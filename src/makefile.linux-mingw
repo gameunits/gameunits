@@ -66,6 +66,7 @@ OBJS= \
     obj/crypter.o \
     obj/key.o \
     obj/eckey.o \
+    obj/extkey.o \
     obj/db.o \
     obj/init.o \
     obj/gameunitsd.o \
@@ -84,6 +85,8 @@ OBJS= \
     obj/rpcblockchain.o \
     obj/rpcrawtransaction.o \
     obj/rpcsmessage.o \
+    obj/rpcextkey.o \
+    obj/rpcmnemonic.o \
     obj/script.o \
     obj/sync.o \
     obj/util.o \

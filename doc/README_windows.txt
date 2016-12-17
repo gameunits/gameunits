@@ -1,6 +1,6 @@
 Gameunits
 
-Copyright (c) 2015 Gameunits Developers
+Copyright (c) 2015-2016 Gameunits Developers
 Copyright (c) 2014-2015 ShadowCoin Developers
 Copyright (c) 2014 BlackCoin Developers
 Copyright (c) 2013 NovaCoin Developers

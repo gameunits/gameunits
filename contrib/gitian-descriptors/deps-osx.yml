@@ -13,7 +13,7 @@ packages:
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
-- "openssl-1.0.2d.tar.gz"
+- "openssl-1.0.2h.tar.gz"
 - "db-4.8.30.NC.tar.gz"
 - "miniupnpc-1.9.20151008.tar.gz"
 - "zlib-1.2.8.tar.gz"
@@ -23,7 +23,7 @@ files:
 script: |
   #
   # Input Integrity Check
-  echo "671c36487785628a703374c652ad2cebea45fa920ae5681515df25d9f2c9a8c8  openssl-1.0.2d.tar.gz"         | sha256sum -c
+  echo "1d4007e53aad94a5b2002fe045ee7bb0b3d98f1a47f8b2bc851dcd1c74332919  openssl-1.0.2h.tar.gz"         | sha256sum -c
   echo "12edc0df75bf9abd7f82f821795bcee50f42cb2e5f76a6a281b85732798364ef  db-4.8.30.NC.tar.gz"           | sha256sum -c
   echo "e444ac3b587ce82709c4d0cfca1fe71f44f9fc433e9f946b12b9e1bfe667a633  miniupnpc-1.9.20151008.tar.gz" | sha256sum -c
   echo "36658cb768a54c1d4dec43c3116c27ed893e88b02ecfcb44f2166f9c0b7f2a0d  zlib-1.2.8.tar.gz"             | sha256sum -c
@@ -47,8 +47,8 @@ script: |
   PATH=$PATH:$DEPSDIR/bin
   #
   cd $BUILDDIR
-  tar xzf openssl-1.0.2d.tar.gz
-  cd openssl-1.0.2d
+  tar xzf openssl-1.0.2h.tar.gz
+  cd openssl-1.0.2h
   CC=cc ./Configure --cross-compile-prefix=$HOST- darwin64-x86_64-cc no-shared no-dso --openssldir=$INSTALLPREFIX
   make
   make install_sw

@@ -1,54 +1,7 @@
-#Gameunits integration/staging tree
-================================
-Copyright (c) 2009-2011 Bitcoin Developers<br>
-Copyright (c) 2011-2013 Litecoin Developers<br>
-Copyright (c) 2013-2014 ShadowCoin Developers<br>
-Copyright (c) 2015-2016 Moin Developers<br>
-Copyright (c) 2015-2016 Gameunits Developers<br>
 
-![Gameunits](http://i.imgur.com/Cokp8iC.png)
+Gameunits development tree
 
-#What is Gameunits?
-----------------
-A new and exciting Open Source Gaming currency that will revolutionize in-game purchases.
-
-Gameunits is a forked version of Bitcoin using scrypt as a proof-of-work & proof-of-stake algorithm.
- - 13 million total coins
- - 1 blocks to retarget difficulty
-
-# We :heart: Pull Requests!
-Seriously, we really do.  It doesn't matter whether you're fixing a typo or overhauling a major area of the code base.  You will be showered in :thumbsup: :thumbsup: :thumbsup:<br>
-
-#Compiling the Gameunits from source on Debian
------------------------------------------------------
-The process for compiling the Gameunits daemon, gameunits-qt & gameunitsd, from the source code is pretty simple. This guide is based on the latest stable version of Debian Linux, though it should not need many modifications for any distro forked from Debian, such as Ubuntu and Xubuntu.
-
-###Update and install dependencies for Gameunits-Qt
-
-```
-apt-get update && apt-get upgrade
-apt-get install qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools \
-    build-essential libboost-dev libboost-system-dev \
-    libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev \
-    libssl-dev libdb++-dev libminiupnpc-dev
-
-	Then execute the following:
-	
-qmake
-make
-```
-
-###Update and install dependencies for gameunitsd
-
-```
-apt-get update && apt-get upgrade
-sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev
-
-	Then execute the following:
-	
-cd src
-make -f makefile.unix
-```
+Gameunits is a PoS-based cryptocurrency.
 
 Development process
 ===========================
@@ -77,4 +30,3 @@ in this manner will have their corresponding issue labeled 'stagnant'.
 Issues with no commits will be given a similar warning, and closed after
 15 days from their last activity. Issues closed in this manner will be 
 labeled 'stale'.
-

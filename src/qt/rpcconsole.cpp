@@ -336,7 +336,7 @@ void RPCConsole::clear()
     ui->lineEdit->setFocus();
     
     
-    QColor colour(226, 29, 57);
+    QColor colour(12, 206, 253);
     
     // Add smoothly scaled icon images.
     // (when using width/height on an img, Qt uses nearest instead of linear interpolation)
@@ -353,9 +353,9 @@ void RPCConsole::clear()
                 "table { }"
                 "td.time { color: #808080; padding-top: 3px; } "
                 "td.message { font-family: Monospace; font-size: 12px; } "
-                "td.cmd-request { color: #006060; } "
-                "td.cmd-error { color: red; } "
-                "b { color: #006060; } "
+                "td.cmd-request { color: #05677F; } "
+                "td.cmd-error { color: #e53750; } "
+                "b { color: #05677F; } "
                 );
 
     message(CMD_REPLY, (tr("Welcome to the Gameunits RPC console.") + "<br>" +

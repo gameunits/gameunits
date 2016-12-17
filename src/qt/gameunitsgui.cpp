@@ -6,8 +6,6 @@
 #include "transactiontablemodel.h"
 #include "transactionrecord.h"
 
-#include "signverifymessagedialog.h"
-
 #include "aboutdialog.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
@@ -88,7 +86,7 @@ GameunitsGUI::GameunitsGUI(QWidget *parent):
     setCentralWidget(webView);
 
     resize(1280, 720);
-    setWindowTitle(tr("Gameunits") + " - " + tr("Client"));
+    setWindowTitle(tr("GAMEUNITS") + " - " + tr("Client"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/gameunits"));
     setWindowIcon(QIcon(":icons/gameunits"));
@@ -108,8 +106,6 @@ GameunitsGUI::GameunitsGUI(QWidget *parent):
 
     // Create the tray icon (or setup the dock icon)
     createTrayIcon();
-
-    signVerifyMessageDialog = new SignVerifyMessageDialog(this);
 
     rpcConsole = new RPCConsole(this);
 
@@ -182,14 +178,14 @@ void GameunitsGUI::createActions()
     quitAction->setToolTip(tr("Quit application"));
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
-    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About Gameunits"), this);
-    aboutAction->setToolTip(tr("Show information about Gameunits"));
+    aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About GAMEUNITS"), this);
+    aboutAction->setToolTip(tr("Show information about GAMEUNITS"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(QIcon(":/trolltech/qmessagebox/images/qtlogo-64.png"), tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for Gameunits"));
+    optionsAction->setToolTip(tr("Modify configuration options for GAMEUNITS"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(QIcon(":/icons/bitcoin"), tr("&Show / Hide"), this);
     encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
@@ -203,8 +199,6 @@ void GameunitsGUI::createActions()
     unlockWalletAction->setToolTip(tr("Unlock wallet"));
     lockWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Lock Wallet"), this);
     lockWalletAction->setToolTip(tr("Lock wallet"));
-    signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
 
     //exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     //exportAction->setToolTip(tr("Export the data in the current tab to a file"));
@@ -221,8 +215,6 @@ void GameunitsGUI::createActions()
     connect(changePassphraseAction, SIGNAL(triggered()), SLOT(changePassphrase()));
     connect(unlockWalletAction, SIGNAL(triggered()), SLOT(unlockWallet()));
     connect(lockWalletAction, SIGNAL(triggered()), SLOT(lockWallet()));
-    connect(signMessageAction, SIGNAL(triggered()), SLOT(gotoSignMessageTab()));
-    connect(verifyMessageAction, SIGNAL(triggered()), SLOT(gotoVerifyMessageTab()));
 }
 
 void GameunitsGUI::createMenuBar()
@@ -240,8 +232,6 @@ void GameunitsGUI::createMenuBar()
     QMenu *file = appMenuBar->addMenu(tr("&File"));
     file->addAction(backupWalletAction);
     //file->addAction(exportAction);
-    file->addAction(signMessageAction);
-    file->addAction(verifyMessageAction);
     file->addSeparator();
     file->addAction(quitAction);
 
@@ -272,7 +262,7 @@ void GameunitsGUI::setClientModel(ClientModel *clientModel)
             if (sMode.length() > 0)
                 sMode[0] = sMode[0].toUpper();
 
-            setWindowTitle(tr("Gameunits") + " - " + tr("Wallet") + ", " + sMode);
+            setWindowTitle(tr("GAMEUNITS") + " - " + tr("Wallet") + ", " + sMode);
         };
 
         // Replace some strings and icons, when using the testnet
@@ -314,8 +304,6 @@ void GameunitsGUI::setWalletModel(WalletModel *walletModel)
     {
         // Report errors from wallet thread
         connect(walletModel, SIGNAL(error(QString,QString,bool)), this, SLOT(error(QString,QString,bool)));
-
-        signVerifyMessageDialog->setModel(walletModel);
 
         documentFrame->addToJavaScriptWindowObject("walletModel",  walletModel);
         documentFrame->addToJavaScriptWindowObject("optionsModel", walletModel->getOptionsModel());
@@ -363,7 +351,7 @@ void GameunitsGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("Gameunits client"));
+    trayIcon->setToolTip(tr("GAMEUNITS client"));
     trayIcon->setIcon(QIcon(":/icons/gameunits"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
           this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -378,8 +366,6 @@ void GameunitsGUI::createTrayIcon()
     // Configuration of the tray icon (or dock icon) icon menu
     trayIconMenu->addAction(toggleHideAction);
     trayIconMenu->addSeparator();
-    trayIconMenu->addAction(signMessageAction);
-    trayIconMenu->addAction(verifyMessageAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(openRPCConsoleAction);
@@ -425,7 +411,7 @@ void GameunitsGUI::setNumConnections(int count)
     default:         icon = "qrc:///icons/connect_6"; break;
     }
     connectionsIcon.setAttribute("src", icon);
-    connectionsIcon.setAttribute("title", tr("%n active connection(s) to Gameunits network", "", count));
+    connectionsIcon.setAttribute("data-title", tr("%n active connection(s) to the GAMEUNITS network", "", count));
 }
 
 void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -435,7 +421,7 @@ void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
     QWebElement syncProgressBar = documentFrame->findFirstElement("#syncProgressBar");
 
     // don't show / hide progress bar and its label if we have no connection to the network
-    if (!clientModel || clientModel->getNumConnections() == 0)
+    if (!clientModel || (clientModel->getNumConnections() == 0 && !clientModel->isImporting()))
     {
         syncProgressBar.setAttribute("style", "display:none;");
 
@@ -474,7 +460,7 @@ void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
         if (strStatusBarWarnings.isEmpty())
         {
             bridge->networkAlert("");
-            tooltip = tr("Synchronizing with network...");
+            tooltip = tr(clientModel->isImporting() ? "Importing blocks..." : "Synchronizing with network...");
 
             if (nNodeMode == NT_FULL)
             {
@@ -492,11 +478,10 @@ void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
         }
 
         tooltip += (tooltip.isEmpty()? "" : "\n")
-                 + tr("Downloaded %1 of %2 %3 of transaction history (%4% done).").arg(count).arg(nTotalBlocks).arg(sBlockTypeMulti).arg(nPercentageDone, 0, 'f', 2);
-    }
-    else
+                 + tr(clientModel->isImporting() ? "Imported " : "Downloaded ") + tr("%1 of %2 %3 of transaction history (%4% done).").arg(count).arg(nTotalBlocks).arg(sBlockTypeMulti).arg(nPercentageDone, 0, 'f', 2);
+    } else
     {
-        tooltip = tr("Downloaded %1 blocks of transaction history.").arg(count);
+        tooltip = tr(clientModel->isImporting() ? "Imported " : "Downloaded ") + tr("%1 blocks of transaction history.").arg(count);
     }
 
     // Override progressBarLabel text when we have warnings to display
@@ -547,8 +532,7 @@ void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
             outOfSync.setStyleProperty("display", "none");
 
         syncProgressBar.setAttribute("style", "display:none;");
-    }
-    else
+    } else
     {
         tooltip = tr("Catching up...") + "\n" + tooltip;
 
@@ -569,9 +553,9 @@ void GameunitsGUI::setNumBlocks(int count, int nTotalBlocks)
         tooltip += tr("Last received %1 was generated %2.").arg(sBlockType).arg(text);
     };
 
-    blocksIcon     .setAttribute("title", tooltip);
-    syncingIcon    .setAttribute("title", tooltip);
-    syncProgressBar.setAttribute("title", tooltip);
+    blocksIcon.setAttribute("data-title", tooltip);
+    syncingIcon.setAttribute("data-title", tooltip);
+    syncProgressBar.setAttribute("data-title", tooltip);
     syncProgressBar.setAttribute("value", QString::number(count));
     syncProgressBar.setAttribute("max",   QString::number(nTotalBlocks));
 }
@@ -582,7 +566,8 @@ void GameunitsGUI::error(const QString &title, const QString &message, bool moda
     if(modal)
     {
         QMessageBox::critical(this, title, message, QMessageBox::Ok, QMessageBox::Ok);
-    } else {
+    } else
+    {
         notificator->notify(Notificator::Critical, title, message);
     }
 }
@@ -702,24 +687,6 @@ void GameunitsGUI::incomingMessage(const QModelIndex & parent, int start, int en
     };
 }
 
-void GameunitsGUI::gotoSignMessageTab(QString addr)
-{
-    // call show() in showTab_SM()
-    signVerifyMessageDialog->showTab_SM(true);
-
-    if(!addr.isEmpty())
-        signVerifyMessageDialog->setAddress_SM(addr);
-}
-
-void GameunitsGUI::gotoVerifyMessageTab(QString addr)
-{
-    // call show() in showTab_VM()
-    signVerifyMessageDialog->showTab_VM(true);
-
-    if(!addr.isEmpty())
-        signVerifyMessageDialog->setAddress_VM(addr);
-}
-
 void GameunitsGUI::optionsClicked()
 {
     bridge->triggerElement("#navitems a[href=#options]", "click");
@@ -806,7 +773,19 @@ void GameunitsGUI::setEncryptionStatus(int status)
         toggleLockIcon.removeClass("fa-unlock");
         toggleLockIcon.   addClass("fa-lock");
         encryptionIcon   .setAttribute("src", "qrc:///icons/lock_open");
-        encryptionIcon   .setAttribute("title", tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
+
+        if (fWalletUnlockStakingOnly)
+        {
+            encryptionIcon   .setAttribute("data-title", tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b> for staking only"));
+            encryptionIcon.removeClass("red");
+            encryptionIcon.addClass("orange");
+        } else
+        {
+            encryptionIcon   .setAttribute("data-title", tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
+            encryptionIcon.addClass("red");
+            encryptionIcon.removeClass("orange");
+        };
+
         encryptButton.addClass("none");
         changePassphrase.removeClass("none");
         toggleLock.removeClass("none");
@@ -822,7 +801,10 @@ void GameunitsGUI::setEncryptionStatus(int status)
         encryptionIcon.   addClass("fa-lock");
         toggleLockIcon.removeClass("fa-lock");
         toggleLockIcon.   addClass("fa-unlock");
-        encryptionIcon   .setAttribute("title", tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
+        encryptionIcon   .setAttribute("data-title", tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
+
+        encryptionIcon.addClass("red");
+        encryptionIcon.removeClass("orange");
         encryptButton.addClass("none");
         changePassphrase.removeClass("none");
         toggleLock.removeClass("none");
@@ -851,8 +833,10 @@ void GameunitsGUI::backupWallet()
 {
     QString saveDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
     QString filename = QFileDialog::getSaveFileName(this, tr("Backup Wallet"), saveDir, tr("Wallet Data (*.dat)"));
-    if(!filename.isEmpty()) {
-        if(!walletModel->backupWallet(filename)) {
+    if(!filename.isEmpty())
+    {
+        if(!walletModel->backupWallet(filename))
+        {
             QMessageBox::warning(this, tr("Backup Failed"), tr("There was an error trying to save the wallet data to the new location."));
         }
     }
@@ -954,7 +938,6 @@ void GameunitsGUI::updateWeight()
 
 void GameunitsGUI::updateStakingIcon()
 {
-
     QWebElement stakingIcon = documentFrame->findFirstElement("#stakingIcon");
     uint64_t nNetworkWeight = 0;
 
@@ -962,11 +945,6 @@ void GameunitsGUI::updateStakingIcon()
     {
         updateWeight();
         nNetworkWeight = GetPoSKernelPS();
-
-        // PoSV1
-        if(nNetworkWeight < COIN)
-            nWeight /= COIN;
-
     } else
         nWeight = 0;
 
@@ -986,26 +964,23 @@ void GameunitsGUI::updateStakingIcon()
         stakingIcon.   addClass("staking");
         //stakingIcon.   addClass("fa-spin"); // TODO: Replace with gif... too much cpu usage
 
-        // PoSV2
-        if(nNetworkWeight > COIN) {
-            nWeight /= COIN;
-            nNetworkWeight /= COIN;
-        }
+        nWeight        /= COIN,
+        nNetworkWeight /= COIN;
 
-        stakingIcon.setAttribute("title", tr("Staking.\nYour weight is %1\nNetwork weight is %2\nExpected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
+        stakingIcon.setAttribute("data-title", tr("Staking.\nYour weight is %1\nNetwork weight is %2\nExpected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
     } else
     {
         stakingIcon.   addClass("not-staking");
         stakingIcon.removeClass("staking");
         //stakingIcon.removeClass("fa-spin"); // TODO: See above TODO...
 
-        stakingIcon.setAttribute("title", (nNodeMode == NT_THIN)                   ? tr("Not staking because wallet is in thin mode") : \
-                                          (!GetBoolArg("-staking", true))          ? tr("Not staking, staking is disabled")  : \
-                                          (pwalletMain && pwalletMain->IsLocked()) ? tr("Not staking because wallet is locked")  : \
-                                          (vNodes.empty())                         ? tr("Not staking because wallet is offline") : \
-                                          (IsInitialBlockDownload())               ? tr("Not staking because wallet is syncing") : \
-                                          (!nWeight)                               ? tr("Not staking because you don't have mature coins") : \
-                                                                                     tr("Not staking"));
+        stakingIcon.setAttribute("data-title", (nNodeMode == NT_THIN)                   ? tr("Not staking because wallet is in thin mode") : \
+                                               (!GetBoolArg("-staking", true))          ? tr("Not staking, staking is disabled")  : \
+                                               (pwalletMain && pwalletMain->IsLocked()) ? tr("Not staking because wallet is locked")  : \
+                                               (vNodes.empty())                         ? tr("Not staking because wallet is offline") : \
+                                               (IsInitialBlockDownload())               ? tr("Not staking because wallet is syncing") : \
+                                               (!nWeight)                               ? tr("Not staking because you don't have mature coins") : \
+                                                                                          tr("Not staking"));
     }
 }
 

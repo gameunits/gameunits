@@ -12,7 +12,6 @@ packages:
 - "qt5-default"
 - "qttools5-dev-tools"
 - "git-core"
-- "unzip"
 - "pkg-config"
 - "libtool"
 - "automake"
@@ -20,15 +19,15 @@ packages:
 - "bsdmainutils"
 reference_datetime: "2015-05-25 00:00:00"
 remotes:
-- "url": "https://github.com/KingCaper/GAMEUNITS.git"
-  "dir": "gameunits"	
+- "url": "https://github.com/GAMEUNITS/gameunits.git"
+  "dir": "gameunits"
 files:
-- "gameunits-deps-linux32-gitian.zip"
-- "gameunits-deps-linux64-gitian.zip"
+- "gameunits-deps-linux32-gitian.tar.xz"
+- "gameunits-deps-linux64-gitian.tar.xz"
 script: |
   #Integrity check
-  echo "03319496b897507fe0c49a13bd96a09edb795ed0b54528459acd760d8c2c763a  gameunits-deps-linux32-gitian.zip" |sha256sum -c
-  echo "7710a73c4b965b59de099ab33c982e3c113b14faf21786f018ad01f01f7b84b3  gameunits-deps-linux64-gitian.zip" |sha256sum -c
+  echo "310f9d24d09a7e1a9fe8cd7622130b208c33949d382a626a1da7e8dcccc26004  gameunits-deps-linux32-gitian.tar.xz" |sha256sum -c
+  echo "eec21d0faec27ef125378008661213985b66089bd7d8e6265640782606afb4b2  gameunits-deps-linux64-gitian.tar.xz" |sha256sum -c
   STAGING="$HOME/install"
   OPTFLAGS='-O2'
   BINDIR="${OUTDIR}/bin/${GBUILD_BITS}" # 32/64 bit build specific output directory
@@ -45,8 +44,7 @@ script: |
   #
   mkdir -p $STAGING
   cd $STAGING
-  unzip ../build/gameunits-deps-linux${GBUILD_BITS}-gitian-r4.zip
-  unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
+  tar xf ../build/gameunits-deps-linux${GBUILD_BITS}-gitian.tar.xz
   cd ../build
   #
   cd gameunits 

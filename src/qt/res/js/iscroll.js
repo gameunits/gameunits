@@ -211,7 +211,7 @@ var utils = (function () {
                     e = 0.4;
 
                 if ( k === 0 ) { return 0; }
-                if ( k == 1 ) { return 1; }
+                if ( k === 1 ) { return 1; }
 
                 return ( e * Math.pow( 2, - 10 * k ) * Math.sin( ( k - f / 4 ) * ( 2 * Math.PI ) / f ) + 1 );
             }
@@ -246,7 +246,7 @@ var utils = (function () {
 })();
 
 function IScroll (el, options) {
-    this.wrapper = typeof el == 'string' ? document.querySelector(el) : el;
+    this.wrapper = typeof el === 'string' ? document.querySelector(el) : el;
     this.scroller = this.wrapper.children[0];
     this.scrollerStyle = this.scroller.style;		// cache style for better performance
 
@@ -292,14 +292,14 @@ function IScroll (el, options) {
     this.options.preventDefault = !this.options.eventPassthrough && this.options.preventDefault;
 
     // If you want eventPassthrough I have to lock one of the axes
-    this.options.scrollY = this.options.eventPassthrough == 'vertical' ? false : this.options.scrollY;
-    this.options.scrollX = this.options.eventPassthrough == 'horizontal' ? false : this.options.scrollX;
+    this.options.scrollY = this.options.eventPassthrough === 'vertical' ? false : this.options.scrollY;
+    this.options.scrollX = this.options.eventPassthrough === 'horizontal' ? false : this.options.scrollX;
 
     // With eventPassthrough we also need lockDirection mechanism
     this.options.freeScroll = this.options.freeScroll && !this.options.eventPassthrough;
     this.options.directionLockThreshold = this.options.eventPassthrough ? 0 : this.options.directionLockThreshold;
 
-    this.options.bounceEasing = typeof this.options.bounceEasing == 'string' ? utils.ease[this.options.bounceEasing] || utils.ease.circular : this.options.bounceEasing;
+    this.options.bounceEasing = typeof this.options.bounceEasing === 'string' ? utils.ease[this.options.bounceEasing] || utils.ease.circular : this.options.bounceEasing;
 
     this.options.resizePolling = this.options.resizePolling === undefined ? 60 : this.options.resizePolling;
 
@@ -307,7 +307,7 @@ function IScroll (el, options) {
         this.options.tap = 'tap';
     }
 
-    if ( this.options.shrinkScrollbars == 'scale' ) {
+    if ( this.options.shrinkScrollbars === 'scale' ) {
         this.options.useTransition = false;
     }
 
@@ -364,7 +364,7 @@ IScroll.prototype = {
     },
 
     _transitionEnd: function (e) {
-        if ( e.target != this.scroller || !this.isInTransition ) {
+        if ( e.target !== this.scroller || !this.isInTransition ) {
             return;
         }
 
@@ -377,7 +377,7 @@ IScroll.prototype = {
 
     _start: function (e) {
         // React to left mouse button only
-        if ( utils.eventType[e.type] != 1 ) {
+        if ( utils.eventType[e.type] !== 1 ) {
             if ( e.button !== 0 ) {
                 return;
             }
@@ -466,19 +466,19 @@ IScroll.prototype = {
             }
         }
 
-        if ( this.directionLocked == 'h' ) {
+        if ( this.directionLocked === 'h' ) {
             if ( this.options.eventPassthrough == 'vertical' ) {
                 e.preventDefault();
-            } else if ( this.options.eventPassthrough == 'horizontal' ) {
+            } else if ( this.options.eventPassthrough === 'horizontal' ) {
                 this.initiated = false;
                 return;
             }
 
             deltaY = 0;
-        } else if ( this.directionLocked == 'v' ) {
-            if ( this.options.eventPassthrough == 'horizontal' ) {
+        } else if ( this.directionLocked === 'v' ) {
+            if ( this.options.eventPassthrough === 'horizontal' ) {
                 e.preventDefault();
-            } else if ( this.options.eventPassthrough == 'vertical' ) {
+            } else if ( this.options.eventPassthrough === 'vertical' ) {
                 this.initiated = false;
                 return;
             }
@@ -602,7 +602,7 @@ IScroll.prototype = {
 
 // INSERT POINT: _end
 
-        if ( newX != this.x || newY != this.y ) {
+        if ( newX !== this.x || newY !== this.y ) {
             // change easing function when scroller goes out of the boundaries
             if ( newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY ) {
                 easing = utils.ease.quadratic;
@@ -643,7 +643,7 @@ IScroll.prototype = {
             y = this.maxScrollY;
         }
 
-        if ( x == this.x && y == this.y ) {
+        if ( x === this.x && y === this.y ) {
             return false;
         }
 
@@ -668,7 +668,7 @@ IScroll.prototype = {
 
 /* REPLACE START: refresh */
         var lastMessage = $(".message-text:last");
-        var newHeight = this.scroller.offsetHeight + (lastMessage.length == 1 ? lastMessage.height() + 40 : 0);
+        var newHeight = this.scroller.offsetHeight + (lastMessage.length === 1 ? lastMessage.height() + 40 : 0);
 
         this.scrollerWidth	= this.scroller.offsetWidth;
         this.scrollerHeight	= newHeight;
@@ -918,7 +918,7 @@ IScroll.prototype = {
 
     _initIndicators: function () {
         var interactive = this.options.interactiveScrollbars,
-            customStyle = typeof this.options.scrollbars != 'string',
+            customStyle = typeof this.options.scrollbars !== 'string',
             indicators = [],
             indicator;
 
@@ -1121,7 +1121,7 @@ IScroll.prototype = {
     _initSnap: function () {
         this.currentPage = {};
 
-        if ( typeof this.options.snap == 'string' ) {
+        if ( typeof this.options.snap === 'string' ) {
             this.options.snap = this.scroller.querySelectorAll(this.options.snap);
         }
 
@@ -1271,7 +1271,7 @@ IScroll.prototype = {
             }
         }
 
-        if ( i == this.currentPage.pageX ) {
+        if ( i === this.currentPage.pageX ) {
             i += this.directionX;
 
             if ( i < 0 ) {
@@ -1283,7 +1283,7 @@ IScroll.prototype = {
             x = this.pages[i][0].x;
         }
 
-        if ( m == this.currentPage.pageY ) {
+        if ( m === this.currentPage.pageY ) {
             m += this.directionY;
 
             if ( m < 0 ) {
@@ -1380,9 +1380,9 @@ IScroll.prototype = {
         var i;
 
         // if you give me characters I give you keycode
-        if ( typeof this.options.keyBindings == 'object' ) {
+        if ( typeof this.options.keyBindings === 'object' ) {
             for ( i in this.options.keyBindings ) {
-                if ( typeof this.options.keyBindings[i] == 'string' ) {
+                if ( typeof this.options.keyBindings[i] === 'string' ) {
                     this.options.keyBindings[i] = this.options.keyBindings[i].toUpperCase().charCodeAt(0);
                 }
             }
@@ -1587,7 +1587,7 @@ function createDefaultScrollbar (direction, interactive, type) {
 
     indicator.className = 'iScrollIndicator';
 
-    if ( direction == 'h' ) {
+    if ( direction === 'h' ) {
         if ( type === true ) {
             scrollbar.style.cssText += ';height:7px;left:2px;right:2px;bottom:0';
             indicator.style.height = '100%';
@@ -1613,7 +1613,7 @@ function createDefaultScrollbar (direction, interactive, type) {
 }
 
 function Indicator (scroller, options) {
-    this.wrapper = typeof options.el == 'string' ? document.querySelector(options.el) : options.el;
+    this.wrapper = typeof options.el === 'string' ? document.querySelector(options.el) : options.el;
     this.wrapperStyle = this.wrapper.style;
     this.indicator = this.wrapper.children[0];
     this.indicatorStyle = this.indicator.style;
@@ -1790,7 +1790,7 @@ Indicator.prototype = {
                         Math.min(Math.abs(this.scroller.y - snap.y), 1000)
                     ), 300);
 
-            if ( this.scroller.x != snap.x || this.scroller.y != snap.y ) {
+            if ( this.scroller.x !== snap.x || this.scroller.y !== snap.y ) {
                 this.scroller.directionX = 0;
                 this.scroller.directionY = 0;
                 this.scroller.currentPage = snap;
@@ -1864,7 +1864,7 @@ Indicator.prototype = {
 
             this.maxPosX = this.wrapperWidth - this.indicatorWidth;
 
-            if ( this.options.shrink == 'clip' ) {
+            if ( this.options.shrink === 'clip' ) {
                 this.minBoundaryX = -this.indicatorWidth + 8;
                 this.maxBoundaryX = this.wrapperWidth - 8;
             } else {
@@ -1886,7 +1886,7 @@ Indicator.prototype = {
 
             this.maxPosY = this.wrapperHeight - this.indicatorHeight;
 
-            if ( this.options.shrink == 'clip' ) {
+            if ( this.options.shrink === 'clip' ) {
                 this.minBoundaryY = -this.indicatorHeight + 8;
                 this.maxBoundaryY = this.wrapperHeight - 8;
             } else {
@@ -1907,39 +1907,39 @@ Indicator.prototype = {
 
         if ( !this.options.ignoreBoundaries ) {
             if ( x < this.minBoundaryX ) {
-                if ( this.options.shrink == 'scale' ) {
+                if ( this.options.shrink === 'scale' ) {
                     this.width = Math.max(this.indicatorWidth + x, 8);
                     this.indicatorStyle.width = this.width + 'px';
                 }
                 x = this.minBoundaryX;
             } else if ( x > this.maxBoundaryX ) {
-                if ( this.options.shrink == 'scale' ) {
+                if ( this.options.shrink === 'scale' ) {
                     this.width = Math.max(this.indicatorWidth - (x - this.maxPosX), 8);
                     this.indicatorStyle.width = this.width + 'px';
                     x = this.maxPosX + this.indicatorWidth - this.width;
                 } else {
                     x = this.maxBoundaryX;
                 }
-            } else if ( this.options.shrink == 'scale' && this.width != this.indicatorWidth ) {
+            } else if ( this.options.shrink === 'scale' && this.width !== this.indicatorWidth ) {
                 this.width = this.indicatorWidth;
                 this.indicatorStyle.width = this.width + 'px';
             }
 
             if ( y < this.minBoundaryY ) {
-                if ( this.options.shrink == 'scale' ) {
+                if ( this.options.shrink === 'scale' ) {
                     this.height = Math.max(this.indicatorHeight + y * 3, 8);
                     this.indicatorStyle.height = this.height + 'px';
                 }
                 y = this.minBoundaryY;
             } else if ( y > this.maxBoundaryY ) {
-                if ( this.options.shrink == 'scale' ) {
+                if ( this.options.shrink === 'scale' ) {
                     this.height = Math.max(this.indicatorHeight - (y - this.maxPosY) * 3, 8);
                     this.indicatorStyle.height = this.height + 'px';
                     y = this.maxPosY + this.indicatorHeight - this.height;
                 } else {
                     y = this.maxBoundaryY;
                 }
-            } else if ( this.options.shrink == 'scale' && this.height != this.indicatorHeight ) {
+            } else if ( this.options.shrink === 'scale' && this.height !== this.indicatorHeight ) {
                 this.height = this.indicatorHeight;
                 this.indicatorStyle.height = this.height + 'px';
             }
@@ -1999,7 +1999,7 @@ Indicator.prototype = {
 
 IScroll.utils = utils;
 
-if ( typeof module != 'undefined' && module.exports ) {
+if ( typeof module !== 'undefined' && module.exports ) {
     module.exports = IScroll;
 } else {
     window.IScroll = IScroll;
