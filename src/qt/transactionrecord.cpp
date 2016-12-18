@@ -169,7 +169,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 CTxDestination address;
 
                 sub.credit = txout.nValue;
-                if (ExtractDestination(txout.scriptPubKey, address) && IsDestMine(*wallet, address))
+                if (ExtractDestination(txout.scriptPubKey, address) && IsMine(*wallet, address))
                 {
                     // Received by Bitcoin Address
                     sub.type = TransactionRecord::RecvWithAddress;
@@ -223,7 +223,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                 if (!walletdb.ReadOwnedAnonOutput(vchImage, oao))
                 {
                     fAllFromMe = false;
-                    break; // display as send/recv gameunitsx
+                    break; // display as send/recv gameunits 
                 };
                 continue;
             };

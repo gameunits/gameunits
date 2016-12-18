@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "util.h"
+#include "hash.h"
 #include "init.h" // for pwalletMain
 #include "rpcserver.h"
 #include "ui_interface.h"
@@ -113,9 +115,9 @@ public:
 
 Value importprivkey(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() < 1 || params.size() > 4)
+    if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "importprivkey <gameunitsprivkey> [label] [rescan=true] [timestamp=1]\n"
+            "importprivkey <gameunitsprivkey> [label]\n"
             "Adds a private key (as returned by dumpprivkey) to your wallet.");
 
     string strSecret = params[0].get_str();
@@ -127,10 +129,6 @@ Value importprivkey(const Array& params, bool fHelp)
     bool fRescan = true;
     if (params.size() > 2)
         fRescan = params[2].get_bool();
-
-    int64_t nCreateTime = 1;
-    if (params.size() > 3)
-        nCreateTime = params[3].get_int64();
 
     CBitcoinSecret vchSecret;
     bool fGood = vchSecret.SetString(strSecret);
@@ -152,13 +150,13 @@ Value importprivkey(const Array& params, bool fHelp)
         if (pwalletMain->HaveKey(vchAddress))
             return Value::null;
 
-        pwalletMain->mapKeyMetadata[vchAddress].nCreateTime = nCreateTime;
+        pwalletMain->mapKeyMetadata[vchAddress].nCreateTime = 1;
 
         if (!pwalletMain->AddKeyPubKey(key, pubkey))
             throw JSONRPCError(RPC_WALLET_ERROR, "Error adding key to wallet");
 
         // whenever a key is imported, we need to scan the whole chain
-        pwalletMain->nTimeFirstKey = nCreateTime; // 0 would be considered 'no value'
+        pwalletMain->nTimeFirstKey = 1; // 0 would be considered 'no value'
 
         if (fRescan) {
             pwalletMain->ScanForWalletTransactions(pindexGenesisBlock, true);
@@ -257,37 +255,23 @@ Value dumpprivkey(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "dumpprivkey <gameunitsaddress/public_key_hex>\n"
+            "dumpprivkey <gameunitsaddress>\n"
             "Reveals the private key corresponding to <gameunitsaddress>.");
 
     EnsureWalletIsUnlocked();
 
+    string strAddress = params[0].get_str();
+    CBitcoinAddress address;
+    if (!address.SetString(strAddress))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Gameunits address");
     if (fWalletUnlockStakingOnly)
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Wallet is unlocked for staking only.");
-
-    string strAddress = params[0].get_str();
-
-    CBitcoinAddress address;
     CKeyID keyID;
-    bool fIsPubkey = false;
-    if (IsHex(strAddress) && strAddress.size() > 60) // pubkey input
-    {
-        CPubKey pk(ParseHex(strAddress));
-        if (!pk.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid public key");
-        keyID = pk.GetID();
-        fIsPubkey = true;
-    } else
-    {
-        if (!address.SetString(strAddress))
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Gameunits address");
-        if (!address.GetKeyID(keyID))
-            throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
-    };
-
+    if (!address.GetKeyID(keyID))
+        throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
     CKey vchSecret;
     if (!pwalletMain->GetKey(keyID, vchSecret))
-        throw JSONRPCError(RPC_WALLET_ERROR, std::string("Private key for ")+(fIsPubkey ? "public key " : "address ") + strAddress + " is not known");
+        throw JSONRPCError(RPC_WALLET_ERROR, "Private key for address " + strAddress + " is not known");
     return CBitcoinSecret(vchSecret).ToString();
 }
 

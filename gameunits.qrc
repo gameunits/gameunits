@@ -46,7 +46,6 @@
         <file alias="header">src/qt/res/images/header.png</file>
         <file alias="splash">src/qt/res/images/splash.png</file>
         <file alias="gameunits-vertical">src/qt/res/images/gameunits-vertical.png</file>
-        <file alias="gameunits">src/qt/res/images/gameunits.png</file>
         <file alias="default">src/qt/res/images/avatars/default.png</file>
     </qresource>
     <qresource prefix="/translations">
@@ -114,13 +113,10 @@
         <file alias="OpenSans-BoldItalic.ttf">src/qt/res/css/fonts/OpenSans-BoldItalic.ttf</file>
         <file alias="OpenSans-Italic.ttf">src/qt/res/css/fonts/OpenSans-Italic.ttf</file>
         <file alias="OpenSans-LightItalic.ttf">src/qt/res/css/fonts/OpenSans-LightItalic.ttf</file>
-        <file alias="chinese_s.otf">src/qt/res/css/fonts/chinese_s.otf</file>
-        <file alias="chinese_t.otf">src/qt/res/css/fonts/chinese_t.otf</file>
-        <file alias="japanese.otf">src/qt/res/css/fonts/japanese.otf</file>
     </qresource>
     <qresource prefix="/js">
-        <file alias="contextMenu.min.js">src/qt/res/js/contextMenu.min.js</file>
         <file alias="footable.js">src/qt/res/js/footable.js</file>
+        <file alias="contextMenu.min.js">src/qt/res/js/contextMenu.min.js</file>
         <file alias="footable.filter.js">src/qt/res/js/footable.filter.js</file>
         <file alias="footable.paginate.js">src/qt/res/js/footable.paginate.js</file>
         <file alias="footable.sort.js">src/qt/res/js/footable.sort.js</file>

@@ -8,7 +8,6 @@
 #include <deque>
 #include <boost/array.hpp>
 #include <boost/foreach.hpp>
-#include <boost/signals2/signal.hpp>
 #include <openssl/rand.h>
 
 #ifndef WIN32
@@ -54,7 +53,6 @@ void AddOneShot(std::string strDest);
 bool RecvLine(SOCKET hSocket, std::string& strLine);
 void AddressCurrentlyConnected(const CService& addr);
 CNode* FindNode(const CNetAddr& ip);
-CNode* FindNode(const std::string& addrName);
 CNode* FindNode(const CService& ip);
 CNode* ConnectNode(CAddress addrConnect, const char *strDest = NULL);
 void MapPort(bool fUseUPnP);
@@ -64,22 +62,14 @@ void StartNode(boost::thread_group& threadGroup);
 bool StopNode();
 void SocketSendData(CNode *pnode);
 
-// Signals for message handling
-struct CNodeSignals
-{
-    boost::signals2::signal<bool (CNode*)> ProcessMessages;
-    boost::signals2::signal<bool (CNode*, bool)> SendMessages;
-};
-
-CNodeSignals& GetNodeSignals();
-
-
 enum
 {
     LOCAL_NONE,   // unknown
     LOCAL_IF,     // address a local interface listens on
     LOCAL_BIND,   // address explicit bound to
     LOCAL_UPNP,   // address reported by UPnP
+    LOCAL_IRC,    // address reported by IRC (deprecated)
+    LOCAL_HTTP,   // address reported by whatismyip.com and similar
     LOCAL_MANUAL, // address explicitly specified (-externalip=)
 
     LOCAL_MAX
@@ -95,7 +85,7 @@ static const unsigned char REJECT_DUST = 0x41;
 static const unsigned char REJECT_INSUFFICIENTFEE = 0x42;
 static const unsigned char REJECT_CHECKPOINT = 0x43;
 
-bool IsPeerAddrLocalGood(CNode *pnode);
+
 void SetLimited(enum Network net, bool fLimited = true);
 bool IsLimited(enum Network net);
 bool IsLimited(const CNetAddr& addr);
@@ -104,8 +94,8 @@ bool AddLocal(const CNetAddr& addr, int nScore = LOCAL_NONE);
 bool SeenLocal(const CService& addr);
 bool IsLocal(const CService& addr);
 bool GetLocal(CService &addr, const CNetAddr *paddrPeer = NULL);
-bool IsReachable(const CNetAddr &addr);
 bool IsReachable(enum Network net);
+bool IsReachable(const CNetAddr &addr);
 void SetReachable(enum Network net, bool fFlag = true);
 CAddress GetLocalAddress(const CNetAddr *paddrPeer = NULL);
 
@@ -187,6 +177,8 @@ public:
     uint64_t nServices;
     int64_t nLastSend;
     int64_t nLastRecv;
+    uint64_t nSendBytes;
+    uint64_t nRecvBytes;
     int64_t nTimeConnected;
     int64_t nTimeOffset;
     std::string addrName;
@@ -196,9 +188,6 @@ public:
     bool fInbound;
     int nChainHeight;
     int nMisbehavior;
-    uint64_t nSendBytes;
-    uint64_t nRecvBytes;
-    bool fSyncNode;
     double dPingTime;
     double dPingWait;
     std::string addrLocal;
@@ -279,20 +268,21 @@ public:
     uint64_t nServices;
     SOCKET hSocket;
     CDataStream ssSend;
-    size_t nSendSize; // total size of all vSendMsg entries
-    size_t nSendOffset; // offset inside the first vSendMsg already sent
-    uint64_t nSendBytes;
+    size_t nSendSize;       // total size of all vSendMsg entries
+    size_t nSendOffset;     // offset inside the first vSendMsg already sent
     std::deque<CSerializeData> vSendMsg;
     CCriticalSection cs_vSend;
-
+    
     std::deque<CInv> vRecvGetData;
     std::deque<CNetMessage> vRecvMsg;
     CCriticalSection cs_vRecvMsg;
-    uint64_t nRecvBytes;
     int nRecvVersion;
 
     int64_t nLastSend;
     int64_t nLastRecv;
+    
+    uint64_t nSendBytes;
+    uint64_t nRecvBytes;
     
     int64_t nLastSendEmpty;
     int64_t nTimeConnected;
@@ -338,6 +328,7 @@ public:
     mruset<CAddress> setAddrKnown;
     bool fGetAddr;
     std::set<uint256> setKnown;
+    uint256 hashCheckpointKnown; // ppcoin: known sent sync-checkpoint
 
     // inventory based relay
     mruset<CInv> setInventoryKnown;
@@ -395,6 +386,7 @@ public:
         nChainHeight = -1;
         fGetAddr = false;
         nMisbehavior = 0;
+        hashCheckpointKnown = 0;
         setInventoryKnown.max_size(SendBufferSize() / 1000);
         pfilter = NULL;
         nPingNonceSent = 0;
@@ -422,17 +414,15 @@ public:
     }
 
 private:
+    CNode(const CNode&);
+    void operator=(const CNode&);
+    
     // Network usage totals
     static CCriticalSection cs_totalBytesRecv;
     static CCriticalSection cs_totalBytesSent;
     static uint64_t nTotalBytesRecv;
     static uint64_t nTotalBytesSent;
-
-    CNode(const CNode&);
-    void operator=(const CNode&);
-
 public:
-
 
     int GetRefCount()
     {
@@ -511,7 +501,8 @@ public:
         // the key is the earliest time the request can be sent
         
         int64_t& nRequestTime = mapAlreadyAskedFor[inv];
-        LogPrint("net", "askfor %s   %d (%s)\n", inv.ToString(), nRequestTime, DateTimeStrFormat("%H:%M:%S", nRequestTime/1000000));
+        if (fDebugNet)
+            LogPrintf("askfor %s   %d (%s)\n", inv.ToString().c_str(), nRequestTime, DateTimeStrFormat("%H:%M:%S", nRequestTime/1000000).c_str());
 
         // Make sure not to reuse time indexes to keep things in the same order
         int64_t nNow = (GetTime() - 1) * 1000000;
@@ -527,31 +518,30 @@ public:
 
 
 
-    // TODO: Document the postcondition of this function.  Is cs_vSend locked?
-    void BeginMessage(const char* pszCommand) EXCLUSIVE_LOCK_FUNCTION(cs_vSend)
+    void BeginMessage(const char* pszCommand)
     {
         ENTER_CRITICAL_SECTION(cs_vSend);
         assert(ssSend.size() == 0);
         ssSend << CMessageHeader(pszCommand, 0);
-        LogPrint("net", "sending: %s ", pszCommand);
+        if (fDebug)
+            LogPrintf("sending: %s ", pszCommand);
     }
 
-    // TODO: Document the precondition of this function.  Is cs_vSend locked?
-    void AbortMessage() UNLOCK_FUNCTION(cs_vSend)
+    void AbortMessage()
     {
         ssSend.clear();
 
         LEAVE_CRITICAL_SECTION(cs_vSend);
 
-        LogPrint("net", "(aborted)\n");
+        if (fDebug)
+            LogPrintf("(aborted)\n");
     }
 
-    // TODO: Document the precondition of this function.  Is cs_vSend locked?
-    void EndMessage() UNLOCK_FUNCTION(cs_vSend)
+    void EndMessage()
     {
         if (mapArgs.count("-dropmessagestest") && GetRand(atoi(mapArgs["-dropmessagestest"])) == 0)
         {
-            LogPrint("net", "dropmessages DROPPING SEND MESSAGE\n");
+            LogPrintf("dropmessages DROPPING SEND MESSAGE\n");
             AbortMessage();
             return;
         }
@@ -570,7 +560,10 @@ public:
         assert(ssSend.size () >= CMessageHeader::CHECKSUM_OFFSET + sizeof(nChecksum));
         memcpy((char*)&ssSend[CMessageHeader::CHECKSUM_OFFSET], &nChecksum, sizeof(nChecksum));
 
-        LogPrint("net", "(%d bytes)\n", nSize);
+        if (fDebug)
+        {
+            LogPrintf("(%d bytes)\n", nSize);
+        }
 
         std::deque<CSerializeData>::iterator it = vSendMsg.insert(vSendMsg.end(), CSerializeData());
         ssSend.GetAndClear(*it);
@@ -823,7 +816,7 @@ public:
     bool Misbehaving(int howmuch); // 1 == a little, 100 == a lot
     bool SoftBan();
     void copyStats(CNodeStats &stats);
-
+    
     // Network stats
     static void RecordBytesRecv(uint64_t bytes);
     static void RecordBytesSent(uint64_t bytes);

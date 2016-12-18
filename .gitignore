@@ -8,7 +8,6 @@ src/build.h
 *.bak
 *.rej
 *.orig
-*.out
 *.o
 *.P
 *.patch

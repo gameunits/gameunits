@@ -40,7 +40,7 @@ Verify(const CScript& scriptSig, const CScript& scriptPubKey, bool fStrict)
     txTo.vin[0].scriptSig = scriptSig;
     txTo.vout[0].nValue = 1;
 
-    return VerifyScript(scriptSig, scriptPubKey, txTo, 0, fStrict ? SCRIPT_VERIFY_STRICTENC | SCRIPT_VERIFY_P2SH: SCRIPT_VERIFY_NONE, 0);
+    return VerifyScript(scriptSig, scriptPubKey, txTo, 0, fStrict ? SCRIPT_VERIFY_STRICTENC : SCRIPT_VERIFY_NONE, 0);
 }
 
 
@@ -53,12 +53,11 @@ BOOST_AUTO_TEST_CASE(sign)
     // scriptPubKey: HASH160 <hash> EQUAL
 
     // Test SignSignature() (and therefore the version of Solver() that signs transactions)
-    CWallet keystore;
+    CBasicKeyStore keystore;
     CKey key[4];
     for (int i = 0; i < 4; i++)
     {
         key[i].MakeNewKey(true);
-        LOCK(keystore.cs_wallet);
         keystore.AddKey(key[i]);
     }
 
@@ -144,13 +143,12 @@ BOOST_AUTO_TEST_CASE(norecurse)
 BOOST_AUTO_TEST_CASE(set)
 {
     // Test the CScript::Set* methods
-    CWallet keystore;
+    CBasicKeyStore keystore;
     CKey key[4];
     std::vector<CPubKey> keys;
     for (int i = 0; i < 4; i++)
     {
         key[i].MakeNewKey(true);
-        LOCK(keystore.cs_wallet);
         keystore.AddKey(key[i]);
         keys.push_back(key[i].GetPubKey());
     }
@@ -239,7 +237,6 @@ BOOST_AUTO_TEST_CASE(switchover)
 
     // Validation should succeed under old rules (hash is correct):
     BOOST_CHECK(Verify(scriptSig, fund, false));
-    
     // Fail under new:
     BOOST_CHECK(!Verify(scriptSig, fund, true));
 }
@@ -247,13 +244,12 @@ BOOST_AUTO_TEST_CASE(switchover)
 BOOST_AUTO_TEST_CASE(AreInputsStandard)
 {
     std::map<uint256, std::pair<CTxIndex, CTransaction> > mapInputs;
-    CWallet keystore;
+    CBasicKeyStore keystore;
     CKey key[3];
     std::vector<CPubKey> keys;
     for (int i = 0; i < 4; i++)
     {
         key[i].MakeNewKey(true);
-        LOCK(keystore.cs_wallet);
         keystore.AddKey(key[i]);
         keys.push_back(key[i].GetPubKey());
     }

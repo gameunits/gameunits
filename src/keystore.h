@@ -10,7 +10,6 @@
 #include <boost/signals2/signal.hpp>
 
 class CScript;
-class CScriptID;
 
 /** A virtual base class for key stores */
 class CKeyStore

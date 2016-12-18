@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE GAMEUNITS Test Suite
+#define BOOST_TEST_MODULE Gameunits Test Suite
 #include <boost/test/unit_test.hpp>
 #include <boost/filesystem.hpp>
 
@@ -8,7 +8,7 @@
 #include "wallet.h"
 
 
-CWallet *pwalletMain;
+CWallet* pwalletMain;
 CClientUIInterface uiInterface;
 
 extern bool fPrintToConsole;
@@ -18,26 +18,16 @@ boost::filesystem::path pathTemp;
 
 struct TestingSetup {
     TestingSetup() {
-        //fPrintToDebugLog = false; // don't want to write to debug.log file
-        
-        //pathTemp = GetTempPath() / strprintf("test_gameunits_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
-        pathTemp = GetTempPath() / "test_gameunits";
-        //printf("pathTemp %s\n", pathTemp.string().c_str());
-        boost::filesystem::create_directories(pathTemp);
-        mapArgs["-datadir"] = pathTemp.string();
-        
-        fDebug = true;
-        fDebugSmsg = true;
-        fDebugChain = true;
-        fDebugRingSig = true;
-        fDebugPoS = true;
-        
+        fPrintToDebugLog = false; // don't want to write to debug.log file
         noui_connect();
         bitdb.MakeMock();
-        
+        pathTemp = GetTempPath() / strprintf("test_bitcoin_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
+        boost::filesystem::create_directories(pathTemp);
+        mapArgs["-datadir"] = pathTemp.string();
         LoadBlockIndex(true);
+        bool fFirstRun;
         pwalletMain = new CWallet("walletUT.dat");
-        pwalletMain->LoadWallet();
+        pwalletMain->LoadWallet(fFirstRun);
         RegisterWallet(pwalletMain);
     }
     ~TestingSetup()

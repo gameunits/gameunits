@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET =  gameunits 
-VERSION = 1.1.0.2
+VERSION = 1.0.0.1
 INCLUDEPATH += src src/json src/qt
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -133,7 +133,7 @@ contains(GAMEUNITS_NEED_QT_PLUGINS, 1) {
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
 SOURCES += src/txdb-leveldb.cpp \
-    src/qt/addresstablemodel.cpp
+  src/qt/addresstablemodel.cpp
 
 win32 {
     # make an educated guess about what the ranlib command is called
@@ -217,7 +217,6 @@ HEADERS += \
     src/miner.h \
     src/net.h \
     src/key.h \
-    src/extkey.h \
     src/eckey.h \
     src/db.h \
     src/txdb.h \
@@ -246,6 +245,7 @@ HEADERS += \
     src/qt/transactiontablemodel.h \
     src/qt/addresstablemodel.h \
     src/qt/coincontroldialog.h \
+	src/qt/signverifymessagedialog.h \
     src/qt/coincontroltreewidget.h \
     src/qt/aboutdialog.h \
     src/qt/editaddressdialog.h \
@@ -272,7 +272,8 @@ HEADERS += \
     src/qt/trafficgraphwidget.h \
     src/qt/messagemodel.h \
     src/qt/gameunitsgui.h \
-    src/qt/gameunitsbridge.h
+    src/qt/gameunitsbridge.h \
+    src/qt/addressbookpage.h
 
 SOURCES += \
     src/alert.cpp \
@@ -284,7 +285,6 @@ SOURCES += \
     src/hash.cpp \
     src/netbase.cpp \
     src/key.cpp \
-    src/extkey.cpp \
     src/eckey.cpp \
     src/script.cpp \
     src/main.cpp \
@@ -322,10 +322,9 @@ SOURCES += \
     src/rpcblockchain.cpp \
     src/rpcrawtransaction.cpp \
     src/rpcsmessage.cpp \
-    src/rpcextkey.cpp \
-    src/rpcmnemonic.cpp \
     src/qt/transactiontablemodel.cpp \
     src/qt/coincontroldialog.cpp \
+	src/qt/signverifymessagedialog.cpp \
     src/qt/coincontroltreewidget.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
@@ -353,16 +352,19 @@ SOURCES += \
     src/qt/messagemodel.cpp \
     src/qt/gameunitsgui.cpp \
     src/qt/gameunits.cpp \
-    src/qt/gameunitsbridge.cpp
+    src/qt/gameunitsbridge.cpp \
+    src/qt/addressbookpage.cpp
     
 
 FORMS += \
     src/qt/forms/coincontroldialog.ui \
+	src/qt/forms/signverifymessagedialog.ui \
     src/qt/forms/aboutdialog.ui \
     src/qt/forms/editaddressdialog.ui \
     src/qt/forms/transactiondescdialog.ui \
     src/qt/forms/askpassphrasedialog.ui \
-    src/qt/forms/rpcconsole.ui
+    src/qt/forms/rpcconsole.ui \
+    src/qt/forms/addressbookpage.ui
 
 
 CODECFORTR = UTF-8
@@ -420,14 +422,14 @@ isEmpty(BOOST_INCLUDE_PATH) {
 
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
+    # it is prepended to QMAKE_LIBS_QT_ENTRY.
+    # It can be turned off with MINGW_THREAD_BUGFIX=0, just in case it causes
+    # any problems on some untested qmake profile now or in the future.
 
 windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
     # thread-safety flag. GCC has -mthreads to enable this, but it doesn't
     # work with static linking. -lmingwthrd must come BEFORE -lmingw, so
-    # it is prepended to QMAKE_LIBS_QT_ENTRY.
-    # It can be turned off with MINGW_THREAD_BUGFIX=0, just in case it causes
-    # any problems on some untested qmake profile now or in the future.
     DEFINES += _MT BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
     QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
 }

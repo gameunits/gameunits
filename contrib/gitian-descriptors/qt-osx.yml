@@ -21,14 +21,14 @@ packages:
 reference_datetime: "2011-01-30 00:00:00"
 remotes: []
 files:
-- "qt-everywhere-opensource-src-5.5.1.tar.xz"
+- "qt-everywhere-opensource-src-5.5.0.tar.xz"
 - "gameunits-deps-osx-gitian.zip"
 - "flex-2.5.38.tar.gz"
 - "osxcross.tar.xz"
 script: |
   # Integrity Check
-  echo "6f028e63d4992be2b4a5526f2ef3bfa2fe28c5c757554b11d9e8d86189652518  qt-everywhere-opensource-src-5.5.1.tar.xz" | sha256sum -c
-  echo "16d68bae5336c0698817bb5a1a4bd9a6804263608fdf553ca63fd90b682ec366  shadow-deps-osx-gitian.zip"                | sha256sum -c
+  echo "7ea2a16ecb8088e67db86b0835b887d5316121aeef9565d5d19be3d539a2c2af  qt-everywhere-opensource-src-5.5.0.tar.xz" | sha256sum -c
+  echo "16d68bae5336c0698817bb5a1a4bd9a6804263608fdf553ca63fd90b682ec366  gameunits-deps-osx-gitian.zip"                | sha256sum -c
   echo "80f7c7188d7611e47e47d2a70c8ef65026c1cf71ddeb4ace9b1be5b8a76ffbd2  flex-2.5.38.tar.gz"                        | sha256sum -c
   #
   # Defines
@@ -71,9 +71,9 @@ script: |
   cd $DEPSDIR
   unzip -o $BUILDDIR/gameunits-deps-osx-gitian.zip
   tar xf $BUILDDIR/osxcross.tar.xz
-  tar xf qt-everywhere-opensource-src-5.5.1.tar.xz
+  tar xf qt-everywhere-opensource-src-5.5.0.tar.xz
   #
-  QTDIR=$BUILDDIR/qt-everywhere-opensource-src-5.5.1
+  QTDIR=$BUILDDIR/qt-everywhere-opensource-src-5.5.0
   cd $QTDIR
   SPECDIR="qtbase/mkspecs"
   SPECNAME="macx-clang-linux"
@@ -235,4 +235,4 @@ script: |
   export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME
   find -print0 | xargs -r0 touch # fix up timestamps before packaging
-  find | sort | tar --no-recursion -cJf $OUTDIR/qt-osx-5.5.1-gitian.tar.xz -T -
+  find | sort | tar --no-recursion -cJf $OUTDIR/qt-osx-5.5.0-gitian.tar.xz -T -
