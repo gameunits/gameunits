@@ -30,10 +30,11 @@ apt-get update && apt-get upgrade
 apt-get install qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools \
     build-essential libboost-dev libboost-system-dev \
     libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev \
-    libssl-dev libdb++-dev libminiupnpc-dev libqt5webkit5-dev
+    libssl-dev libdb++-dev libminiupnpc-dev libqt5webkit5-dev git
 
 	Then execute the following:
-	
+git clone https://github.com/gameunits/gameunits
+cd gameunits
 qmake
 make
 ```
@@ -42,11 +43,11 @@ make
 
 ```
 apt-get update && apt-get upgrade
-sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev
+sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev git
 
 	Then execute the following:
-	
-cd src
+git clone https://github.com/gameunits/gameunits
+cd gameunits/src
 make -f makefile.unix
 ```
 
