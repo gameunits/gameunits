@@ -4,7 +4,7 @@ Copyright (c) 2009-2011 Bitcoin Developers<br>
 Copyright (c) 2011-2013 Litecoin Developers<br>
 Copyright (c) 2013-2014 ShadowCoin Developers<br>
 Copyright (c) 2015-2016 Moin Developers<br>
-Copyright (c) 2015-2016 GameUnits Developers<br>
+Copyright (c) 2015-2017 GameUnits Developers<br>
 
 ![GameUnits](http://i.imgur.com/Cokp8iC.png)
 
