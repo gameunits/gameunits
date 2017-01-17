@@ -4,24 +4,24 @@ Copyright (c) 2009-2011 Bitcoin Developers<br>
 Copyright (c) 2011-2013 Litecoin Developers<br>
 Copyright (c) 2013-2014 ShadowCoin Developers<br>
 Copyright (c) 2015-2016 Moin Developers<br>
-Copyright (c) 2015-2016 Gameunits Developers<br>
+Copyright (c) 2015-2016 GameUnits Developers<br>
 
-![Gameunits](http://i.imgur.com/Cokp8iC.png)
+![GameUnits](http://i.imgur.com/Cokp8iC.png)
 
-#What is Gameunits?
+#What is GameUnits?
 ----------------
-A new and exciting Open Source Gaming currency that will revolutionize in-game purchases.
+A new and exciting open source gaming currency that will revolutionize in-game purchases.
 
-Gameunits is a forked version of Bitcoin using scrypt as a proof-of-work & proof-of-stake algorithm.
+GameUnits is a forked version of Bitcoin using scrypt as a proof-of-work & proof-of-stake algorithm.
  - 13 million total coins
  - 1 blocks to retarget difficulty
 
 # We :heart: Pull Requests!
 Seriously, we really do.  It doesn't matter whether you're fixing a typo or overhauling a major area of the code base.  You will be showered in :thumbsup: :thumbsup: :thumbsup:<br>
 
-#Compiling the Gameunits from source on Debian
+#Compiling the GameUnits daemon from source on Debian
 -----------------------------------------------------
-The process for compiling the Gameunits daemon, gameunits-qt & gameunitsd, from the source code is pretty simple. This guide is based on the latest stable version of Debian Linux, though it should not need many modifications for any distro forked from Debian, such as Ubuntu and Xubuntu.
+The process for compiling the GameUnits daemon, gameunits-qt & gameunitsd, from the source code is pretty simple. This guide is based on the latest stable version of Debian Linux, though it should not need many modifications for any distro forked from Debian, such as Ubuntu and Xubuntu.
 
 ###Update and install dependencies for Gameunits-Qt
 
