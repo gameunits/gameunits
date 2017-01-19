@@ -323,12 +323,12 @@ article {
 }
 
 .bottom {
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid #6441a4;
     border-width: 1px 0 0 0;
-    background: #ecf0f1;
+    background: rgba(236, 240, 241, 0);
     overflow:auto;
-    box-shadow:0 -1px 0 0 #dee2e2,
-               0 -2px 0 0 #f8f8f8;
+    box-shadow:0 -1px 0 0 #6441a4,
+               0 -2px 0 0 #6441a4;
 }
 
 #footer {
