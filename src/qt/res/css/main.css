@@ -602,7 +602,7 @@ article {
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
 #navpanel .selected [href='#news']:before {
-    background: #6441a4 ;
+    background: #fbfbfb ;
 }
 
 #navpanel [href='#overview']:before {
