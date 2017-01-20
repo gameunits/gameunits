@@ -256,7 +256,7 @@ article {
 #txnsearch input {
     width: 100%;
     padding: 10px 25px 10px 15px;
-    background: url('icons/search') no-repeat 100% 7px;
+    background: url('qrc:///icons/search') no-repeat 100% 7px;
     background-color: #ecf0f1;
     border: 1px #ecf0f1 solid;
     text-transform: uppercase;
