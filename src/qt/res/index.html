@@ -24,6 +24,8 @@
         <script src="qrc:///js/qrcode.min.js" type="text/javascript"></script>
         <script src="qrc:///js/jquery.leanModal.min.js" type="text/javascript"></script>
         <script src="qrc:///js/markdown.min.js" type="text/javascript"></script>
+		<link rel="alternate stylesheet" type="text/css" href="qrc:///css/youralternatestyle.css" title="alternate" />
+        <script type="text/javascript" src="qrc:///js/styleswitcher.js"></script>
 </head>
 <body>
 
@@ -39,6 +41,8 @@
             <span><a id="file"     href="#">File</a></span>
             <span><a id="settings" href="#">Settings</a></span>
             <span><a id="help"     href="#">Help</a></span>
+			<span><a id=""     href="#" onclick="setActiveStyleSheet('default'); return false;";>Twitch Theme</a></span>
+			<span><a id=""     href="#" onclick="setActiveStyleSheet('alternate'); return false;";>Black Theme</a></span>
         </div>
         <div style="text-align:left;">
             <a href="https://gameunits.org" target="_blank"><img src="qrc:///images/gameunits-vertical" width="100%"></a>
