@@ -96,6 +96,7 @@
         <file alias="footable.metro.css">src/qt/res/css/footable.metro.css</file>
         <file alias="normalize.css">src/qt/res/css/normalize.css</file>
         <file alias="font-awesome.min.css">src/qt/res/css/font-awesome.min.css</file>
+		<file alias="youralternatestyle.css">src/qt/res/css/youralternatestyle.css</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="footable.woff">src/qt/res/css/fonts/footable.woff</file>
@@ -129,5 +130,6 @@
         <file alias="qrcode.min.js">src/qt/res/js/qrcode.min.js</file>
         <file alias="jquery.leanModal.min.js">src/qt/res/js/jquery.leanModal.min.js</file>
         <file alias="markdown.min.js">src/qt/res/js/markdown.min.js</file>
+		<file alias="styleswitcher.js">src/qt/res/js/styleswitcher.js</file>
     </qresource>
 </RCC>
