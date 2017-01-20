@@ -2,39 +2,39 @@
 @font-face {
     font-family: "Open Sans";
     font-weight: 300;
-    src: url("fonts/OpenSans-Light.ttf");
+    src: url("qrc:///fonts/OpenSans-Light.ttf");
 }
 
 @font-face {
     font-family: "Open Sans";
     font-weight: 300;
-    src: url("fonts/OpenSans-LightItalic.ttf");
+    src: url("qrc:///fonts/OpenSans-LightItalic.ttf");
     font-style: italic
 }
 
 @font-face {
     font-family: "Open Sans";
     font-weight: 400;
-    src: url("fonts/OpenSans-Regular.ttf");
+    src: url("qrc:///fonts/OpenSans-Regular.ttf");
 }
 
 @font-face {
     font-family: "Open Sans";
     font-weight: 400;
-    src: url("fonts/OpenSans-Italic.ttf");
+    src: url("qrc:///fonts/OpenSans-Italic.ttf");
     font-style: italic
 }
 
 @font-face {
     font-family: "Open Sans";
     font-weight: 700;
-    src: url("fonts/OpenSans-Bold.ttf");
+    src: url("qrc:///fonts/OpenSans-Bold.ttf");
 }
 
 @font-face {
     font-family: "Open Sans";
     font-weight: 700;
-    src: url("fonts/OpenSans-BoldItalic.ttf");
+    src: url("qrc:///fonts/OpenSans-BoldItalic.ttf");
     font-style: italic;
 }
 
@@ -588,7 +588,7 @@ article {
     padding-left: 18px;
     top: 5px;
     background: #829091;
-    -webkit-mask-image: url('icons/nav_icons.png');
+    -webkit-mask-image: url('qrc:///icons/nav_icons');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position-x: -5px;
 }
