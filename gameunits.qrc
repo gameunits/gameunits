@@ -47,6 +47,7 @@
         <file alias="splash">src/qt/res/images/splash.png</file>
         <file alias="gameunits-vertical">src/qt/res/images/gameunits-vertical.png</file>
         <file alias="default">src/qt/res/images/avatars/default.png</file>
+		<file alias="default2">src/qt/res/images/avatars/default2.png</file>
     </qresource>
     <qresource prefix="/translations">
         <file alias="ar">src/qt/locale/bitcoin_ar.qm</file>

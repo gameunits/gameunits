@@ -38,6 +38,11 @@
     font-style: italic;
 }
 
+#myimage {
+  width: 50px;
+  height: 60px;
+  background: transparent url("qrc:///images/default") no-repeat;
+}
 
 /* Page specific */
 html,body { height: 100%; margin: 0px; padding: 0px; }
