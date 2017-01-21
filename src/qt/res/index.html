@@ -24,6 +24,8 @@
         <script src="qrc:///js/qrcode.min.js" type="text/javascript"></script>
         <script src="qrc:///js/jquery.leanModal.min.js" type="text/javascript"></script>
         <script src="qrc:///js/markdown.min.js" type="text/javascript"></script>
+		<link rel="alternate stylesheet" type="text/css" href="qrc:///css/youralternatestyle.css" title="alternate" />
+        <script type="text/javascript" src="qrc:///js/styleswitcher.js"></script>
 </head>
 <body>
 
@@ -39,6 +41,8 @@
             <span><a id="file"     href="#">File</a></span>
             <span><a id="settings" href="#">Settings</a></span>
             <span><a id="help"     href="#">Help</a></span>
+			<span><a id=""     href="#" onclick="setActiveStyleSheet('default'); return false;";>Twitch Theme</a></span>
+			<span><a id=""     href="#" onclick="setActiveStyleSheet('alternate'); return false;";>Black Theme</a></span>
         </div>
         <div style="text-align:left;">
             <a href="https://gameunits.org" target="_blank"><img src="qrc:///images/gameunits-vertical" width="100%"></a>
@@ -71,7 +75,7 @@
             </div>
             <div class="user-profile">
                 <span class="user-avatar">
-                    <img src="qrc:///images/default">
+				
                     <span style="display:none" class="user-notifications">
                         <span id="message-count">0</span>
                     </span>
@@ -386,7 +390,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6" style="background:#0CCEFD!important;">
+                                <td colspan="6" style="background:#fff!important;">
                                     <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
@@ -424,7 +428,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="3" style="background:#0CCEFD!important;">
+                                <td colspan="3" style="background:#fff!important;">
                                     <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
@@ -612,7 +616,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="5" style="background:#0CCEFD!important;">
+                                <td colspan="5" style="background:#fff!important;">
                                     <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
@@ -683,7 +687,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2" style="background:#0CCEFD!important;">
+                                        <td colspan="2" style="background:#fff!important;">
                                             <div class="pagination pagination-centered hide-if-no-paging"></div>
                                         </td>
                                     </tr>
@@ -702,7 +706,7 @@
                                   </tbody>
                                   <tfoot>
                                       <tr>
-                                          <td colspan="2" style="background:#0CCEFD!important;">
+                                          <td colspan="2" style="background:#fff!important;">
                                               <div class="pagination pagination-centered hide-if-no-paging"></div>
                                           </td>
                                       </tr>
@@ -813,7 +817,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4" style="background:#0CCEFD!important;">
+                                <td colspan="4" style="background:#fff!important;">
                                     <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
@@ -831,7 +835,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="2" style="background:#0CCEFD!important;">
+                                <td colspan="2" style="background:#fff!important;">
                                     <div class="pagination pagination-centered hide-if-no-paging"></div>
                                 </td>
                             </tr>
@@ -1057,7 +1061,7 @@
                 <i id="encryptionIcon"    style="padding-right:5px;" class="fa fa-lock fa-lg cursor-pointer red" onclick="bridge.userAction(['toggleLock']);" title="Wallet is encrypted and currently locked"></i>
                 <i id="stakingIcon"       style="padding-right:5px;" class="fa fa-check-circle-o fa-lg not-staking" title="Not staking because wallet is locked"></i>
                 <img id="connectionsIcon" style="cursor:default; padding-right:5px" src="qrc:///icons/connect_0"/ title="0 active connection(s) to Gameunits network" />
-                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing_small"/ title="Wallet is syncing" />
+                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing_small"/ title="Wallet is syncing" height="35" width="35"/>
                 <i id="blocksIcon" class="fa fa-check red none" title="Wallet is syncing"></i>
             </span>
         </div><!-- /footer -->

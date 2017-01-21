@@ -41,7 +41,7 @@
 #myimage {
   width: 50px;
   height: 60px;
-  background: transparent url("qrc:///images/default") no-repeat;
+  background: transparent url("qrc:///images/default2") no-repeat;
 }
 
 /* Page specific */
@@ -135,14 +135,14 @@ tbody tr.selected input {
 
 tbody tr.selected:hover,
 tbody tr.selected td:hover {
-    background: #fff!important;
+    background: #ECF0F1!important;
     color: #131218;
     font-weight:700;
 }
 
 .pagination.selected,
 .pagination:hover {
-    background:#6441a4 !important;
+    background:#0CCEFD!important;
 }
 
 /* Vertical Menu */
@@ -157,8 +157,8 @@ ul.vmenu li a {
     text-decoration: none;
     padding: 5px 0 15px 0;
     display: block;
-    color: #fbfbfb;
-    border: 1px solid #6441a4;
+    color: #829091;
+    border: 1px solid #15141a;
     padding-left: 20px;
     -webkit-transition: all 0.2s ease-in-out;
 }
@@ -168,15 +168,15 @@ ul.vmenu li {
 }
 
 ul.vmenu li.selected a {
-    background: #6441a4;
-    border: 1px solid #6441a4;
-    color: #FFFFFF;
+    background: #0f0f13;
+    border: 1px solid #101014;
+    color: #fff;
 }
 
 ul.vmenu li a:hover {
-    background: #ffffff;
+    background: #424242;
     border: 1px solid #1b1a20;
-    color: #000000;
+    color: #fff;
 }
 
 /* Horizontal Menu */
@@ -194,7 +194,7 @@ div.menu span {
 div.menu span a {
     display: block;
     text-decoration: none;
-    color: #fff;
+    color: #829091;
     text-transform: uppercase;
     font-size: 12px;
 }
@@ -218,7 +218,7 @@ Add transition to containers so they can push in and out.
 }
 
 #navpanel {
-    background: #6441a4;
+    background: #131218;
     margin-left: -135px;
     width: 17%;
     position: fixed;
@@ -233,7 +233,7 @@ Add transition to containers so they can push in and out.
 #header {
      margin: 0;
      text-align: center;
-     border-bottom: 2px solid #6441a4;
+     border-bottom: 2px solid #f4f4f4;
      border-width: 0 0 2px 0;
      height: 80px;
 }
@@ -261,9 +261,9 @@ article {
 #txnsearch input {
     width: 100%;
     padding: 10px 25px 10px 15px;
-    /*background: url('qrc:///icons/search') no-repeat 100% 7px;*/
-    background-color: #6441a4;
-    border: 1px #6441a4 solid;
+    background: url('qrc:///icons/search') no-repeat 100% 7px;
+    background-color: #ecf0f1;
+    border: 1px #ecf0f1 solid;
     text-transform: uppercase;
     font-size: 14px;
 }
@@ -328,12 +328,12 @@ article {
 }
 
 .bottom {
-    border-top: 1px solid #6441a4;
+    border-top: 1px solid #fff;
     border-width: 1px 0 0 0;
-    background: rgba(236, 240, 241, 0);
+    background: #fff;
     overflow:auto;
-    box-shadow:0 -1px 0 0 #6441a4,
-               0 -2px 0 0 #6441a4;
+    box-shadow:0 -1px 0 0 #dee2e2,
+               0 -2px 0 0 #f8f8f8;
 }
 
 #footer {
@@ -531,7 +531,7 @@ article {
 
 #clientinfo {
     width: 90%;
-    color: #fbfbfb;
+    color: #464547;
     font-size:0.6em;
     position:relative;
     bottom:10px;
@@ -564,7 +564,7 @@ article {
             background:
                     -webkit-linear-gradient(45deg, transparent, transparent 33%, rgba(0, 0, 0, 0.1) 33%, rgba(0, 0, 0, 0.1) 66%, transparent 66%),
                     -webkit-linear-gradient(top, rgba(255, 255, 255, 0.25), rgba(0, 0, 0, 0.2)),
-                    -webkit-linear-gradient(left, #6441a4 , #6441a4 );
+                    -webkit-linear-gradient(left, #0CCEFD, #0CCEFD);
 
             /* Looks great, now animating it */
             background-size: 25px 14px, 100% 100%, 100% 100%;
@@ -592,7 +592,7 @@ article {
     content: " ";
     padding-left: 18px;
     top: 5px;
-    background: #fff;
+    background: #829091;
     -webkit-mask-image: url('qrc:///icons/nav_icons');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position-x: -5px;
@@ -607,7 +607,7 @@ article {
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
 #navpanel .selected [href='#news']:before {
-    background: #fbfbfb ;
+    background: #0CCEFD;
 }
 
 #navpanel [href='#overview']:before {
@@ -789,14 +789,14 @@ small screens.
 }
 
 .footable.shadow {
-    border-color: #6441a4;
+    border-color: #0CCEFD;
 }
 .footable.shadow > tfoot > tr > th,
 .footable.shadow > thead > tr > th,
 .footable.shadow > tfoot > tr > td,
 .footable.shadow > thead > tr > td {
-    background-color: #6441a4;
-    border-color: #6441a4;
+    background-color: #0CCEFD;
+    border-color: #0CCEFD;
 }
 
 .footable > thead > tr > th,.footable > thead > tr > td {
@@ -911,7 +911,7 @@ color: rgb(228, 26, 26);
 }
 
 #overview .outofsync {
-    color: #6441a4;
+    color: rgb(2, 192, 236);
     font-weight:400;
 }
 
@@ -1053,12 +1053,12 @@ color: rgb(228, 26, 26);
 .transaction-overview span.date {
     font-size: 0.8em;
     font-weight:300;
-    color: #6441a4 ;
+    color: #0CCEFD;
     font-family: "Open Sans", sans-serif;
 }
 
 #overview .overview_date {
-    background:#6441a4 ;
+    background:#0CCEFD;
     margin-left:10px;
     padding-top:5px;
     padding-bottom:5px;
@@ -1357,7 +1357,7 @@ label.recipient {
 }
 
 .button.is-inverse {
-  background: #6441a4 ;
+  background: #0CCEFD;
 
   color: white;
 }
@@ -1593,18 +1593,18 @@ label.recipient {
 }
 
 #contact-list ul li .contact-options .favorite {
-    background-image: url(qrc:///icons/favorite);
+    background-image: url(icons/favorite);
     height: 16px;
     width: 16px;
     display: inline-block;
 }
 
 #contact-list ul li .contact-options .favorite.favorited {
-    background-image: url(qrc:///icons/favorited);
+    background-image: url(icons/favorited);
 }
 
 #contact-list ul li .contact-options .delete, .contact-discussion .delete {
-    background: url(qrc:///icons/delete) no-repeat;
+    background: url(icons/delete) no-repeat;
     height: 15px;
     width: 15px;
     display: inline-block;
@@ -1773,7 +1773,7 @@ label.recipient {
     text-align: center;
     display: block;
     color: #fff;
-    background: #6441a4 ;
+    background: #0CCEFD;
     -webkit-border-radius: 5;
     -moz-border-radius: 5;
     border-radius: 5px;
@@ -1871,7 +1871,7 @@ label.recipient {
 /* Icons styling */
 
 .staking {
-    color: rgb(100, 65, 164);
+    color: rgb(18, 121, 59);
 }
 .not-staking {
     opacity: 0.3;
@@ -1893,7 +1893,7 @@ label.recipient {
 }
 
 .red {
-    color: #6441a4 ;
+    color: #0CCEFD;
 }
 
 .orange {
@@ -2069,7 +2069,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
 
     .user-avatar .user-notifications span {
         display: initial;
-        background: #6441a4 ;
+        background: #0CCEFD;
         border-radius: 100%;
         font-size: 10px;
         padding-top: 1px;

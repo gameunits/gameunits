@@ -2,7 +2,7 @@
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
-  border: 1px solid #52b9e9;
+  border: 1px solid #6441a4 ;
   font-family: "Open Sans", sans-serif;
   color: #444444;
   -moz-border-radius: 0;
@@ -49,7 +49,7 @@
 .footable > thead > tr > th,
 .footable > thead > tr > td {
 
-  border: 1px solid #52b9e9;
+  border: 1px solid #6441a4 ;
   color: #ffffff;
   border-top: none;
   border-left: none;
@@ -61,7 +61,7 @@
 }
 .footable > tfoot > tr > th,
 .footable > tfoot > tr > td {
-  border: 1px solid #52b9e9;
+  border: 1px solid #6441a4 ;
   color: #ffffff;
   border-top: none;
   border-left: none;
