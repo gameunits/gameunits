@@ -130,7 +130,7 @@ tbody tr.selected input {
 
 tbody tr.selected:hover,
 tbody tr.selected td:hover {
-    background: #ECF0F1!important;
+    background: #fff!important;
     color: #131218;
     font-weight:700;
 }
@@ -1486,7 +1486,7 @@ label.recipient {
     display: block;
     width: 100%;
     padding: 10px;
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid #fff;
     text-decoration:none;
     color: black;
     background-color: #fff;
@@ -1507,7 +1507,7 @@ label.recipient {
     display: block;
     padding: 20px 20px;
     height: 40px;
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid #fff;
     background-color: #fff;
     -webkit-transition: all 0.15s ease;
     transition: all 0.15s ease;
@@ -1515,7 +1515,7 @@ label.recipient {
 }
 
 #contact-list ul li.selected {
-    background-color: #ecf0f1;
+    background-color: #fff;
 }
 
 #contact-list ul li:hover {
@@ -2006,7 +2006,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
         right: 0;
         left: 15%;
         background: white;
-        border-top: 1px solid #ecf0f1;
+        border-top: 1px solid #fff;
     }*/
 
     .contracted {
@@ -2078,7 +2078,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
         width: 100%;
         padding: 10px 25px 10px 15px;
         background: url('../images/search_icon.png') no-repeat 100% 7px;
-        background-color: #ecf0f1;
+        background-color: #fff;
         border: 1px #e5e5e5 solid;
         text-transform: uppercase;
         font-size: 14px;
@@ -2260,7 +2260,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     width: 80%;
     font-size:0.8em;
     color: #F51E3E;
-    background: #ecf0f1;
+    background: #fff;
     box-shadow: -1px -1px 0 0 #dee2e2, -1px 1px 0 0 #dee2e2, -2px -2px 0 0 #f8f8f8, -2px 2px 0 0 #f8f8f8;
 }
 
@@ -2271,7 +2271,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
 .warning {
     font-size:0.8em;
     color: #F51E3E;
-    background: #ecf0f1;
+    background: #fff;
 }
 
 /*
