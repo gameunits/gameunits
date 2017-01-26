@@ -584,6 +584,7 @@ article {
 #navpanel [href='#messages']:before,
 #navpanel [href='#chaindata']:before,
 #navpanel [href='#blockdata']:before,
+#navpanel [href='#exchange']:before,
 #navpanel [href='#news']:before {
     height: 20px;
     width: 20px;
@@ -606,6 +607,7 @@ article {
 #navpanel .selected [href='#messages']:before,
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
+#navpanel .selected [href='#exchange']:before,
 #navpanel .selected [href='#news']:before {
     background: #0CCEFD;
 }
@@ -640,6 +642,10 @@ article {
 
 #navpanel [href='#blockdata']:before {
     -webkit-mask-position-y: -319px;
+}
+
+#navpanel [href='#blockdata']:before {
+    -webkit-mask-position-y: -364px;
 }
 
 #navpanel [href='#news']:before {
