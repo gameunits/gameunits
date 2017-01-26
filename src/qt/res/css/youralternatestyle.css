@@ -644,7 +644,7 @@ article {
     -webkit-mask-position-y: -319px;
 }
 
-#navpanel [href='#blockdata']:before {
+#navpanel [href='#exchange']:before {
     -webkit-mask-position-y: -364px;
 }
 
