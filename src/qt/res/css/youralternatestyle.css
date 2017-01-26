@@ -581,7 +581,7 @@ article {
 #navpanel [href='#receive']:before,
 #navpanel [href='#transactions']:before,
 #navpanel [href='#addressbook']:before,
-#navpanel [href='#messages']:before,
+#navpanel [href='#market']:before,
 #navpanel [href='#chaindata']:before,
 #navpanel [href='#blockdata']:before,
 #navpanel [href='#exchange']:before,
@@ -604,7 +604,7 @@ article {
 #navpanel .selected [href='#receive']:before,
 #navpanel .selected [href='#transactions']:before,
 #navpanel .selected [href='#addressbook']:before,
-#navpanel .selected [href='#messages']:before,
+#navpanel .selected [href='#market']:before,
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
 #navpanel .selected [href='#exchange']:before,
@@ -632,7 +632,7 @@ article {
     -webkit-mask-position-y: -185px;
 }
 
-#navpanel [href='#messages']:before {
+#navpanel [href='#market']:before {
     -webkit-mask-position-y: -231px;
 }
 
