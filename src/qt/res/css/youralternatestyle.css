@@ -644,10 +644,6 @@ article {
     -webkit-mask-position-y: -319px;
 }
 
-#navpanel [href='#exchange']:before {
-    -webkit-mask-position-y: -364px;
-}
-
 #navpanel [href='#news']:before {
     -webkit-mask-position-y: -364px;
 }
