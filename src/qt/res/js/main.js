@@ -28,6 +28,24 @@ function showQRCode(address, label) {
     qrcode.makeCode(data);
 }
 
+$.get( "https://api.coinmarketcap.com/v1/ticker/gameunits/", function( data ) {
+            console.log(data[0]['price_usd'].substring(0, 4));
+			$('#price').text(data[0]['price_usd'].substring(0, 4));
+			$('#rank').text(data[0]['rank']);
+			$('#price_btc').text(data[0]['price_btc']);
+			$('#percent_change_7d').text(data[0]['percent_change_7d']);
+			//$('#market_cap_usd').append(data[0]['market_cap_usd']);
+			//console.log(data[0]['market_cap_usd']);
+			
+			if (data[0]['24h_volume_usd'] == 0) {
+				$('#24h_volume_usd').text(data[0]['price_btc']);
+				} else {
+				$('#24h_volume_usd').text('0');
+			}
+			
+});
+
+
 var breakpoint = 906, // 56.625em
     footer = $("#footer");
 
@@ -552,7 +570,7 @@ var overviewPage = {
 
         // Announcement feed
         $.ajax({
-            url:"http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=http://blog.discovergameunits.com/rss/atom",
+            url:"http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&q=https://jobs.heise.de/rss.xml",
             dataType: 'jsonp'
         }).success(function(rss) {
             rss.responseData.feed.entries = rss.responseData.feed.entries.sort(function(a,b){
@@ -705,6 +723,11 @@ var overviewPage = {
 
             $("#total-big > span:first-child").text(val[0]);
             $("#total-big .cents").text(val[1]);
+			
+			//$.get( "https://api.coinmarketcap.com/v1/ticker/gameunits/", function( data ) {
+            //console.log(data[0]['price_usd'].substring(0, 4));
+			//$('#value_usd').append('100');			
+            //});
         }
 
         if(field == "stake" && value != undefined && !isNaN(value))
