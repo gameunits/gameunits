@@ -45,6 +45,25 @@ $.get( "https://api.coinmarketcap.com/v1/ticker/gameunits/", function( data ) {
 			
 });
 
+setInterval(function(){
+$.get( "https://api.coinmarketcap.com/v1/ticker/gameunits/", function( data ) {
+            console.log(data[0]['price_usd'].substring(0, 4));
+			$('#price').text(data[0]['price_usd'].substring(0, 4));
+			$('#rank').text(data[0]['rank']);
+			$('#price_btc').text(data[0]['price_btc']);
+			$('#percent_change_7d').text(data[0]['percent_change_7d']);
+			//$('#market_cap_usd').append(data[0]['market_cap_usd']);
+			//console.log(data[0]['market_cap_usd']);
+			
+			if (data[0]['24h_volume_usd'] == 0) {
+				$('#24h_volume_usd').text(data[0]['price_btc']);
+				} else {
+				$('#24h_volume_usd').text('0');
+			}
+			
+});
+}, 300000);
+
 
 var breakpoint = 906, // 56.625em
     footer = $("#footer");
@@ -968,7 +987,7 @@ function addRecipient() {
         +  '<div id="recipient[count]" class="recipient"> \
             <div class="flex-right"> \
                 <label for="pay_to[count]" class="recipient">Pay To:</label> \
-                <input id="pay_to[count]" class="pay_to input_box" title="The address to send the payment to  (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" placeholder="Enter an Gameunits address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" maxlength="128" oninput="base58.check(this);" onchange="$(\'#label[count]\').val(bridge.getAddressLabel(this.value));"/> \
+                <input id="pay_to[count]" class="pay_to input_box" title="The address to send the payment to  (e.g. UErWinSdTwrppUwwNUo1GFHYTibzJi1337)" placeholder="Enter an Gameunits address (e.g. UErWinSdTwrppUwwNUo1GFHYTibzJi1337)" maxlength="128" oninput="base58.check(this);" onchange="$(\'#label[count]\').val(bridge.getAddressLabel(this.value));"/> \
                 <a class="button is-inverse has-fixed-icon" title="Choose address from address book" style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook(\'#pay_to[count]\', \'#label[count]\', true)"><i class="fa fa-book"></i></a> \
                 <a class="button is-inverse has-fixed-icon" title="Paste address from clipboard" style="margin-right:10px; height:43px; width:43px;" onclick="paste(\'#pay_to[count]\')"><i class="fa fa-files-o"></i></a> \
                 <a class="button is-inverse has-fixed-icon" title="Remove this recipient" style="height:43px; width:43px;" onclick="if($(\'div.recipient\').length == 1) clearRecipients(); else {var recipient=$(\'#recipient[count]\');if(recipient.next(\'hr\').remove().length==0)recipient.prev(\'hr\').remove();$(\'#recipient[count]\').remove();resizeFooter();}"><i class="fa fa-times"></i></a> \

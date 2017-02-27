@@ -224,7 +224,7 @@
         <article id="send" style="display:none;">
             <div id="sendoptions" class="content top">
 
-                <h2>Send Options</h2>
+                <h2>Send Gameunits</h2>
 
                 <div id="coincontrol">
 
@@ -275,7 +275,7 @@
 
                         <label>Custom change address: </label>
                         <div class="flex-left">
-                            <input id="change_address" title="Optional address to receive transaction change" placeholder="Enter an GAMEUNITS address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" maxlength="128" oninput="base58.check(this);" />
+                            <input id="change_address" title="Optional address to receive transaction change" placeholder="Enter an GAMEUNITS address (e.g. UErWinSdTwrppUwwNUo1GFHYTibzJi1337)" maxlength="128" oninput="base58.check(this);" />
                             <a class="button is-inverse has-fixed-icon"  style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook('#change_address', '', false)"><i class="fa fa-book"></i></a>
                             <a class="button is-inverse has-fixed-icon"  style="margin-right:10px; height:43px; width:43px;" onclick="paste('#change_address')"><i class="fa fa-files-o"></i></a>
                             <a class="button is-inverse has-fixed-icon"  style="height:43px; width:43px;" onclick="$('#change_address').val('').css('background', '').css('color', '');"><i class="fa fa-times"></i></a>
@@ -283,20 +283,20 @@
                         <br/>
                         <br/>
 
-                         <a class="button is-inverse has-icon-spacing" id="disable_coincontrol" href="javascript:toggleCoinControl(false);">Disable Coin Control <i class="fa fa-times"></i></a>
+                         <!--<a class="button is-inverse has-icon-spacing" id="disable_coincontrol" href="javascript:toggleCoinControl(false);">Disable Coin Control <i class="fa fa-times"></i></a> -->
                     </div>
 
-                    <div id="coincontrol_disabled" style="display:none;">
+                    <!--<div id="coincontrol_disabled" style="display:none;">
                         <a class="button is-inverse has-icon-spacing"  id="enable_coincontrol" href="javascript:toggleCoinControl(true);">Enable Coin Control <i class="fa fa-check"></i></a>
-                    </div>
+                    </div> -->
                 </div><!-- #coincontrol -->
 
-                <select id="txn_type" class="txn_type button is-inverse has-fixed-icon"  style="width:180px;" onchange="changeTxnType();">
-                    <option value="0" title="GAMEUNITS to GAMEUNITS" selected>SEND GAMEUNITS</option>
-                   <!--  <option value="1" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option>
+                <select id="txn_type" class="txn_type button is-inverse has-fixed-icon"  style="width:180px; background:transparent; border:none; outline:none; visibility: hidden; font-size:0;" onchange="changeTxnType();">
+                    <option value="0" title="GAMEUNITS to GAMEUNITS" selected>SEND GAMEUNITS</option> 
+                    <!--<option value="1" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option>
                     <option value="2" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option>
                     <option value="3" title="GAMEUNITS to GAMEUNITS">GAMEUNITS to GAMEUNITS</option> -->
-                </select> 
+                </select>
 
                 <span id="tx_ringsize">
                     <label for="ring_size" class="ring_size" style="margin-left:10px;margin-top:0;">Ring Size:</label>
@@ -480,7 +480,7 @@
             <a class="modal_close" href="#close"><i class="fa fa-times-circle red"></i></a>
             <div style="white-space:nowrap;">
                 <label for="new-contact-address" class="recipient">Address: </label>
-                <input id="new-contact-address"  class="recipient input_box" style="width: 300px;" title="The address to send the payment to  (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" placeholder="Enter an Gameunits address (e.g. PzjjetSdTwrppUwwNUo1GFHYTibzJi77jM)" onchange="if(base58.check(this)) $('#new-contact-pubkey').val(bridge.getPubKey(this.value, $('#new-contact-name').val()));" maxlength="128" oninput="base58.check(this);"/>
+                <input id="new-contact-address"  class="recipient input_box" style="width: 300px;" title="The address to send the payment to  (e.g. UErWinSdTwrppUwwNUo1GFHYTibzJi1337)" placeholder="Enter an Gameunits address (e.g. UErWinSdTwrppUwwNUo1GFHYTibzJi1337)" onchange="if(base58.check(this)) $('#new-contact-pubkey').val(bridge.getPubKey(this.value, $('#new-contact-name').val()));" maxlength="128" oninput="base58.check(this);"/>
                 <a class="button is-inverse has-fixed-icon" title="Choose address from address book" style="margin-right:10px; margin-left:10px; height:43px; width:43px;" onclick="openAddressBook('#new-contact-address', '#new-contact-name', true)"><i class="fa fa-book"></i></a>
                 <a class="button is-inverse has-fixed-icon" title="Paste address from clipboard"     style="margin-right:10px; height:43px; width:43px;" onclick="paste('#new-contact-address')"><i class="fa fa-files-o"></i></a>
                 <a class="button is-inverse has-fixed-icon" title="Remove this recipient"            style="height:43px; width:43px;" onclick="$('#new-contact-address').val('').css('background', '').css('color', '');"><i class="fa fa-times"></i></a>

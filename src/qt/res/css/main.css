@@ -321,7 +321,7 @@ html,body { height: 100%; margin: 0px; padding: 0px; }
 
 body {
     font-family: "Open Sans", sans-serif;
-    color: white;
+    color: rgba(141, 138, 138);
     line-height: 0.9em;
 background: #0b1521; /* Old browsers */
 background: -moz-radial-gradient(center, ellipse cover, #0b1521 0%, #002944 51%, #0b1521 100%); /* FF3.6-15 */
@@ -1659,7 +1659,6 @@ label.recipient {
 }
 
 .button.is-inverse {
-  background: #777;
   opacity: 0.9;
 
   color: white;
@@ -2329,7 +2328,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     #navpanel {
         left: 135px;
         border: 2px solid rgb(0, 255, 255);
-        border-width: 0 1px 0 0;
+        border-width: 0 3px 0 0;
         background-image: linear-gradient(to top, rgba(10, 14, 24 ,1) 100%, rgba(8, 25, 40, 1) 100%);
     }
 
@@ -2633,11 +2632,11 @@ input[type=checkbox] + label {
 }
 
 input[type=checkbox]:checked {
-    border: 2px solid #F51E3E;
+    border: 2px solid rgb(0, 255, 255);
 }
 
 input[type=checkbox]:checked + label {
-    color: #F51E3E;
+    color: rgb(0, 255, 255);
 }
 
 input[disabled] {
