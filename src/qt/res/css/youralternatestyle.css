@@ -1,4 +1,4 @@
-/* qrc:///fonts. */
+/* Fonts. */
 @font-face {
     font-family: "Open Sans";
     font-weight: 300;
@@ -581,10 +581,9 @@ article {
 #navpanel [href='#receive']:before,
 #navpanel [href='#transactions']:before,
 #navpanel [href='#addressbook']:before,
-#navpanel [href='#market']:before,
+#navpanel [href='#messages']:before,
 #navpanel [href='#chaindata']:before,
 #navpanel [href='#blockdata']:before,
-#navpanel [href='#exchange']:before,
 #navpanel [href='#news']:before {
     height: 20px;
     width: 20px;
@@ -604,10 +603,9 @@ article {
 #navpanel .selected [href='#receive']:before,
 #navpanel .selected [href='#transactions']:before,
 #navpanel .selected [href='#addressbook']:before,
-#navpanel .selected [href='#market']:before,
+#navpanel .selected [href='#messages']:before,
 #navpanel .selected [href='#chaindata']:before,
 #navpanel .selected [href='#blockdata']:before,
-#navpanel .selected [href='#exchange']:before,
 #navpanel .selected [href='#news']:before {
     background: #0CCEFD;
 }
@@ -632,7 +630,7 @@ article {
     -webkit-mask-position-y: -185px;
 }
 
-#navpanel [href='#market']:before {
+#navpanel [href='#messages']:before {
     -webkit-mask-position-y: -231px;
 }
 
@@ -1595,18 +1593,18 @@ label.recipient {
 }
 
 #contact-list ul li .contact-options .favorite {
-    background-image: url(qrc:///icons/favorite);
+    background-image: url(icons/favorite);
     height: 16px;
     width: 16px;
     display: inline-block;
 }
 
 #contact-list ul li .contact-options .favorite.favorited {
-    background-image: url(qrc:///icons/favorited);
+    background-image: url(icons/favorited);
 }
 
 #contact-list ul li .contact-options .delete, .contact-discussion .delete {
-    background: url(qrc:///icons/delete) no-repeat;
+    background: url(icons/delete) no-repeat;
     height: 15px;
     width: 15px;
     display: inline-block;
@@ -2084,7 +2082,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     /*#txnsearch {
         width: 100%;
         padding: 10px 25px 10px 15px;
-        background: url('qrc:///images/search_icon') no-repeat 100% 7px;
+        background: url('../images/search_icon.png') no-repeat 100% 7px;
         background-color: #fff;
         border: 1px #e5e5e5 solid;
         text-transform: uppercase;
