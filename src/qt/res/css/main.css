@@ -402,11 +402,9 @@ td {
 
 tbody tr.selected {
     font-weight:700;
-    color: #131218;
 }
 
 tbody tr.selected input {
-    background:#FBFBFB;
     width:90%;
     margin-top:15px;
 }
