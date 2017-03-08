@@ -617,11 +617,9 @@ article {
 }
 
 #footer {
-    background: rgba(32, 59, 86, 1);
     clear: both;
     text-align:right;
     vertical-align: bottom;
-    display: none;
 }
 
 #footer-icons {
@@ -636,7 +634,6 @@ article {
     background: inherit;
     padding: 10px;
     cursor: pointer;
-    box-shadow: -1px -1px 0 0 #dee2e2, -1px 1px 0 0 #dee2e2, -2px -2px 0 0 #f8f8f8, -2px 2px 0 0 #f8f8f8;
     z-index: 10000;
 }
 
@@ -2179,7 +2176,7 @@ label.recipient {
 /* Icons styling */
 
 .staking {
-    color: rgb(100, 65, 164);
+    color: rgb(0, 255, 255);
 }
 .not-staking {
     opacity: 0.3;
@@ -2201,7 +2198,7 @@ label.recipient {
 }
 
 .red {
-    color: rgba(11, 16, 26, 0.8) ;
+    color: rgba(0, 255, 255, 0.8) ;
 }
 
 .orange {

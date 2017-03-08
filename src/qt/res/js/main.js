@@ -814,7 +814,7 @@ var overviewPage = {
 
             set = $('#recenttxns a');
 
-            while(set.length > 7)
+            while(set.length > 6)
             {
                 $("#recenttxns a:last").remove();
 
