@@ -584,8 +584,9 @@ article {
 .user-info .user-name {
     text-transform: uppercase;
     font-family: "Open Sans", sans-serif;
-    font-size: 14px;
+    font-size: 17px;
     float: left;
+	color: rgb(0, 255, 255);
 }
 
 .user-info .user-menu {
