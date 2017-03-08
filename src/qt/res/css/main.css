@@ -1488,6 +1488,7 @@ label.recipient {
 #transactions .footable > tbody > tr > td:first-child + td + td + td + td + td {
     text-align: right;
     width: 100px;
+	color: #FFFFFF !important;
 }
 
 /****************************
