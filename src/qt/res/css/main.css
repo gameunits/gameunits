@@ -411,8 +411,6 @@ tbody tr.selected input {
 
 tbody tr.selected:hover,
 tbody tr.selected td:hover {
-    background: #fff!important;
-    color: #131218;
     font-weight:700;
 }
 
