@@ -1153,6 +1153,7 @@ color: rgb(228, 26, 26);
     padding-top:30px;
     vertical-align: middle;
     padding-left:20px;
+	color: white;
 }
 
 /* BALANCE */
@@ -2325,7 +2326,7 @@ Hides the menu at `56.625em`, but modify this based on your app's needs.
     #navpanel {
         left: 135px;
         border: 2px solid rgb(0, 255, 255);
-        border-width: 0 3px 0 0;
+        border-width: 0 4px 0 0;
         background-image: linear-gradient(to top, rgba(10, 14, 24 ,1) 100%, rgba(8, 25, 40, 1) 100%);
     }
 
