@@ -80,19 +80,7 @@
         <div id="navinfo">
             <a id="clientinfo" href="#about">Gameunits <span id="version"></span></a>
             <progress id="syncProgressBar" max=100 value=1 title="Catching up...
-                 <div id="footer">
-            <span id="footer-icons">
-                <i id="encryptionIcon"    style="padding-right:5px;" class="fa fa-lock fa-lg cursor-pointer red" onclick="bridge.userAction(['toggleLock']);" title="Wallet is encrypted and currently locked"></i>
-                <i id="stakingIcon"       style="padding-right:5px;" class="fa fa-check-circle-o fa-lg not-staking" title="Not staking because wallet is locked"></i>
-                <img id="connectionsIcon" style="cursor:default; padding-right:5px" src="qrc:///icons/connect_0"/ title="0 active connection(s) to Gameunits network" />
-                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing_small"/ title="Wallet is syncing" height="35" width="35"/>
-                <i id="blocksIcon" class="fa fa-check red none" title="Wallet is syncing"></i>
-            </span>
-        </div><!-- /footer -->
-        <div id="network-alert" style="display:none;">
-            <i class="fa fa-exclamation-triangle network-alerts-icon"></i> <span></span>
-        </div>                                                         downloaded 0 blocks of history..."></progress>
-																  
+                                                                  downloaded 0 blocks of history..."></progress>
         </div>
     </nav><!-- /navpanel -->
 
@@ -1237,7 +1225,18 @@
 
 		
 
-
+        <div id="footer">
+            <span id="footer-icons">
+                <i id="encryptionIcon"    style="padding-right:5px;" class="fa fa-lock fa-lg cursor-pointer red" onclick="bridge.userAction(['toggleLock']);" title="Wallet is encrypted and currently locked"></i>
+                <i id="stakingIcon"       style="padding-right:5px;" class="fa fa-check-circle-o fa-lg not-staking" title="Not staking because wallet is locked"></i>
+                <img id="connectionsIcon" style="cursor:default; padding-right:5px" src="qrc:///icons/connect_0"/ title="0 active connection(s) to Gameunits network" />
+                <img id="syncingIcon"     style="cursor:default;"                  src="qrc:///icons/syncing_small"/ title="Wallet is syncing" height="35" width="35"/>
+                <i id="blocksIcon" class="fa fa-check red none" title="Wallet is syncing"></i>
+            </span>
+        </div><!-- /footer -->
+        <div id="network-alert" style="display:none;">
+            <i class="fa fa-exclamation-triangle network-alerts-icon"></i> <span></span>
+        </div>
     </div><!-- /container -->
 </div><!-- /layout -->
 </body>
