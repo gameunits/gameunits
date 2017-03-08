@@ -184,6 +184,13 @@
 .card:nth-of-type(4) .card-image {
   background-image: url("https://d13yacurqjgara.cloudfront.net/users/150724/screenshots/2203790/362_chasing_dreams_1x.png");
 }
+
+a.button {
+  align-items: center;
+  margin: 25px;
+  color: white;
+  text-decoration: none;
+}
 /* card 2 */
 .card2-container {
   display: -webkit-flex; /* Safari */
