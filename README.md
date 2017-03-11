@@ -43,7 +43,7 @@ make
 
 ```
 apt-get update && apt-get upgrade
-sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev git
+sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev git libminiupnpc-dev
 
 	Then execute the following:
 git clone https://github.com/gameunits/gameunits
