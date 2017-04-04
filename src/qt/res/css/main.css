@@ -545,7 +545,7 @@ article {
     padding: 10px 25px 10px 15px;
     /*background: url('qrc:///icons/search') no-repeat 100% 7px;*/
     background-color: rgba(11, 16, 26, 0.8);
-    border: 1px rgba(11, 16, 26, 0.8) solid;
+    border: 1px rgba(0, 255, 255, 0.8) solid;
     text-transform: uppercase;
     font-size: 14px;
 }
