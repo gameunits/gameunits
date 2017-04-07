@@ -6,7 +6,7 @@ Copyright (c) 2013-2014 ShadowCoin Developers<br>
 Copyright (c) 2015-2016 Moin Developers<br>
 Copyright (c) 2015-2017 GameUnits Developers<br>
 
-![GameUnits](http://i.imgur.com/Cokp8iC.png)
+![GameUnits](http://i.imgur.com/KYAKaKr.jpg)
 
 #What is GameUnits?
 ----------------
@@ -49,6 +49,7 @@ sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev lib
 git clone https://github.com/gameunits/gameunits
 cd gameunits/src
 make -f makefile.unix
+./gameunitsd
 ```
 
 Development process
