@@ -19,7 +19,7 @@ GameUnits is a forked version of Bitcoin using scrypt as a proof-of-work & proof
  - 1 blocks to retarget difficulty
 
 # We :heart: Pull Requests!
-Seriously, we really do.  It doesn't matter whether you're fixing a typo or overhauling a major area of the code base.  You will be showered in :thumbsup: :thumbsup: :thumbsup:<br>
+Seriously, we really do.  It doesn't matter whether you're fixing a typo or overhauling a major area of the code base.<br>You will be showered in :thumbsup: :thumbsup: :thumbsup:<br>
 
 #Compiling the GameUnits daemon from source on Debian
 -----------------------------------------------------
