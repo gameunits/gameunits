@@ -187,3 +187,8 @@ Notes:
         tail -f var/install.log
         or
         tail -f var/build.log
+
+************************ THIS IS WHERE YOU CAN STOP *******************************	
+Now cd ../compiled/
+	
+Complete Build done. 
