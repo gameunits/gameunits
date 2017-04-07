@@ -56,9 +56,9 @@ static const int64_t MIN_TX_FEE_ANON = 1000000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t MAX_MONEY = 13000000 * COIN;
 static const int64_t COIN_YEAR_REWARD = 50 * CENT; // 50% first year
-static const int64_t MCOIN_YEAR_REWARD = 25 * CENT; // 25% second year
-static const int64_t OCOIN_YEAR_REWARD = 10 * CENT; // 10% third year
-static const int64_t ICOIN_YEAR_REWARD = 5 * CENT; //  5% fourth year 
+static const int64_t MCOIN_YEAR_REWARD = 2 * CENT; //  2% second year
+static const int64_t OCOIN_YEAR_REWARD = 2 * CENT; //  2% third year
+static const int64_t ICOIN_YEAR_REWARD = 2 * CENT; //  2% fourth year 
 static const int64_t NCOIN_YEAR_REWARD = 2 * CENT; //  2% fifth year
 
 
