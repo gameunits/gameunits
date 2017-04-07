@@ -11,7 +11,7 @@ Copyright (c) 2017-2018 Daniel Beller Developer<br>
 
 #What is GameUnits?
 ----------------
-A new and exciting open source gaming currency that will revolutionize in-game purchases.
+A new and exciting open source gaming currency that will revolutionize in-game purchases.<br>
 We're enabling the 2 billion unbanked Gamers to shop on any online merchant.
 
 GameUnits is a forked version of Bitcoin using scrypt as a proof-of-work & proof-of-stake algorithm.
