@@ -5,12 +5,14 @@ Copyright (c) 2011-2013 Litecoin Developers<br>
 Copyright (c) 2013-2014 ShadowCoin Developers<br>
 Copyright (c) 2015-2016 Moin Developers<br>
 Copyright (c) 2015-2017 GameUnits Developers<br>
+Copyright (c) 2017-2018 Daniel Beller Developer<br>
 
 ![GameUnits](http://i.imgur.com/KYAKaKr.jpg)
 
 #What is GameUnits?
 ----------------
 A new and exciting open source gaming currency that will revolutionize in-game purchases.
+We're enabling the 2 billion unbanked Gamers to shop on any online merchant.
 
 GameUnits is a forked version of Bitcoin using scrypt as a proof-of-work & proof-of-stake algorithm.
  - 13 million total coins
