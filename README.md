@@ -1,4 +1,4 @@
-#Gameunits integration/staging tree
+#GameUnits integration/staging tree
 ================================
 Copyright (c) 2009-2011 Bitcoin Developers<br>
 Copyright (c) 2011-2013 Litecoin Developers<br>
